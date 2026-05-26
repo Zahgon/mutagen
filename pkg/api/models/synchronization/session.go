@@ -1,9 +1,6 @@
 package synchronization
 
 import (
-	"fmt"
-	"time"
-
 	"github.com/mutagen-io/mutagen/pkg/synchronization"
 )
 
@@ -56,61 +53,26 @@ type SessionState struct {
 // loadFromInternal sets a session to match an internal Protocol Buffers session
 // state representation. The session state must be valid.
 func (s *Session) loadFromInternal(state *synchronization.State) {
+	_ = "STUB: not implemented"
 	// Propagate basic information.
-	s.Identifier = state.Session.Identifier
-	s.Version = state.Session.Version
-	s.CreationTime = state.Session.CreationTime.AsTime().Format(time.RFC3339Nano)
-	s.CreatingVersion = fmt.Sprintf("%d.%d.%d",
-		state.Session.CreatingVersionMajor,
-		state.Session.CreatingVersionMinor,
-		state.Session.CreatingVersionPatch,
-	)
-	s.Name = state.Session.Name
-	s.Labels = state.Session.Labels
-	s.Paused = state.Session.Paused
-	s.Status = state.Status
-
-	// Propagate endpoint information.
-	s.Alpha.loadFromInternal(
-		state.Session.Alpha,
-		state.Session.ConfigurationAlpha,
-		state.AlphaState,
-	)
-	s.Beta.loadFromInternal(
-		state.Session.Beta,
-		state.Session.ConfigurationBeta,
-		state.BetaState,
-	)
-
-	// Propagate configuration information.
-	s.Configuration.loadFromInternal(state.Session.Configuration)
-
-	// Propagate state information if the session isn't paused.
-	if state.Session.Paused {
-		s.SessionState = nil
-	} else {
-		s.SessionState = &SessionState{
-			LastError:         state.LastError,
-			SuccessfulCycles:  state.SuccessfulCycles,
-			Conflicts:         exportConflicts(state.Conflicts),
-			ExcludedConflicts: state.ExcludedConflicts,
-		}
-	}
+	return
 }
+
+// Propagate endpoint information.
+
+// Propagate configuration information.
+
+// Propagate state information if the session isn't paused.
 
 // ExportSessions converts a slice of internal session state representations to
 // a slice of public session representations. It is guaranteed to return a
 // non-nil value, even in the case of an empty slice.
 func ExportSessions(states []*synchronization.State) []Session {
+	_ = "STUB: not implemented"
 	// Create the resulting slice.
-	count := len(states)
-	results := make([]Session, count)
-
-	// Propagate session information
-	for i := 0; i < count; i++ {
-		results[i].loadFromInternal(states[i])
-	}
-
-	// Done.
-	return results
+	return nil
 }
+
+// Propagate session information
+
+// Done.

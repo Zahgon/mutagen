@@ -7,12 +7,11 @@
 package remote
 
 import (
+	sync "sync"
+
 	forwarding "github.com/mutagen-io/mutagen/pkg/forwarding"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -42,70 +41,38 @@ type InitializeForwardingRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *InitializeForwardingRequest) Reset() {
-	*x = InitializeForwardingRequest{}
-	mi := &file_forwarding_endpoint_remote_protocol_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *InitializeForwardingRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *InitializeForwardingRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *InitializeForwardingRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*InitializeForwardingRequest) ProtoMessage() {}
+func (*InitializeForwardingRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *InitializeForwardingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_forwarding_endpoint_remote_protocol_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use InitializeForwardingRequest.ProtoReflect.Descriptor instead.
 func (*InitializeForwardingRequest) Descriptor() ([]byte, []int) {
-	return file_forwarding_endpoint_remote_protocol_proto_rawDescGZIP(), []int{0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (x *InitializeForwardingRequest) GetVersion() forwarding.Version {
-	if x != nil {
-		return x.Version
-	}
-	return forwarding.Version(0)
+	_ = "STUB: not implemented"
+	return *new(forwarding.Version)
 }
 
 func (x *InitializeForwardingRequest) GetConfiguration() *forwarding.Configuration {
-	if x != nil {
-		return x.Configuration
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *InitializeForwardingRequest) GetProtocol() string {
-	if x != nil {
-		return x.Protocol
-	}
-	return ""
-}
+func (x *InitializeForwardingRequest) GetProtocol() string { _ = "STUB: not implemented"; return "" }
 
-func (x *InitializeForwardingRequest) GetAddress() string {
-	if x != nil {
-		return x.Address
-	}
-	return ""
-}
+func (x *InitializeForwardingRequest) GetAddress() string { _ = "STUB: not implemented"; return "" }
 
-func (x *InitializeForwardingRequest) GetListener() bool {
-	if x != nil {
-		return x.Listener
-	}
-	return false
-}
+func (x *InitializeForwardingRequest) GetListener() bool { _ = "STUB: not implemented"; return false }
 
 // InitializeForwardingResponse is the initialization response sent from remote
 // forwarding endpoint.
@@ -117,42 +84,24 @@ type InitializeForwardingResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *InitializeForwardingResponse) Reset() {
-	*x = InitializeForwardingResponse{}
-	mi := &file_forwarding_endpoint_remote_protocol_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *InitializeForwardingResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *InitializeForwardingResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *InitializeForwardingResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*InitializeForwardingResponse) ProtoMessage() {}
+func (*InitializeForwardingResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *InitializeForwardingResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_forwarding_endpoint_remote_protocol_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use InitializeForwardingResponse.ProtoReflect.Descriptor instead.
 func (*InitializeForwardingResponse) Descriptor() ([]byte, []int) {
-	return file_forwarding_endpoint_remote_protocol_proto_rawDescGZIP(), []int{1}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *InitializeForwardingResponse) GetError() string {
-	if x != nil {
-		return x.Error
-	}
-	return ""
-}
+func (x *InitializeForwardingResponse) GetError() string { _ = "STUB: not implemented"; return "" }
 
 var File_forwarding_endpoint_remote_protocol_proto protoreflect.FileDescriptor
 
@@ -174,10 +123,8 @@ var (
 )
 
 func file_forwarding_endpoint_remote_protocol_proto_rawDescGZIP() []byte {
-	file_forwarding_endpoint_remote_protocol_proto_rawDescOnce.Do(func() {
-		file_forwarding_endpoint_remote_protocol_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_forwarding_endpoint_remote_protocol_proto_rawDesc), len(file_forwarding_endpoint_remote_protocol_proto_rawDesc)))
-	})
-	return file_forwarding_endpoint_remote_protocol_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_forwarding_endpoint_remote_protocol_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
@@ -197,26 +144,5 @@ var file_forwarding_endpoint_remote_protocol_proto_depIdxs = []int32{
 	0, // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_forwarding_endpoint_remote_protocol_proto_init() }
-func file_forwarding_endpoint_remote_protocol_proto_init() {
-	if File_forwarding_endpoint_remote_protocol_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_forwarding_endpoint_remote_protocol_proto_rawDesc), len(file_forwarding_endpoint_remote_protocol_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   2,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_forwarding_endpoint_remote_protocol_proto_goTypes,
-		DependencyIndexes: file_forwarding_endpoint_remote_protocol_proto_depIdxs,
-		MessageInfos:      file_forwarding_endpoint_remote_protocol_proto_msgTypes,
-	}.Build()
-	File_forwarding_endpoint_remote_protocol_proto = out.File
-	file_forwarding_endpoint_remote_protocol_proto_goTypes = nil
-	file_forwarding_endpoint_remote_protocol_proto_depIdxs = nil
-}
+func init()                                                { file_forwarding_endpoint_remote_protocol_proto_init() }
+func file_forwarding_endpoint_remote_protocol_proto_init() { _ = "STUB: not implemented"; return }

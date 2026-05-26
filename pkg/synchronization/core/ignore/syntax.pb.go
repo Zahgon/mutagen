@@ -7,11 +7,10 @@
 package ignore
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -51,32 +50,27 @@ var (
 	}
 )
 
-func (x Syntax) Enum() *Syntax {
-	p := new(Syntax)
-	*p = x
-	return p
-}
+func (x Syntax) Enum() *Syntax { _ = "STUB: not implemented"; return nil }
 
-func (x Syntax) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x Syntax) String() string { _ = "STUB: not implemented"; return "" }
 
 func (Syntax) Descriptor() protoreflect.EnumDescriptor {
-	return file_synchronization_core_ignore_syntax_proto_enumTypes[0].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (Syntax) Type() protoreflect.EnumType {
-	return &file_synchronization_core_ignore_syntax_proto_enumTypes[0]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x Syntax) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use Syntax.Descriptor instead.
-func (Syntax) EnumDescriptor() ([]byte, []int) {
-	return file_synchronization_core_ignore_syntax_proto_rawDescGZIP(), []int{0}
-}
+func (Syntax) EnumDescriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 var File_synchronization_core_ignore_syntax_proto protoreflect.FileDescriptor
 
@@ -94,10 +88,8 @@ var (
 )
 
 func file_synchronization_core_ignore_syntax_proto_rawDescGZIP() []byte {
-	file_synchronization_core_ignore_syntax_proto_rawDescOnce.Do(func() {
-		file_synchronization_core_ignore_syntax_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_synchronization_core_ignore_syntax_proto_rawDesc), len(file_synchronization_core_ignore_syntax_proto_rawDesc)))
-	})
-	return file_synchronization_core_ignore_syntax_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_synchronization_core_ignore_syntax_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
@@ -112,26 +104,5 @@ var file_synchronization_core_ignore_syntax_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_synchronization_core_ignore_syntax_proto_init() }
-func file_synchronization_core_ignore_syntax_proto_init() {
-	if File_synchronization_core_ignore_syntax_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_synchronization_core_ignore_syntax_proto_rawDesc), len(file_synchronization_core_ignore_syntax_proto_rawDesc)),
-			NumEnums:      1,
-			NumMessages:   0,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_synchronization_core_ignore_syntax_proto_goTypes,
-		DependencyIndexes: file_synchronization_core_ignore_syntax_proto_depIdxs,
-		EnumInfos:         file_synchronization_core_ignore_syntax_proto_enumTypes,
-	}.Build()
-	File_synchronization_core_ignore_syntax_proto = out.File
-	file_synchronization_core_ignore_syntax_proto_goTypes = nil
-	file_synchronization_core_ignore_syntax_proto_depIdxs = nil
-}
+func init()                                               { file_synchronization_core_ignore_syntax_proto_init() }
+func file_synchronization_core_ignore_syntax_proto_init() { _ = "STUB: not implemented"; return }

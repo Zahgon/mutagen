@@ -4,14 +4,10 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/mutagen-io/mutagen/cmd"
-
-	"github.com/mutagen-io/mutagen/pkg/daemon"
 )
 
 // unregisterMain is the entry point for the unregister command.
-func unregisterMain(_ *cobra.Command, _ []string) error {
-	return daemon.Unregister()
-}
+func unregisterMain(_ *cobra.Command, _ []string) error { _ = "STUB: not implemented"; return nil }
 
 // unregisterCommand is the unregister command.
 var unregisterCommand = &cobra.Command{

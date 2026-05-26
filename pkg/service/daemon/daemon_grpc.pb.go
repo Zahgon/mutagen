@@ -8,9 +8,8 @@ package daemon
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -36,27 +35,18 @@ type daemonClient struct {
 }
 
 func NewDaemonClient(cc grpc.ClientConnInterface) DaemonClient {
-	return &daemonClient{cc}
+	_ = "STUB: not implemented"
+	return *new(DaemonClient)
 }
 
 func (c *daemonClient) Version(ctx context.Context, in *VersionRequest, opts ...grpc.CallOption) (*VersionResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(VersionResponse)
-	err := c.cc.Invoke(ctx, Daemon_Version_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *daemonClient) Terminate(ctx context.Context, in *TerminateRequest, opts ...grpc.CallOption) (*TerminateResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TerminateResponse)
-	err := c.cc.Invoke(ctx, Daemon_Terminate_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DaemonServer is the server API for Daemon service.
@@ -76,66 +66,49 @@ type DaemonServer interface {
 type UnimplementedDaemonServer struct{}
 
 func (UnimplementedDaemonServer) Version(context.Context, *VersionRequest) (*VersionResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Version not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
-func (UnimplementedDaemonServer) Terminate(context.Context, *TerminateRequest) (*TerminateResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Terminate not implemented")
-}
-func (UnimplementedDaemonServer) mustEmbedUnimplementedDaemonServer() {}
-func (UnimplementedDaemonServer) testEmbeddedByValue()                {}
 
-// UnsafeDaemonServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to DaemonServer will
-// result in compilation errors.
+func (UnimplementedDaemonServer) Terminate(context.Context, *TerminateRequest) (*TerminateResponse, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedDaemonServer) mustEmbedUnimplementedDaemonServer() {
+	_ = "STUB: not implemented"
+	return
+}
+func (UnimplementedDaemonServer) testEmbeddedByValue() {
+	_ = "STUB: not implemented"
+
+	// UnsafeDaemonServer may be embedded to opt out of forward compatibility for this service.
+	// Use of this interface is not recommended, as added methods to DaemonServer will
+	// result in compilation errors.
+	return
+}
+
 type UnsafeDaemonServer interface {
 	mustEmbedUnimplementedDaemonServer()
 }
 
 func RegisterDaemonServer(s grpc.ServiceRegistrar, srv DaemonServer) {
+	_ = "STUB: not implemented"
 	// If the following call panics, it indicates UnimplementedDaemonServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&Daemon_ServiceDesc, srv)
+	return
 }
 
 func _Daemon_Version_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(VersionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DaemonServer).Version(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Daemon_Version_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DaemonServer).Version(ctx, req.(*VersionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Daemon_Terminate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TerminateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DaemonServer).Terminate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Daemon_Terminate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DaemonServer).Terminate(ctx, req.(*TerminateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Daemon_ServiceDesc is the grpc.ServiceDesc for Daemon service.

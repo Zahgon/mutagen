@@ -2,11 +2,9 @@ package local
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/mutagen-io/mutagen/pkg/logging"
 	"github.com/mutagen-io/mutagen/pkg/synchronization"
-	"github.com/mutagen-io/mutagen/pkg/synchronization/endpoint/local"
 	urlpkg "github.com/mutagen-io/mutagen/pkg/url"
 )
 
@@ -25,22 +23,14 @@ func (h *protocolHandler) Connect(
 	configuration *synchronization.Configuration,
 	alpha bool,
 ) (synchronization.Endpoint, error) {
+	_ = "STUB: not implemented"
 	// Verify that the URL is of the correct kind and protocol.
-	if url.Kind != urlpkg.Kind_Synchronization {
-		panic("non-synchronization URL dispatched to synchronization protocol handler")
-	} else if url.Protocol != urlpkg.Protocol_Local {
-		panic("non-local URL dispatched to local protocol handler")
-	}
-
-	// Create a local endpoint.
-	endpoint, err := local.NewEndpoint(logger, url.Path, session, version, configuration, alpha)
-	if err != nil {
-		return nil, fmt.Errorf("unable to create local endpoint: %w", err)
-	}
-
-	// Success.
-	return endpoint, nil
+	return *new(synchronization.Endpoint), nil
 }
+
+// Create a local endpoint.
+
+// Success.
 
 func init() {
 	// Register the local protocol handler with the synchronization package.

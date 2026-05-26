@@ -22,11 +22,7 @@ func init() {
 }
 
 // EncodeBase62 performs Base62 encoding.
-func EncodeBase62(value []byte) string {
-	return base62.Encode(value)
-}
+func EncodeBase62(value []byte) string { _ = "STUB: not implemented"; return "" }
 
 // DecodeBase62 performs Base62 decoding.
-func DecodeBase62(value string) ([]byte, error) {
-	return base62.Decode(value)
-}
+func DecodeBase62(value string) ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }

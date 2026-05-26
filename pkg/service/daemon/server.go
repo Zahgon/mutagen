@@ -3,9 +3,6 @@ package daemon
 import (
 	"context"
 	"time"
-
-	"github.com/mutagen-io/mutagen/pkg/housekeeping"
-	"github.com/mutagen-io/mutagen/pkg/mutagen"
 )
 
 const (
@@ -35,68 +32,47 @@ type Server struct {
 
 // NewServer creates a new daemon server.
 func NewServer() *Server {
+	_ = "STUB: not implemented"
 	// Create a cancellable context for daemon background operations.
-	workerCtx, shutdown := context.WithCancel(context.Background())
-
-	// Create the server.
-	server := &Server{
-		Termination: make(chan struct{}, 1),
-		workerCtx:   workerCtx,
-		shutdown:    shutdown,
-	}
-
-	// Start the housekeeping Goroutine.
-	go server.housekeep()
-
-	// Done.
-	return server
+	return nil
 }
+
+// Create the server.
+
+// Start the housekeeping Goroutine.
+
+// Done.
 
 // housekeep provides regular housekeeping facilities for the daemon.
 func (s *Server) housekeep() {
+	_ = "STUB: not implemented"
 	// Perform an initial housekeeping operation since the ticker won't fire
 	// straight away.
-	housekeeping.Housekeep()
-
-	// Create a ticker to regulate housekeeping and defer its shutdown.
-	ticker := time.NewTicker(housekeepingInterval)
-	defer ticker.Stop()
-
-	// Loop and wait for the ticker or cancellation.
-	for {
-		select {
-		case <-s.workerCtx.Done():
-			return
-		case <-ticker.C:
-			housekeeping.Housekeep()
-		}
-	}
+	return
 }
+
+// Create a ticker to regulate housekeeping and defer its shutdown.
+
+// Loop and wait for the ticker or cancellation.
 
 // Shutdown gracefully shuts down server resources.
 func (s *Server) Shutdown() {
+	_ = "STUB: not implemented"
 	// Cancel all internal operations.
-	s.shutdown()
+	return
 }
 
 // Version provides version information.
 func (s *Server) Version(_ context.Context, _ *VersionRequest) (*VersionResponse, error) {
-	return &VersionResponse{
-		Major: mutagen.VersionMajor,
-		Minor: mutagen.VersionMinor,
-		Patch: mutagen.VersionPatch,
-		Tag:   mutagen.VersionTag,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Terminate requests daemon termination.
 func (s *Server) Terminate(_ context.Context, _ *TerminateRequest) (*TerminateResponse, error) {
+	_ = "STUB: not implemented"
 	// Send the termination request in a non-blocking manner.
-	select {
-	case s.Termination <- struct{}{}:
-	default:
-	}
-
-	// Success.
-	return &TerminateResponse{}, nil
+	return nil, nil
 }
+
+// Success.

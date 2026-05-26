@@ -7,11 +7,10 @@
 package prompting
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -37,49 +36,23 @@ type HostRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *HostRequest) Reset() {
-	*x = HostRequest{}
-	mi := &file_service_prompting_prompting_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *HostRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *HostRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *HostRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*HostRequest) ProtoMessage() {}
+func (*HostRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *HostRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_prompting_prompting_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use HostRequest.ProtoReflect.Descriptor instead.
-func (*HostRequest) Descriptor() ([]byte, []int) {
-	return file_service_prompting_prompting_proto_rawDescGZIP(), []int{0}
-}
+func (*HostRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *HostRequest) GetAllowPrompts() bool {
-	if x != nil {
-		return x.AllowPrompts
-	}
-	return false
-}
+func (x *HostRequest) GetAllowPrompts() bool { _ = "STUB: not implemented"; return false }
 
-func (x *HostRequest) GetResponse() string {
-	if x != nil {
-		return x.Response
-	}
-	return ""
-}
+func (x *HostRequest) GetResponse() string { _ = "STUB: not implemented"; return "" }
 
 // HostResponse encodes either an initial response to perform prompt hosting or
 // a follow-up request for messaging or prompting.
@@ -97,56 +70,25 @@ type HostResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *HostResponse) Reset() {
-	*x = HostResponse{}
-	mi := &file_service_prompting_prompting_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *HostResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *HostResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *HostResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*HostResponse) ProtoMessage() {}
+func (*HostResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *HostResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_prompting_prompting_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use HostResponse.ProtoReflect.Descriptor instead.
-func (*HostResponse) Descriptor() ([]byte, []int) {
-	return file_service_prompting_prompting_proto_rawDescGZIP(), []int{1}
-}
+func (*HostResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *HostResponse) GetIdentifier() string {
-	if x != nil {
-		return x.Identifier
-	}
-	return ""
-}
+func (x *HostResponse) GetIdentifier() string { _ = "STUB: not implemented"; return "" }
 
-func (x *HostResponse) GetIsPrompt() bool {
-	if x != nil {
-		return x.IsPrompt
-	}
-	return false
-}
+func (x *HostResponse) GetIsPrompt() bool { _ = "STUB: not implemented"; return false }
 
-func (x *HostResponse) GetMessage() string {
-	if x != nil {
-		return x.Message
-	}
-	return ""
-}
+func (x *HostResponse) GetMessage() string { _ = "STUB: not implemented"; return "" }
 
 // PromptRequest encodes a request for prompting by a specific prompter.
 type PromptRequest struct {
@@ -159,49 +101,23 @@ type PromptRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *PromptRequest) Reset() {
-	*x = PromptRequest{}
-	mi := &file_service_prompting_prompting_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *PromptRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *PromptRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *PromptRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*PromptRequest) ProtoMessage() {}
+func (*PromptRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *PromptRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_prompting_prompting_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use PromptRequest.ProtoReflect.Descriptor instead.
-func (*PromptRequest) Descriptor() ([]byte, []int) {
-	return file_service_prompting_prompting_proto_rawDescGZIP(), []int{2}
-}
+func (*PromptRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *PromptRequest) GetPrompter() string {
-	if x != nil {
-		return x.Prompter
-	}
-	return ""
-}
+func (x *PromptRequest) GetPrompter() string { _ = "STUB: not implemented"; return "" }
 
-func (x *PromptRequest) GetPrompt() string {
-	if x != nil {
-		return x.Prompt
-	}
-	return ""
-}
+func (x *PromptRequest) GetPrompt() string { _ = "STUB: not implemented"; return "" }
 
 // PromptResponse encodes the response from a prompter.
 type PromptResponse struct {
@@ -212,42 +128,21 @@ type PromptResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *PromptResponse) Reset() {
-	*x = PromptResponse{}
-	mi := &file_service_prompting_prompting_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *PromptResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *PromptResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *PromptResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*PromptResponse) ProtoMessage() {}
+func (*PromptResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *PromptResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_prompting_prompting_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use PromptResponse.ProtoReflect.Descriptor instead.
-func (*PromptResponse) Descriptor() ([]byte, []int) {
-	return file_service_prompting_prompting_proto_rawDescGZIP(), []int{3}
-}
+func (*PromptResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *PromptResponse) GetResponse() string {
-	if x != nil {
-		return x.Response
-	}
-	return ""
-}
+func (x *PromptResponse) GetResponse() string { _ = "STUB: not implemented"; return "" }
 
 var File_service_prompting_prompting_proto protoreflect.FileDescriptor
 
@@ -278,10 +173,8 @@ var (
 )
 
 func file_service_prompting_prompting_proto_rawDescGZIP() []byte {
-	file_service_prompting_prompting_proto_rawDescOnce.Do(func() {
-		file_service_prompting_prompting_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_service_prompting_prompting_proto_rawDesc), len(file_service_prompting_prompting_proto_rawDesc)))
-	})
-	return file_service_prompting_prompting_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_service_prompting_prompting_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
@@ -303,26 +196,5 @@ var file_service_prompting_prompting_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_service_prompting_prompting_proto_init() }
-func file_service_prompting_prompting_proto_init() {
-	if File_service_prompting_prompting_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_service_prompting_prompting_proto_rawDesc), len(file_service_prompting_prompting_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   4,
-			NumExtensions: 0,
-			NumServices:   1,
-		},
-		GoTypes:           file_service_prompting_prompting_proto_goTypes,
-		DependencyIndexes: file_service_prompting_prompting_proto_depIdxs,
-		MessageInfos:      file_service_prompting_prompting_proto_msgTypes,
-	}.Build()
-	File_service_prompting_prompting_proto = out.File
-	file_service_prompting_prompting_proto_goTypes = nil
-	file_service_prompting_prompting_proto_depIdxs = nil
-}
+func init()                                        { file_service_prompting_prompting_proto_init() }
+func file_service_prompting_prompting_proto_init() { _ = "STUB: not implemented"; return }

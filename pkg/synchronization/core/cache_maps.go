@@ -5,90 +5,77 @@ type emptyByteLookupMap struct{}
 
 // length returns the length of the map.
 func (m *emptyByteLookupMap) length() int {
+	_ = "STUB: not implemented"
+
+	// insert adds a key-value pair to the map.
 	return 0
 }
 
-// insert adds a key-value pair to the map.
-func (m *emptyByteLookupMap) insert(_ []byte, _ string) {}
+func (m *emptyByteLookupMap) insert(_ []byte, _ string) {
+	_ = "STUB: not implemented"
 
-// find looks for a key in the map, returning the associated value (defaulting
-// to an empty string if the key was not present) and whether or not the key was
-// found.
+	// find looks for a key in the map, returning the associated value (defaulting
+	// to an empty string if the key was not present) and whether or not the key was
+	// found.
+	return
+}
+
 func (m *emptyByteLookupMap) find(_ []byte) (string, bool) {
+	_ = "STUB: not implemented"
+
+	// byteLookupMap20 implements byteLookupMap for 20-byte digests.
 	return "", false
 }
 
-// byteLookupMap20 implements byteLookupMap for 20-byte digests.
 type byteLookupMap20 map[[20]byte]string
 
 // length returns the length of the map.
 func (m byteLookupMap20) length() int {
-	return len(m)
+	_ = "STUB: not implemented"
+
+	// insert adds a key-value pair to the map.
+	return 0
 }
 
-// insert adds a key-value pair to the map.
-func (m byteLookupMap20) insert(k []byte, v string) {
-	var key [20]byte
-	copy(key[:], k)
-	m[key] = v
-}
+func (m byteLookupMap20) insert(k []byte, v string) { _ = "STUB: not implemented"; return }
 
 // find looks for a key in the map, returning the associated value (defaulting
 // to an empty string if the key was not present) and whether or not the key was
 // found.
-func (m byteLookupMap20) find(k []byte) (string, bool) {
-	var key [20]byte
-	copy(key[:], k)
-	result, ok := m[key]
-	return result, ok
-}
+func (m byteLookupMap20) find(k []byte) (string, bool) { _ = "STUB: not implemented"; return "", false }
 
 // byteLookupMap32 implements byteLookupMap for 32-byte digests.
 type byteLookupMap32 map[[32]byte]string
 
 // length returns the length of the map.
 func (m byteLookupMap32) length() int {
-	return len(m)
+	_ = "STUB: not implemented"
+
+	// insert adds a key-value pair to the map.
+	return 0
 }
 
-// insert adds a key-value pair to the map.
-func (m byteLookupMap32) insert(k []byte, v string) {
-	var key [32]byte
-	copy(key[:], k)
-	m[key] = v
-}
+func (m byteLookupMap32) insert(k []byte, v string) { _ = "STUB: not implemented"; return }
 
 // find looks for a key in the map, returning the associated value (defaulting
 // to an empty string if the key was not present) and whether or not the key was
 // found.
-func (m byteLookupMap32) find(k []byte) (string, bool) {
-	var key [32]byte
-	copy(key[:], k)
-	result, ok := m[key]
-	return result, ok
-}
+func (m byteLookupMap32) find(k []byte) (string, bool) { _ = "STUB: not implemented"; return "", false }
 
 // byteLookupMap16 implements byteLookupMap for 16-byte digests.
 type byteLookupMap16 map[[16]byte]string
 
 // length returns the length of the map.
 func (m byteLookupMap16) length() int {
-	return len(m)
+	_ = "STUB: not implemented"
+
+	// insert adds a key-value pair to the map.
+	return 0
 }
 
-// insert adds a key-value pair to the map.
-func (m byteLookupMap16) insert(k []byte, v string) {
-	var key [16]byte
-	copy(key[:], k)
-	m[key] = v
-}
+func (m byteLookupMap16) insert(k []byte, v string) { _ = "STUB: not implemented"; return }
 
 // find looks for a key in the map, returning the associated value (defaulting
 // to an empty string if the key was not present) and whether or not the key was
 // found.
-func (m byteLookupMap16) find(k []byte) (string, bool) {
-	var key [16]byte
-	copy(key[:], k)
-	result, ok := m[key]
-	return result, ok
-}
+func (m byteLookupMap16) find(k []byte) (string, bool) { _ = "STUB: not implemented"; return "", false }

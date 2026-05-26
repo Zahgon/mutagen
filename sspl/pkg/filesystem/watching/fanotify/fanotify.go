@@ -18,12 +18,6 @@
 package fanotify
 
 import (
-	"errors"
-	"fmt"
-	"os"
-	"strconv"
-	"strings"
-	"time"
 	"unsafe"
 
 	"golang.org/x/sys/unix"
@@ -128,24 +122,16 @@ const (
 // robustOpenByHandleAt is a wrapper around open_by_handle_at that strategically
 // retries the operation if ENOMEM is encountered.
 func robustOpenByHandleAt(mountFD int, handle unix.FileHandle, flags int) (int, error) {
+	_ = "STUB: not implemented"
 	// Try a nominal open.
-	result, err := unix.OpenByHandleAt(mountFD, handle, flags)
-	if err != unix.ENOMEM {
-		return result, err
-	}
-
-	// We encountered ENOMEM, but generally an immediate retry will succeed, so
-	// try again.
-	result, err = unix.OpenByHandleAt(mountFD, handle, flags)
-	if err != unix.ENOMEM {
-		return result, err
-	}
-
-	// We've encountered ENOMEM once again. Sleep for a few milliseconds to let
-	// the kernel free up memory and then try one last time.
-	time.Sleep(5 * time.Millisecond)
-	return unix.OpenByHandleAt(mountFD, handle, flags)
+	return 0, nil
 }
+
+// We encountered ENOMEM, but generally an immediate retry will succeed, so
+// try again.
+
+// We've encountered ENOMEM once again. Sleep for a few milliseconds to let
+// the kernel free up memory and then try one last time.
 
 // processEvent extracts a single event path from an event buffer populated by
 // an fanotify watch operating in FAN_REPORT_FID mode. This function will return
@@ -155,83 +141,46 @@ func robustOpenByHandleAt(mountFD int, handle unix.FileHandle, flags int) (int, 
 // file handle is stale, then the buffer will still be advanced and pathStale
 // will be returned for the path (with no error).
 func processEvent(mountFD int, buffer []byte) ([]byte, string, error) {
+	_ = "STUB: not implemented"
 	// Ensure that there's enough remaining buffer to account for at least an
 	// event metadata structure.
-	if len(buffer) < fanotifyEventMetadataSize {
-		return nil, "", errors.New("buffer contents too small to contain event metadata")
-	}
-
-	// Extract the event metadata, ensure that there's enough remaining buffer
-	// to account for all event information, and advance the buffer to point to
-	// the event information structure.
-	eventMetadata := (*unix.FanotifyEventMetadata)(unsafe.Pointer(&buffer[0]))
-	if len(buffer) < int(eventMetadata.Event_len) {
-		return nil, "", errors.New("buffer contents too small to contain full event")
-	}
-	buffer = buffer[fanotifyEventMetadataSize:]
-
-	// Watch for overflow events. In this case there won't be any subsequent
-	// event information structure (or at least the fanotify documentation
-	// doesn't indicate that there will be).
-	if eventMetadata.Mask&unix.FAN_Q_OVERFLOW != 0 {
-		return nil, "", ErrWatchInternalOverflow
-	}
-
-	// Extract the event information header and verify that the event
-	// information is the type that we expect (file information in the form of a
-	// fanotify_event_info_fid structure). Then advance the buffer to point to
-	// the file_handle portion of the structure.
-	eventInfoHeader := (*fanotifyEventInfoHeader)(unsafe.Pointer(&buffer[0]))
-	if eventInfoHeader.infoType != unix.FAN_EVENT_INFO_TYPE_FID {
-		return nil, "", errors.New("event information with unexpected type")
-	}
-	buffer = buffer[fanotifyEventInfoHeaderSize+fsidSize:]
-
-	// Extract the file handle. Unfortunately we can't use the structure from
-	// the unix package directly because it already performs some tricky type
-	// wrapping and adapting. Instead, we have to compute various struct offsets
-	// and use the unix.NewFileHandle method to create a viable handle. We leave
-	// the buffer pointing to the start of the next event metadata.
-	fileHandlePrefix := (*fileHandlePrefix)(unsafe.Pointer(&buffer[0]))
-	buffer = buffer[fileHandlePrefixSize:]
-	fileHandleBytes := buffer[:fileHandlePrefix.bytes]
-	buffer = buffer[fileHandlePrefix.bytes:]
-	fileHandle := unix.NewFileHandle(fileHandlePrefix.handleType, fileHandleBytes)
-
-	// Attempt to open the file associated with the event. Note that O_PATH has
-	// a different and special meaning in the context of open_by_handle_at (see
-	// open_by_handle_at(2)) and (consequently) O_NOFOLLOW is unnecessary.
-	//
-	// HACK: When rapidly invoking open_by_handle_at, especially in a container,
-	// there's a small but non-trivial cross-section for encountering ENOMEM. It
-	// generally goes away on a subsequent call, but we have to use this wrapper
-	// function to avoid it when we receive rapid notifications.
-	eventDescriptor, err := robustOpenByHandleAt(
-		mountFD, fileHandle, unix.O_PATH|unix.O_CLOEXEC,
-	)
-	if err != nil {
-		if err == unix.ESTALE {
-			return buffer, pathStale, nil
-		}
-		return nil, "", fmt.Errorf("unable to open event file: %w", err)
-	}
-
-	// Read the file path and close the event file.
-	path, err := os.Readlink("/proc/self/fd/" + strconv.Itoa(eventDescriptor))
-	unix.Close(eventDescriptor)
-	if err != nil {
-		return nil, "", fmt.Errorf("unable to read event path: %w", err)
-	}
-
-	// If this is a deletion and the path has a " (deleted)" suffix, then remove
-	// it. This occurs when a file has been unlinked but not yet removed from
-	// disk (a strange artifact of fanotify's use of name_to_handle_at and our
-	// subsequent call to open_by_handle_at). In this case, the kernel appends
-	// " (deleted)" to the end of the file name.
-	if eventMetadata.Mask&unix.FAN_DELETE != 0 && strings.HasSuffix(path, " (deleted)") {
-		path = path[:len(path)-10]
-	}
-
-	// Success.
-	return buffer, path, nil
+	return nil, "", nil
 }
+
+// Extract the event metadata, ensure that there's enough remaining buffer
+// to account for all event information, and advance the buffer to point to
+// the event information structure.
+
+// Watch for overflow events. In this case there won't be any subsequent
+// event information structure (or at least the fanotify documentation
+// doesn't indicate that there will be).
+
+// Extract the event information header and verify that the event
+// information is the type that we expect (file information in the form of a
+// fanotify_event_info_fid structure). Then advance the buffer to point to
+// the file_handle portion of the structure.
+
+// Extract the file handle. Unfortunately we can't use the structure from
+// the unix package directly because it already performs some tricky type
+// wrapping and adapting. Instead, we have to compute various struct offsets
+// and use the unix.NewFileHandle method to create a viable handle. We leave
+// the buffer pointing to the start of the next event metadata.
+
+// Attempt to open the file associated with the event. Note that O_PATH has
+// a different and special meaning in the context of open_by_handle_at (see
+// open_by_handle_at(2)) and (consequently) O_NOFOLLOW is unnecessary.
+//
+// HACK: When rapidly invoking open_by_handle_at, especially in a container,
+// there's a small but non-trivial cross-section for encountering ENOMEM. It
+// generally goes away on a subsequent call, but we have to use this wrapper
+// function to avoid it when we receive rapid notifications.
+
+// Read the file path and close the event file.
+
+// If this is a deletion and the path has a " (deleted)" suffix, then remove
+// it. This occurs when a file has been unlinked but not yet removed from
+// disk (a strange artifact of fanotify's use of name_to_handle_at and our
+// subsequent call to open_by_handle_at). In this case, the kernel appends
+// " (deleted)" to the end of the file name.
+
+// Success.

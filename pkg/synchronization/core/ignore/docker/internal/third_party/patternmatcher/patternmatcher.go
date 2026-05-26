@@ -198,13 +198,7 @@
 package patternmatcher
 
 import (
-	"errors"
-	"os"
-	"path/filepath"
 	"regexp"
-	"strings"
-	"text/scanner"
-	"unicode/utf8"
 )
 
 // escapeBytes is a bitmap used to check whether a character should be escaped when creating the regex.
@@ -218,9 +212,7 @@ var escapeBytes [8]byte
 //
 // Adapted from regexp::QuoteMeta in go stdlib.
 // See https://cs.opensource.google/go/go/+/refs/tags/go1.17.2:src/regexp/regexp.go;l=703-715;drc=refs%2Ftags%2Fgo1.17.2
-func shouldEscape(b rune) bool {
-	return b < utf8.RuneSelf && escapeBytes[b%8]&(1<<(b/8)) != 0
-}
+func shouldEscape(b rune) bool { _ = "STUB: not implemented"; return false }
 
 func init() {
 	for _, b := range []byte(`.+()|{}$`) {
@@ -238,58 +230,26 @@ type PatternMatcher struct {
 
 // New creates a new matcher object for specific patterns that can
 // be used later to match against patterns against paths
-func New(patterns []string) (*PatternMatcher, error) {
-	pm := &PatternMatcher{
-		patterns: make([]*Pattern, 0, len(patterns)),
-	}
-	for _, p := range patterns {
-		// Eliminate leading and trailing whitespace.
-		p = strings.TrimSpace(p)
-		if p == "" {
-			continue
-		}
-		p = filepath.Clean(p)
-		newp := &Pattern{}
-		if p[0] == '!' {
-			if len(p) == 1 {
-				return nil, errors.New("illegal exclusion pattern: \"!\"")
-			}
-			newp.exclusion = true
-			p = p[1:]
-			pm.exclusions = true
-			pm.exclusionCount++
-		}
-		// Do some syntax checking on the pattern.
-		// filepath's Match() has some really weird rules that are inconsistent
-		// so instead of trying to dup their logic, just call Match() for its
-		// error state and if there is an error in the pattern return it.
-		// If this becomes an issue we can remove this since its really only
-		// needed in the error (syntax) case - which isn't really critical.
-		if _, err := filepath.Match(p, "."); err != nil {
-			return nil, err
-		}
-		newp.cleanedPattern = p
-		newp.dirs = strings.Split(p, string(os.PathSeparator))
-		pm.patterns = append(pm.patterns, newp)
-	}
-	return pm, nil
-}
+func New(patterns []string) (*PatternMatcher, error) { _ = "STUB: not implemented"; return nil, nil }
+
+// Eliminate leading and trailing whitespace.
+
+// Do some syntax checking on the pattern.
+// filepath's Match() has some really weird rules that are inconsistent
+// so instead of trying to dup their logic, just call Match() for its
+// error state and if there is an error in the pattern return it.
+// If this becomes an issue we can remove this since its really only
+// needed in the error (syntax) case - which isn't really critical.
 
 // PrecompileForMutagen is a utility function that will pre-compile patterns to
 // watch for validation errors.
 func (pm *PatternMatcher) PrecompileForMutagen() error {
+	_ = "STUB: not implemented"
 	// Pre-compile any as-of-yet uncompiled patterns.
-	for _, pattern := range pm.patterns {
-		if pattern.matchType == unknownMatch {
-			if pattern.compile(string(os.PathSeparator)) != nil {
-				return filepath.ErrBadPattern
-			}
-		}
-	}
-
-	// Success.
 	return nil
 }
+
+// Success.
 
 // Matches returns true if "file" matches any of the patterns
 // and isn't excluded by any of the subsequent patterns.
@@ -302,38 +262,15 @@ func (pm *PatternMatcher) PrecompileForMutagen() error {
 // against the pattern) and will be removed soon. Use either
 // MatchesOrParentMatches or MatchesUsingParentResults instead.
 func (pm *PatternMatcher) Matches(file string) (bool, error) {
-	matched := false
-	file = filepath.FromSlash(file)
-	parentPath := filepath.Dir(file)
-	parentPathDirs := strings.Split(parentPath, string(os.PathSeparator))
-
-	for _, pattern := range pm.patterns {
-		// Skip evaluation if this is an inclusion and the filename
-		// already matched the pattern, or it's an exclusion and it has
-		// not matched the pattern yet.
-		if pattern.exclusion != matched {
-			continue
-		}
-
-		match, err := pattern.match(file)
-		if err != nil {
-			return false, err
-		}
-
-		if !match && parentPath != "." {
-			// Check to see if the pattern matches one of our parent dirs.
-			if len(pattern.dirs) <= len(parentPathDirs) {
-				match, _ = pattern.match(strings.Join(parentPathDirs[:len(pattern.dirs)], string(os.PathSeparator)))
-			}
-		}
-
-		if match {
-			matched = !pattern.exclusion
-		}
-	}
-
-	return matched, nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
+
+// Skip evaluation if this is an inclusion and the filename
+// already matched the pattern, or it's an exclusion and it has
+// not matched the pattern yet.
+
+// Check to see if the pattern matches one of our parent dirs.
 
 // MatchesOrParentMatches returns true if "file" matches any of the patterns
 // and isn't excluded by any of the subsequent patterns.
@@ -342,41 +279,15 @@ func (pm *PatternMatcher) Matches(file string) (bool, error) {
 //
 // Matches is not safe to call concurrently.
 func (pm *PatternMatcher) MatchesOrParentMatches(file string) (bool, error) {
-	matched := false
-	file = filepath.FromSlash(file)
-	parentPath := filepath.Dir(file)
-	parentPathDirs := strings.Split(parentPath, string(os.PathSeparator))
-
-	for _, pattern := range pm.patterns {
-		// Skip evaluation if this is an inclusion and the filename
-		// already matched the pattern, or it's an exclusion and it has
-		// not matched the pattern yet.
-		if pattern.exclusion != matched {
-			continue
-		}
-
-		match, err := pattern.match(file)
-		if err != nil {
-			return false, err
-		}
-
-		if !match && parentPath != "." {
-			// Check to see if the pattern matches one of our parent dirs.
-			for i := range parentPathDirs {
-				match, _ = pattern.match(strings.Join(parentPathDirs[:i+1], string(os.PathSeparator)))
-				if match {
-					break
-				}
-			}
-		}
-
-		if match {
-			matched = !pattern.exclusion
-		}
-	}
-
-	return matched, nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
+
+// Skip evaluation if this is an inclusion and the filename
+// already matched the pattern, or it's an exclusion and it has
+// not matched the pattern yet.
+
+// Check to see if the pattern matches one of our parent dirs.
 
 // MatchStatus encodes the different potential match states of a file path.
 type MatchStatus uint8
@@ -396,93 +307,55 @@ const (
 // continuation information. Note that this method may panic if the constituent
 // patterns haven't been validated prior to PatternMatcher construction.
 func (pm *PatternMatcher) MatchesForMutagen(path string, directory bool) (MatchStatus, bool) {
+	_ = "STUB: not implemented"
 	// Start with a nominal match status.
-	var status MatchStatus
-
-	// Convert to native path separators. This is a little expensive on Windows
-	// since all inbound paths from Mutagen will be forward-slash-separated, but
-	// adjusting this would require significant changes to this vendored code.
-	path = filepath.FromSlash(path)
-
-	// Run through the ignore patterns, updating the match state as we reach
-	// more specific rules.
-	exclusionsRemaining := pm.exclusionCount
-	for _, pattern := range pm.patterns {
-		// See if we can skip the (relatively expensive) matching process. If
-		// we're already in a matched state and there aren't any exclusion
-		// patterns remaining, then we can't leave that state, and thus we can
-		// skip any further matching. If this is an exclusion pattern, then
-		// we'll decrement the remaining exclusion pattern count, and we can
-		// also skip matching for this particular pattern if we're already in an
-		// inverted state. Finally, if we're already in a matched state and this
-		// is a non-exclusion pattern, then we also won't change state as a
-		// result of this particular pattern and can skip matching.
-		if status == MatchStatusMatched && exclusionsRemaining == 0 {
-			break
-		} else if pattern.exclusion {
-			exclusionsRemaining--
-			if status == MatchStatusInverted {
-				continue
-			}
-		} else if status == MatchStatusMatched {
-			continue
-		}
-
-		// Perform a matching operation and adjust the status as appropriate. We
-		// panic on any error (which can only result from compilation) because
-		// the pattern should have already been externally validated.
-		if match, err := pattern.match(path); err != nil {
-			panic("invalid match pattern")
-		} else if !match {
-			continue
-		} else if pattern.exclusion {
-			status = MatchStatusInverted
-		} else {
-			status = MatchStatusMatched
-		}
-	}
-
-	// If we're dealing with a directory that is explicitly inverted, then
-	// traversal continuation should be false, because traversal continuation is
-	// implicit.
-	if directory && status == MatchStatusInverted {
-		return status, false
-	}
-
-	// If we're not dealing with a directory or we don't have any exclusion
-	// patterns, then we won't need to continue traversal and we're done.
-	if !directory || !pm.exclusions {
-		return status, false
-	}
-
-	// Determine whether or not filesystem traversal should continue based on
-	// whether or not any exclusion patterns have this path as a prefix. Note
-	// that we compute this in the case of both matched and nominal, because in
-	// the case of nominal we want to know whether or not to continue if an
-	// ignore mask is set by an ignored parent directory.
-	//
-	// Note that this behavior won't recommend continued traversal based on
-	// exclusions with wildcard prefixes or internal elements (because we're
-	// just using a simple prefix match), but this is aligned with what Moby
-	// does:
-	// https://github.com/moby/moby/blob/462d6ef826861fad021fb565c0481fb61d2db6bc/pkg/archive/archive.go#L1014-L1044
-	//
-	// And apparently this is a known issue with no plans to fix at the moment:
-	// https://github.com/moby/moby/issues/30018
-	pathWithSeparator := path + string(filepath.Separator)
-	for _, pattern := range pm.patterns {
-		if !pattern.exclusion {
-			continue
-		}
-		patternWithSeparator := pattern.cleanedPattern + string(filepath.Separator)
-		if strings.HasPrefix(patternWithSeparator, pathWithSeparator) {
-			return status, true
-		}
-	}
-
-	// Done.
-	return status, false
+	return *new(MatchStatus), false
 }
+
+// Convert to native path separators. This is a little expensive on Windows
+// since all inbound paths from Mutagen will be forward-slash-separated, but
+// adjusting this would require significant changes to this vendored code.
+
+// Run through the ignore patterns, updating the match state as we reach
+// more specific rules.
+
+// See if we can skip the (relatively expensive) matching process. If
+// we're already in a matched state and there aren't any exclusion
+// patterns remaining, then we can't leave that state, and thus we can
+// skip any further matching. If this is an exclusion pattern, then
+// we'll decrement the remaining exclusion pattern count, and we can
+// also skip matching for this particular pattern if we're already in an
+// inverted state. Finally, if we're already in a matched state and this
+// is a non-exclusion pattern, then we also won't change state as a
+// result of this particular pattern and can skip matching.
+
+// Perform a matching operation and adjust the status as appropriate. We
+// panic on any error (which can only result from compilation) because
+// the pattern should have already been externally validated.
+
+// If we're dealing with a directory that is explicitly inverted, then
+// traversal continuation should be false, because traversal continuation is
+// implicit.
+
+// If we're not dealing with a directory or we don't have any exclusion
+// patterns, then we won't need to continue traversal and we're done.
+
+// Determine whether or not filesystem traversal should continue based on
+// whether or not any exclusion patterns have this path as a prefix. Note
+// that we compute this in the case of both matched and nominal, because in
+// the case of nominal we want to know whether or not to continue if an
+// ignore mask is set by an ignored parent directory.
+//
+// Note that this behavior won't recommend continued traversal based on
+// exclusions with wildcard prefixes or internal elements (because we're
+// just using a simple prefix match), but this is aligned with what Moby
+// does:
+// https://github.com/moby/moby/blob/462d6ef826861fad021fb565c0481fb61d2db6bc/pkg/archive/archive.go#L1014-L1044
+//
+// And apparently this is a known issue with no plans to fix at the moment:
+// https://github.com/moby/moby/issues/30018
+
+// Done.
 
 // MatchesUsingParentResult returns true if "file" matches any of the patterns
 // and isn't excluded by any of the subsequent patterns. The functionality is
@@ -498,28 +371,13 @@ func (pm *PatternMatcher) MatchesForMutagen(path string, directory bool) (MatchS
 //
 // Use MatchesUsingParentResults instead.
 func (pm *PatternMatcher) MatchesUsingParentResult(file string, parentMatched bool) (bool, error) {
-	matched := parentMatched
-	file = filepath.FromSlash(file)
-
-	for _, pattern := range pm.patterns {
-		// Skip evaluation if this is an inclusion and the filename
-		// already matched the pattern, or it's an exclusion and it has
-		// not matched the pattern yet.
-		if pattern.exclusion != matched {
-			continue
-		}
-
-		match, err := pattern.match(file)
-		if err != nil {
-			return false, err
-		}
-
-		if match {
-			matched = !pattern.exclusion
-		}
-	}
-	return matched, nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
+
+// Skip evaluation if this is an inclusion and the filename
+// already matched the pattern, or it's an exclusion and it has
+// not matched the pattern yet.
 
 // MatchInfo tracks information about parent dir matches while traversing a
 // filesystem.
@@ -536,74 +394,33 @@ type MatchInfo struct {
 //
 // MatchesUsingParentResults is not safe to call concurrently.
 func (pm *PatternMatcher) MatchesUsingParentResults(file string, parentMatchInfo MatchInfo) (bool, MatchInfo, error) {
-	parentMatched := parentMatchInfo.parentMatched
-	if len(parentMatched) != 0 && len(parentMatched) != len(pm.patterns) {
-		return false, MatchInfo{}, errors.New("wrong number of values in parentMatched")
-	}
-
-	file = filepath.FromSlash(file)
-	matched := false
-
-	matchInfo := MatchInfo{
-		parentMatched: make([]bool, len(pm.patterns)),
-	}
-	for i, pattern := range pm.patterns {
-		match := false
-		// If the parent matched this pattern, we don't need to recheck.
-		if len(parentMatched) != 0 {
-			match = parentMatched[i]
-		}
-
-		if !match {
-			// Skip evaluation if this is an inclusion and the filename
-			// already matched the pattern, or it's an exclusion and it has
-			// not matched the pattern yet.
-			if pattern.exclusion != matched {
-				continue
-			}
-
-			var err error
-			match, err = pattern.match(file)
-			if err != nil {
-				return false, matchInfo, err
-			}
-
-			// If the zero value of MatchInfo was passed in, we don't have
-			// any information about the parent dir's match results, and we
-			// apply the same logic as MatchesOrParentMatches.
-			if !match && len(parentMatched) == 0 {
-				if parentPath := filepath.Dir(file); parentPath != "." {
-					parentPathDirs := strings.Split(parentPath, string(os.PathSeparator))
-					// Check to see if the pattern matches one of our parent dirs.
-					for i := range parentPathDirs {
-						match, _ = pattern.match(strings.Join(parentPathDirs[:i+1], string(os.PathSeparator)))
-						if match {
-							break
-						}
-					}
-				}
-			}
-		}
-		matchInfo.parentMatched[i] = match
-
-		if match {
-			matched = !pattern.exclusion
-		}
-	}
-	return matched, matchInfo, nil
+	_ = "STUB: not implemented"
+	return false, *new(MatchInfo), nil
 }
+
+// If the parent matched this pattern, we don't need to recheck.
+
+// Skip evaluation if this is an inclusion and the filename
+// already matched the pattern, or it's an exclusion and it has
+// not matched the pattern yet.
+
+// If the zero value of MatchInfo was passed in, we don't have
+// any information about the parent dir's match results, and we
+// apply the same logic as MatchesOrParentMatches.
+
+// Check to see if the pattern matches one of our parent dirs.
 
 // Exclusions returns true if any of the patterns define exclusions
-func (pm *PatternMatcher) Exclusions() bool {
-	return pm.exclusions
-}
+func (pm *PatternMatcher) Exclusions() bool { _ = "STUB: not implemented"; return false }
 
 // Patterns returns array of active patterns
 func (pm *PatternMatcher) Patterns() []*Pattern {
-	return pm.patterns
+	_ = "STUB: not implemented"
+
+	// Pattern defines a single regexp used to filter file paths.
+	return nil
 }
 
-// Pattern defines a single regexp used to filter file paths.
 type Pattern struct {
 	matchType      matchType
 	cleanedPattern string
@@ -622,141 +439,47 @@ const (
 	regexpMatch
 )
 
-func (p *Pattern) String() string {
-	return p.cleanedPattern
-}
+func (p *Pattern) String() string { _ = "STUB: not implemented"; return "" }
 
 // Exclusion returns true if this pattern defines exclusion
-func (p *Pattern) Exclusion() bool {
-	return p.exclusion
-}
+func (p *Pattern) Exclusion() bool { _ = "STUB: not implemented"; return false }
 
-func (p *Pattern) match(path string) (bool, error) {
-	if p.matchType == unknownMatch {
-		if err := p.compile(string(os.PathSeparator)); err != nil {
-			return false, filepath.ErrBadPattern
-		}
-	}
+func (p *Pattern) match(path string) (bool, error) { _ = "STUB: not implemented"; return false, nil }
 
-	switch p.matchType {
-	case exactMatch:
-		return path == p.cleanedPattern, nil
-	case prefixMatch:
-		// strip trailing **
-		return strings.HasPrefix(path, p.cleanedPattern[:len(p.cleanedPattern)-2]), nil
-	case suffixMatch:
-		// strip leading **
-		suffix := p.cleanedPattern[2:]
-		if strings.HasSuffix(path, suffix) {
-			return true, nil
-		}
-		// **/foo matches "foo"
-		return suffix[0] == os.PathSeparator && path == suffix[1:], nil
-	case regexpMatch:
-		return p.regexp.MatchString(path), nil
-	}
+// strip trailing **
 
-	return false, nil
-}
+// strip leading **
 
-func (p *Pattern) compile(sl string) error {
-	regStr := "^"
-	pattern := p.cleanedPattern
-	// Go through the pattern and convert it to a regexp.
-	// We use a scanner so we can support utf-8 chars.
-	var scan scanner.Scanner
-	scan.Init(strings.NewReader(pattern))
+// **/foo matches "foo"
 
-	escSL := sl
-	if sl == `\` {
-		escSL += `\`
-	}
+func (p *Pattern) compile(sl string) error { _ = "STUB: not implemented"; return nil }
 
-	p.matchType = exactMatch
-	for i := 0; scan.Peek() != scanner.EOF; i++ {
-		ch := scan.Next()
+// Go through the pattern and convert it to a regexp.
+// We use a scanner so we can support utf-8 chars.
 
-		if ch == '*' {
-			if scan.Peek() == '*' {
-				// is some flavor of "**"
-				scan.Next()
+// is some flavor of "**"
 
-				// Treat **/ as ** so eat the "/"
-				if string(scan.Peek()) == sl {
-					scan.Next()
-				}
+// Treat **/ as ** so eat the "/"
 
-				if scan.Peek() == scanner.EOF {
-					// is "**EOF" - to align with .gitignore just accept all
-					if p.matchType == exactMatch {
-						p.matchType = prefixMatch
-					} else {
-						regStr += ".*"
-						p.matchType = regexpMatch
-					}
-				} else {
-					// is "**"
-					// Note that this allows for any # of /'s (even 0) because
-					// the .* will eat everything, even /'s
-					regStr += "(.*" + escSL + ")?"
-					p.matchType = regexpMatch
-				}
+// is "**EOF" - to align with .gitignore just accept all
 
-				if i == 0 {
-					p.matchType = suffixMatch
-				}
-			} else {
-				// is "*" so map it to anything but "/"
-				regStr += "[^" + escSL + "]*"
-				p.matchType = regexpMatch
-			}
-		} else if ch == '?' {
-			// "?" is any char except "/"
-			regStr += "[^" + escSL + "]"
-			p.matchType = regexpMatch
-		} else if shouldEscape(ch) {
-			// Escape some regexp special chars that have no meaning
-			// in golang's filepath.Match
-			regStr += `\` + string(ch)
-		} else if ch == '\\' {
-			// escape next char. Note that a trailing \ in the pattern
-			// will be left alone (but need to escape it)
-			if sl == `\` {
-				// On windows map "\" to "\\", meaning an escaped backslash,
-				// and then just continue because filepath.Match on
-				// Windows doesn't allow escaping at all
-				regStr += escSL
-				continue
-			}
-			if scan.Peek() != scanner.EOF {
-				regStr += `\` + string(scan.Next())
-				p.matchType = regexpMatch
-			} else {
-				regStr += `\`
-			}
-		} else if ch == '[' || ch == ']' {
-			regStr += string(ch)
-			p.matchType = regexpMatch
-		} else {
-			regStr += string(ch)
-		}
-	}
+// is "**"
+// Note that this allows for any # of /'s (even 0) because
+// the .* will eat everything, even /'s
 
-	if p.matchType != regexpMatch {
-		return nil
-	}
+// is "*" so map it to anything but "/"
 
-	regStr += "$"
+// "?" is any char except "/"
 
-	re, err := regexp.Compile(regStr)
-	if err != nil {
-		return err
-	}
+// Escape some regexp special chars that have no meaning
+// in golang's filepath.Match
 
-	p.regexp = re
-	p.matchType = regexpMatch
-	return nil
-}
+// escape next char. Note that a trailing \ in the pattern
+// will be left alone (but need to escape it)
+
+// On windows map "\" to "\\", meaning an escaped backslash,
+// and then just continue because filepath.Match on
+// Windows doesn't allow escaping at all
 
 // Matches returns true if file matches any of the patterns
 // and isn't excluded by any of the subsequent patterns.
@@ -764,33 +487,17 @@ func (p *Pattern) compile(sl string) error {
 // This implementation is buggy (it only checks a single parent dir against the
 // pattern) and will be removed soon. Use MatchesOrParentMatches instead.
 func Matches(file string, patterns []string) (bool, error) {
-	pm, err := New(patterns)
-	if err != nil {
-		return false, err
-	}
-	file = filepath.Clean(file)
-
-	if file == "." {
-		// Don't let them exclude everything, kind of silly.
-		return false, nil
-	}
-
-	return pm.Matches(file)
+	_ = "STUB: not implemented"
+	return false, nil
 }
+
+// Don't let them exclude everything, kind of silly.
 
 // MatchesOrParentMatches returns true if file matches any of the patterns
 // and isn't excluded by any of the subsequent patterns.
 func MatchesOrParentMatches(file string, patterns []string) (bool, error) {
-	pm, err := New(patterns)
-	if err != nil {
-		return false, err
-	}
-	file = filepath.Clean(file)
-
-	if file == "." {
-		// Don't let them exclude everything, kind of silly.
-		return false, nil
-	}
-
-	return pm.MatchesOrParentMatches(file)
+	_ = "STUB: not implemented"
+	return false, nil
 }
+
+// Don't let them exclude everything, kind of silly.

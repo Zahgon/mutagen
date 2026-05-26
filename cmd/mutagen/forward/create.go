@@ -1,49 +1,27 @@
 package forward
 
 import (
-	"context"
-	"errors"
-	"fmt"
-	"os"
-	"strings"
-
 	"github.com/spf13/cobra"
 
 	"google.golang.org/grpc"
 
-	"github.com/mutagen-io/mutagen/cmd"
-	"github.com/mutagen-io/mutagen/cmd/mutagen/daemon"
-
-	"github.com/mutagen-io/mutagen/pkg/configuration/global"
-	"github.com/mutagen-io/mutagen/pkg/filesystem"
 	"github.com/mutagen-io/mutagen/pkg/forwarding"
-	"github.com/mutagen-io/mutagen/pkg/grpcutil"
-	"github.com/mutagen-io/mutagen/pkg/selection"
 	forwardingsvc "github.com/mutagen-io/mutagen/pkg/service/forwarding"
-	promptingsvc "github.com/mutagen-io/mutagen/pkg/service/prompting"
-	"github.com/mutagen-io/mutagen/pkg/url"
 )
 
 // loadAndValidateGlobalSynchronizationConfiguration loads a YAML-based global
 // configuration, extracts the forwarding component, converts it to a Protocol
 // Buffers session configuration, and validates it.
 func loadAndValidateGlobalForwardingConfiguration(path string) (*forwarding.Configuration, error) {
+	_ = "STUB: not implemented"
 	// Load the YAML configuration.
-	yamlConfiguration, err := global.LoadConfiguration(path)
-	if err != nil {
-		return nil, err
-	}
-
-	// Convert the YAML configuration to a Protocol Buffers representation and
-	// validate it.
-	configuration := yamlConfiguration.Forwarding.Defaults.ToInternal()
-	if err := configuration.EnsureValid(false); err != nil {
-		return nil, fmt.Errorf("invalid configuration: %w", err)
-	}
-
-	// Success.
-	return configuration, nil
+	return nil, nil
 }
+
+// Convert the YAML configuration to a Protocol Buffers representation and
+// validate it.
+
+// Success.
 
 // CreateWithSpecification is an orchestration convenience method that performs
 // a create operation using the provided daemon connection and session
@@ -52,246 +30,59 @@ func CreateWithSpecification(
 	daemonConnection *grpc.ClientConn,
 	specification *forwardingsvc.CreationSpecification,
 ) (string, error) {
+	_ = "STUB: not implemented"
 	// Initiate command line prompting.
-	statusLinePrinter := &cmd.StatusLinePrinter{}
-	promptingCtx, promptingCancel := context.WithCancel(context.Background())
-	prompter, promptingErrors, err := promptingsvc.Host(
-		promptingCtx, promptingsvc.NewPromptingClient(daemonConnection),
-		&cmd.StatusLinePrompter{Printer: statusLinePrinter}, true,
-	)
-	if err != nil {
-		promptingCancel()
-		return "", fmt.Errorf("unable to initiate prompting: %w", err)
-	}
-
-	// Perform the create operation, cancel prompting, and handle errors.
-	forwardingService := forwardingsvc.NewForwardingClient(daemonConnection)
-	request := &forwardingsvc.CreateRequest{
-		Prompter:      prompter,
-		Specification: specification,
-	}
-	response, err := forwardingService.Create(context.Background(), request)
-	promptingCancel()
-	<-promptingErrors
-	if err != nil {
-		statusLinePrinter.BreakIfPopulated()
-		return "", grpcutil.PeelAwayRPCErrorLayer(err)
-	} else if err = response.EnsureValid(); err != nil {
-		statusLinePrinter.BreakIfPopulated()
-		return "", fmt.Errorf("invalid create response received: %w", err)
-	}
-
-	// Success.
-	statusLinePrinter.Clear()
-	return response.Session, nil
+	return "", nil
 }
+
+// Perform the create operation, cancel prompting, and handle errors.
+
+// Success.
 
 // createMain is the entry point for the create command.
 func createMain(_ *cobra.Command, arguments []string) error {
+	_ = "STUB: not implemented"
 	// Validate, extract, and parse URLs.
-	if len(arguments) != 2 {
-		return errors.New("invalid number of endpoint URLs provided")
-	}
-	source, err := url.Parse(arguments[0], url.Kind_Forwarding, true)
-	if err != nil {
-		return fmt.Errorf("unable to parse source URL: %w", err)
-	}
-	destination, err := url.Parse(arguments[1], url.Kind_Forwarding, false)
-	if err != nil {
-		return fmt.Errorf("unable to parse destination URL: %w", err)
-	}
-
-	// Validate the name.
-	if err := selection.EnsureNameValid(createConfiguration.name); err != nil {
-		return fmt.Errorf("invalid session name: %w", err)
-	}
-
-	// Parse, validate, and record labels.
-	var labels map[string]string
-	if len(createConfiguration.labels) > 0 {
-		labels = make(map[string]string, len(createConfiguration.labels))
-	}
-	for _, label := range createConfiguration.labels {
-		components := strings.SplitN(label, "=", 2)
-		var key, value string
-		key = components[0]
-		if len(components) == 2 {
-			value = components[1]
-		}
-		if err := selection.EnsureLabelKeyValid(key); err != nil {
-			return fmt.Errorf("invalid label key: %w", err)
-		} else if err := selection.EnsureLabelValueValid(value); err != nil {
-			return fmt.Errorf("invalid label value: %w", err)
-		}
-		labels[key] = value
-	}
-
-	// Create a default session configuration that will form the basis of our
-	// cumulative configuration.
-	configuration := &forwarding.Configuration{}
-
-	// Unless disabled, attempt to load configuration from the global
-	// configuration file and merge it into our cumulative configuration.
-	if !createConfiguration.noGlobalConfiguration {
-		// Compute the path to the global configuration file.
-		globalConfigurationPath, err := global.ConfigurationPath()
-		if err != nil {
-			return fmt.Errorf("unable to compute path to global configuration file: %w", err)
-		}
-
-		// Attempt to load the file. We allow it to not exist.
-		globalConfiguration, err := loadAndValidateGlobalForwardingConfiguration(globalConfigurationPath)
-		if err != nil {
-			if !os.IsNotExist(err) {
-				return fmt.Errorf("unable to load global configuration: %w", err)
-			}
-		} else {
-			configuration = forwarding.MergeConfigurations(configuration, globalConfiguration)
-		}
-	}
-
-	// If additional default configuration files have been specified, then load
-	// them and merge them into the cumulative configuration.
-	for _, configurationFile := range createConfiguration.configurationFiles {
-		if c, err := loadAndValidateGlobalForwardingConfiguration(configurationFile); err != nil {
-			return fmt.Errorf("unable to load configuration file (%s): %w", configurationFile, err)
-		} else {
-			configuration = forwarding.MergeConfigurations(configuration, c)
-		}
-	}
-
-	// Validate and convert socket overwrite mode specifications.
-	var socketOverwriteMode, socketOverwriteModeSource, socketOverwriteModeDestination forwarding.SocketOverwriteMode
-	if createConfiguration.socketOverwriteMode != "" {
-		if err := socketOverwriteMode.UnmarshalText([]byte(createConfiguration.socketOverwriteMode)); err != nil {
-			return fmt.Errorf("unable to socket overwrite mode: %w", err)
-		}
-	}
-	if createConfiguration.socketOverwriteModeSource != "" {
-		if err := socketOverwriteModeSource.UnmarshalText([]byte(createConfiguration.socketOverwriteModeSource)); err != nil {
-			return fmt.Errorf("unable to socket overwrite mode for source: %w", err)
-		}
-	}
-	if createConfiguration.socketOverwriteModeDestination != "" {
-		if err := socketOverwriteModeDestination.UnmarshalText([]byte(createConfiguration.socketOverwriteModeDestination)); err != nil {
-			return fmt.Errorf("unable to socket overwrite mode for destination: %w", err)
-		}
-	}
-
-	// Validate socket owner specifications.
-	if createConfiguration.socketOwner != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.socketOwner,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid socket ownership specification")
-		}
-	}
-	if createConfiguration.socketOwnerSource != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.socketOwnerSource,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid socket ownership specification for source")
-		}
-	}
-	if createConfiguration.socketOwnerDestination != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.socketOwnerDestination,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid socket ownership specification for destination")
-		}
-	}
-
-	// Validate socket group specifications.
-	if createConfiguration.socketGroup != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.socketGroup,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid socket group specification")
-		}
-	}
-	if createConfiguration.socketGroupSource != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.socketGroupSource,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid socket group specification for source")
-		}
-	}
-	if createConfiguration.socketGroupDestination != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.socketGroupDestination,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid socket group specification for destination")
-		}
-	}
-
-	// Validate and convert socket permission mode specifications.
-	var socketPermissionMode, socketPermissionModeSource, socketPermissionModeDestination filesystem.Mode
-	if createConfiguration.socketPermissionMode != "" {
-		if err := socketPermissionMode.UnmarshalText([]byte(createConfiguration.socketPermissionMode)); err != nil {
-			return fmt.Errorf("unable to parse socket permission mode: %w", err)
-		}
-	}
-	if createConfiguration.socketPermissionModeSource != "" {
-		if err := socketPermissionModeSource.UnmarshalText([]byte(createConfiguration.socketPermissionModeSource)); err != nil {
-			return fmt.Errorf("unable to parse socket permission mode for source: %w", err)
-		}
-	}
-	if createConfiguration.socketPermissionModeDestination != "" {
-		if err := socketPermissionModeDestination.UnmarshalText([]byte(createConfiguration.socketPermissionModeDestination)); err != nil {
-			return fmt.Errorf("unable to parse socket permission mode for destination: %w", err)
-		}
-	}
-
-	// Create the command line configuration and merge it into our cumulative
-	// configuration.
-	configuration = forwarding.MergeConfigurations(configuration, &forwarding.Configuration{
-		SocketOverwriteMode:  socketOverwriteMode,
-		SocketOwner:          createConfiguration.socketOwner,
-		SocketGroup:          createConfiguration.socketGroup,
-		SocketPermissionMode: uint32(socketPermissionMode),
-	})
-
-	// Create the creation specification.
-	specification := &forwardingsvc.CreationSpecification{
-		Source:        source,
-		Destination:   destination,
-		Configuration: configuration,
-		ConfigurationSource: &forwarding.Configuration{
-			SocketOverwriteMode:  socketOverwriteModeSource,
-			SocketOwner:          createConfiguration.socketOwnerSource,
-			SocketGroup:          createConfiguration.socketGroupSource,
-			SocketPermissionMode: uint32(socketPermissionModeSource),
-		},
-		ConfigurationDestination: &forwarding.Configuration{
-			SocketOverwriteMode:  socketOverwriteModeDestination,
-			SocketOwner:          createConfiguration.socketOwnerDestination,
-			SocketGroup:          createConfiguration.socketGroupDestination,
-			SocketPermissionMode: uint32(socketPermissionModeDestination),
-		},
-		Name:   createConfiguration.name,
-		Labels: labels,
-		Paused: createConfiguration.paused,
-	}
-
-	// Connect to the daemon and defer closure of the connection.
-	daemonConnection, err := daemon.Connect(true, true)
-	if err != nil {
-		return fmt.Errorf("unable to connect to daemon: %w", err)
-	}
-	defer daemonConnection.Close()
-
-	// Perform the create operation.
-	identifier, err := CreateWithSpecification(daemonConnection, specification)
-	if err != nil {
-		return err
-	}
-
-	// Print the session identifier.
-	fmt.Println("Created session", identifier)
-
-	// Success.
 	return nil
 }
+
+// Validate the name.
+
+// Parse, validate, and record labels.
+
+// Create a default session configuration that will form the basis of our
+// cumulative configuration.
+
+// Unless disabled, attempt to load configuration from the global
+// configuration file and merge it into our cumulative configuration.
+
+// Compute the path to the global configuration file.
+
+// Attempt to load the file. We allow it to not exist.
+
+// If additional default configuration files have been specified, then load
+// them and merge them into the cumulative configuration.
+
+// Validate and convert socket overwrite mode specifications.
+
+// Validate socket owner specifications.
+
+// Validate socket group specifications.
+
+// Validate and convert socket permission mode specifications.
+
+// Create the command line configuration and merge it into our cumulative
+// configuration.
+
+// Create the creation specification.
+
+// Connect to the daemon and defer closure of the connection.
+
+// Perform the create operation.
+
+// Print the session identifier.
+
+// Success.
 
 // createCommand is the create command.
 var createCommand = &cobra.Command{

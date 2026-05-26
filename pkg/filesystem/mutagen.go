@@ -1,14 +1,5 @@
 package filesystem
 
-import (
-	"errors"
-	"fmt"
-	"os"
-	"path/filepath"
-
-	"github.com/mutagen-io/mutagen/pkg/mutagen"
-)
-
 const (
 	// MutagenDataDirectoryName is the name of the global Mutagen data directory
 	// inside the user's home directory.
@@ -71,59 +62,32 @@ const (
 // Mutagen computes (and optionally creates) subdirectories inside the Mutagen
 // data directory.
 func Mutagen(create bool, pathComponents ...string) (string, error) {
+	_ = "STUB: not implemented"
 	// Check if a data directory path has been explicitly specified. If not,
 	// compute it using the standard procedure. Also track whether or not we
 	// need to mark the directory as hidden on creation.
-	mutagenDataDirectoryPath, ok := os.LookupEnv("MUTAGEN_DATA_DIRECTORY")
-	var hide bool
-	if ok {
-		// Validate the provided path.
-		if mutagenDataDirectoryPath == "" {
-			return "", errors.New("provided data directory path is empty")
-		} else if !filepath.IsAbs(mutagenDataDirectoryPath) {
-			return "", errors.New("provided data directory path is not absolute")
-		}
-	} else {
-		// Compute the path to the user's home directory.
-		homeDirectory, err := os.UserHomeDir()
-		if err != nil {
-			return "", fmt.Errorf("unable to compute path to home directory: %w", err)
-		}
-
-		// Compute the path to the Mutagen data directory.
-		if !mutagen.DevelopmentModeEnabled {
-			mutagenDataDirectoryPath = filepath.Join(homeDirectory, MutagenDataDirectoryName)
-		} else {
-			mutagenDataDirectoryPath = filepath.Join(homeDirectory, MutagenDataDirectoryDevelopmentName)
-		}
-
-		// Flag the directory for hiding.
-		hide = true
-	}
-
-	// Compute the target path.
-	result := filepath.Join(mutagenDataDirectoryPath, filepath.Join(pathComponents...))
-
-	// Handle directory creation, if requested.
-	//
-	// TODO: Should we iterate through each component and ensure the user hasn't
-	// changed the directory permissions? MkdirAll won't reset them. But I
-	// suppose the user may have changed them for whatever reason (though I
-	// can't imagine any).
-	if create {
-		// Create the directory.
-		if err := os.MkdirAll(result, 0700); err != nil {
-			return "", fmt.Errorf("unable to create subpath: %w", err)
-		}
-
-		// Mark the directory as hidden, if necessary.
-		if hide {
-			if err := MarkHidden(mutagenDataDirectoryPath); err != nil {
-				return "", fmt.Errorf("unable to hide Mutagen data directory: %w", err)
-			}
-		}
-	}
-
-	// Success.
-	return result, nil
+	return "", nil
 }
+
+// Validate the provided path.
+
+// Compute the path to the user's home directory.
+
+// Compute the path to the Mutagen data directory.
+
+// Flag the directory for hiding.
+
+// Compute the target path.
+
+// Handle directory creation, if requested.
+//
+// TODO: Should we iterate through each component and ensure the user hasn't
+// changed the directory permissions? MkdirAll won't reset them. But I
+// suppose the user may have changed them for whatever reason (though I
+// can't imagine any).
+
+// Create the directory.
+
+// Mark the directory as hidden, if necessary.
+
+// Success.

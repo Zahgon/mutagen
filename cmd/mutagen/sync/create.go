@@ -1,57 +1,28 @@
 package sync
 
 import (
-	"context"
-	"errors"
-	"fmt"
-	"os"
-	"strings"
-
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 
 	"google.golang.org/grpc"
 
-	"github.com/dustin/go-humanize"
-
-	"github.com/mutagen-io/mutagen/cmd"
-	"github.com/mutagen-io/mutagen/cmd/mutagen/daemon"
-
-	"github.com/mutagen-io/mutagen/pkg/configuration/global"
-	"github.com/mutagen-io/mutagen/pkg/filesystem"
-	"github.com/mutagen-io/mutagen/pkg/filesystem/behavior"
-	"github.com/mutagen-io/mutagen/pkg/grpcutil"
-	"github.com/mutagen-io/mutagen/pkg/selection"
-	promptingsvc "github.com/mutagen-io/mutagen/pkg/service/prompting"
 	synchronizationsvc "github.com/mutagen-io/mutagen/pkg/service/synchronization"
 	"github.com/mutagen-io/mutagen/pkg/synchronization"
-	"github.com/mutagen-io/mutagen/pkg/synchronization/compression"
-	"github.com/mutagen-io/mutagen/pkg/synchronization/core"
-	"github.com/mutagen-io/mutagen/pkg/synchronization/core/ignore"
-	"github.com/mutagen-io/mutagen/pkg/synchronization/hashing"
-	"github.com/mutagen-io/mutagen/pkg/url"
 )
 
 // loadAndValidateGlobalSynchronizationConfiguration loads a YAML-based global
 // configuration, extracts the synchronization component, converts it to a
 // Protocol Buffers session configuration, and validates it.
 func loadAndValidateGlobalSynchronizationConfiguration(path string) (*synchronization.Configuration, error) {
+	_ = "STUB: not implemented"
 	// Load the YAML configuration.
-	yamlConfiguration, err := global.LoadConfiguration(path)
-	if err != nil {
-		return nil, err
-	}
-
-	// Convert the YAML configuration to a Protocol Buffers representation and
-	// validate it.
-	configuration := yamlConfiguration.Synchronization.Defaults.ToInternal()
-	if err := configuration.EnsureValid(false); err != nil {
-		return nil, fmt.Errorf("invalid configuration: %w", err)
-	}
-
-	// Success.
-	return configuration, nil
+	return nil, nil
 }
+
+// Convert the YAML configuration to a Protocol Buffers representation and
+// validate it.
+
+// Success.
 
 // CreateWithSpecification is an orchestration convenience method that performs
 // a create operation using the provided daemon connection and session
@@ -60,461 +31,105 @@ func CreateWithSpecification(
 	daemonConnection *grpc.ClientConn,
 	specification *synchronizationsvc.CreationSpecification,
 ) (string, error) {
+	_ = "STUB: not implemented"
 	// Initiate command line prompting.
-	statusLinePrinter := &cmd.StatusLinePrinter{}
-	promptingCtx, promptingCancel := context.WithCancel(context.Background())
-	prompter, promptingErrors, err := promptingsvc.Host(
-		promptingCtx, promptingsvc.NewPromptingClient(daemonConnection),
-		&cmd.StatusLinePrompter{Printer: statusLinePrinter}, true,
-	)
-	if err != nil {
-		promptingCancel()
-		return "", fmt.Errorf("unable to initiate prompting: %w", err)
-	}
-
-	// Perform the create operation, cancel prompting, and handle errors.
-	synchronizationService := synchronizationsvc.NewSynchronizationClient(daemonConnection)
-	request := &synchronizationsvc.CreateRequest{
-		Prompter:      prompter,
-		Specification: specification,
-	}
-	response, err := synchronizationService.Create(context.Background(), request)
-	promptingCancel()
-	<-promptingErrors
-	if err != nil {
-		statusLinePrinter.BreakIfPopulated()
-		return "", grpcutil.PeelAwayRPCErrorLayer(err)
-	} else if err = response.EnsureValid(); err != nil {
-		statusLinePrinter.BreakIfPopulated()
-		return "", fmt.Errorf("invalid create response received: %w", err)
-	}
-
-	// Success.
-	statusLinePrinter.Clear()
-	return response.Session, nil
+	return "", nil
 }
+
+// Perform the create operation, cancel prompting, and handle errors.
+
+// Success.
 
 // createMain is the entry point for the create command.
 func createMain(_ *cobra.Command, arguments []string) error {
+	_ = "STUB: not implemented"
 	// Validate, extract, and parse URLs.
-	if len(arguments) != 2 {
-		return errors.New("invalid number of endpoint URLs provided")
-	}
-	alpha, err := url.Parse(arguments[0], url.Kind_Synchronization, true)
-	if err != nil {
-		return fmt.Errorf("unable to parse alpha URL: %w", err)
-	}
-	beta, err := url.Parse(arguments[1], url.Kind_Synchronization, false)
-	if err != nil {
-		return fmt.Errorf("unable to parse beta URL: %w", err)
-	}
-
-	// Validate the name.
-	if err := selection.EnsureNameValid(createConfiguration.name); err != nil {
-		return fmt.Errorf("invalid session name: %w", err)
-	}
-
-	// Parse, validate, and record labels.
-	var labels map[string]string
-	if len(createConfiguration.labels) > 0 {
-		labels = make(map[string]string, len(createConfiguration.labels))
-	}
-	for _, label := range createConfiguration.labels {
-		components := strings.SplitN(label, "=", 2)
-		var key, value string
-		key = components[0]
-		if len(components) == 2 {
-			value = components[1]
-		}
-		if err := selection.EnsureLabelKeyValid(key); err != nil {
-			return fmt.Errorf("invalid label key: %w", err)
-		} else if err := selection.EnsureLabelValueValid(value); err != nil {
-			return fmt.Errorf("invalid label value: %w", err)
-		}
-		labels[key] = value
-	}
-
-	// Create a default session configuration that will form the basis of our
-	// cumulative configuration.
-	configuration := &synchronization.Configuration{}
-
-	// Unless disabled, attempt to load configuration from the global
-	// configuration file and merge it into our cumulative configuration.
-	if !createConfiguration.noGlobalConfiguration {
-		// Compute the path to the global configuration file.
-		globalConfigurationPath, err := global.ConfigurationPath()
-		if err != nil {
-			return fmt.Errorf("unable to compute path to global configuration file: %w", err)
-		}
-
-		// Attempt to load the file. We allow it to not exist.
-		globalConfiguration, err := loadAndValidateGlobalSynchronizationConfiguration(globalConfigurationPath)
-		if err != nil {
-			if !os.IsNotExist(err) {
-				return fmt.Errorf("unable to load global configuration: %w", err)
-			}
-		} else {
-			configuration = synchronization.MergeConfigurations(configuration, globalConfiguration)
-		}
-	}
-
-	// If additional default configuration files have been specified, then load
-	// them and merge them into the cumulative configuration.
-	for _, configurationFile := range createConfiguration.configurationFiles {
-		if c, err := loadAndValidateGlobalSynchronizationConfiguration(configurationFile); err != nil {
-			return fmt.Errorf("unable to load configuration file (%s): %w", configurationFile, err)
-		} else {
-			configuration = synchronization.MergeConfigurations(configuration, c)
-		}
-	}
-
-	// Validate and convert the synchronization mode specification.
-	var synchronizationMode core.SynchronizationMode
-	if createConfiguration.synchronizationMode != "" {
-		if err := synchronizationMode.UnmarshalText([]byte(createConfiguration.synchronizationMode)); err != nil {
-			return fmt.Errorf("unable to parse synchronization mode: %w", err)
-		}
-	}
-
-	// Validate and convert the hashing algorithm specification.
-	var hashingAlgorithm hashing.Algorithm
-	if createConfiguration.hash != "" {
-		if err := hashingAlgorithm.UnmarshalText([]byte(createConfiguration.hash)); err != nil {
-			return fmt.Errorf("unable to parse hashing algorithm: %w", err)
-		}
-	}
-
-	// There's no need to validate the maximum entry count - any uint64 value is
-	// valid.
-
-	// Validate and convert the maximum staging file size.
-	var maximumStagingFileSize uint64
-	if createConfiguration.maximumStagingFileSize != "" {
-		if s, err := humanize.ParseBytes(createConfiguration.maximumStagingFileSize); err != nil {
-			return fmt.Errorf("unable to parse maximum staging file size: %w", err)
-		} else {
-			maximumStagingFileSize = s
-		}
-	}
-
-	// Validate and convert probe mode specifications.
-	var probeMode, probeModeAlpha, probeModeBeta behavior.ProbeMode
-	if createConfiguration.probeMode != "" {
-		if err := probeMode.UnmarshalText([]byte(createConfiguration.probeMode)); err != nil {
-			return fmt.Errorf("unable to parse probe mode: %w", err)
-		}
-	}
-	if createConfiguration.probeModeAlpha != "" {
-		if err := probeModeAlpha.UnmarshalText([]byte(createConfiguration.probeModeAlpha)); err != nil {
-			return fmt.Errorf("unable to parse probe mode for alpha: %w", err)
-		}
-	}
-	if createConfiguration.probeModeBeta != "" {
-		if err := probeModeBeta.UnmarshalText([]byte(createConfiguration.probeModeBeta)); err != nil {
-			return fmt.Errorf("unable to parse probe mode for beta: %w", err)
-		}
-	}
-
-	// Validate and convert scan mode specifications.
-	var scanMode, scanModeAlpha, scanModeBeta synchronization.ScanMode
-	if createConfiguration.scanMode != "" {
-		if err := scanMode.UnmarshalText([]byte(createConfiguration.scanMode)); err != nil {
-			return fmt.Errorf("unable to parse scan mode: %w", err)
-		}
-	}
-	if createConfiguration.scanModeAlpha != "" {
-		if err := scanModeAlpha.UnmarshalText([]byte(createConfiguration.scanModeAlpha)); err != nil {
-			return fmt.Errorf("unable to parse scan mode for alpha: %w", err)
-		}
-	}
-	if createConfiguration.scanModeBeta != "" {
-		if err := scanModeBeta.UnmarshalText([]byte(createConfiguration.scanModeBeta)); err != nil {
-			return fmt.Errorf("unable to parse scan mode for beta: %w", err)
-		}
-	}
-
-	// Validate and convert staging mode specifications.
-	var stageMode, stageModeAlpha, stageModeBeta synchronization.StageMode
-	if createConfiguration.stageMode != "" {
-		if err := stageMode.UnmarshalText([]byte(createConfiguration.stageMode)); err != nil {
-			return fmt.Errorf("unable to parse staging mode: %w", err)
-		}
-	}
-	if createConfiguration.stageModeAlpha != "" {
-		if err := stageModeAlpha.UnmarshalText([]byte(createConfiguration.stageModeAlpha)); err != nil {
-			return fmt.Errorf("unable to parse staging mode for alpha: %w", err)
-		}
-	}
-	if createConfiguration.stageModeBeta != "" {
-		if err := stageModeBeta.UnmarshalText([]byte(createConfiguration.stageModeBeta)); err != nil {
-			return fmt.Errorf("unable to parse staging mode for beta: %w", err)
-		}
-	}
-
-	// Validate and convert the symbolic link mode specification.
-	var symbolicLinkMode core.SymbolicLinkMode
-	if createConfiguration.symbolicLinkMode != "" {
-		if err := symbolicLinkMode.UnmarshalText([]byte(createConfiguration.symbolicLinkMode)); err != nil {
-			return fmt.Errorf("unable to parse symbolic link mode: %w", err)
-		}
-	}
-
-	// Validate and convert watch mode specifications.
-	var watchMode, watchModeAlpha, watchModeBeta synchronization.WatchMode
-	if createConfiguration.watchMode != "" {
-		if err := watchMode.UnmarshalText([]byte(createConfiguration.watchMode)); err != nil {
-			return fmt.Errorf("unable to parse watch mode: %w", err)
-		}
-	}
-	if createConfiguration.watchModeAlpha != "" {
-		if err := watchModeAlpha.UnmarshalText([]byte(createConfiguration.watchModeAlpha)); err != nil {
-			return fmt.Errorf("unable to parse watch mode for alpha: %w", err)
-		}
-	}
-	if createConfiguration.watchModeBeta != "" {
-		if err := watchModeBeta.UnmarshalText([]byte(createConfiguration.watchModeBeta)); err != nil {
-			return fmt.Errorf("unable to parse watch mode for beta: %w", err)
-		}
-	}
-
-	// There's no need to validate the watch polling intervals - any uint32
-	// values are valid.
-
-	// Validate and convert the ignore syntax specification.
-	var ignoreSyntax ignore.Syntax
-	if createConfiguration.ignoreSyntax != "" {
-		if err := ignoreSyntax.UnmarshalText([]byte(createConfiguration.ignoreSyntax)); err != nil {
-			return fmt.Errorf("unable to parse ignore syntax: %w", err)
-		}
-	}
-
-	// Unfortunately we can't validate ignore specifications in any meaningful
-	// way because we don't yet know the ignore syntax being used. This could be
-	// specified by the global YAML configuration or (more likely) determined by
-	// the default session version within the daemon. These ignores will
-	// eventually be validated at endpoint initialization time, but there's no
-	// convenient way to do it earlier in the session creation process.
-
-	// Validate and convert the VCS ignore mode specification.
-	var ignoreVCSMode ignore.IgnoreVCSMode
-	if createConfiguration.ignoreVCS && createConfiguration.noIgnoreVCS {
-		return errors.New("conflicting VCS ignore behavior specified")
-	} else if createConfiguration.ignoreVCS {
-		ignoreVCSMode = ignore.IgnoreVCSMode_IgnoreVCSModeIgnore
-	} else if createConfiguration.noIgnoreVCS {
-		ignoreVCSMode = ignore.IgnoreVCSMode_IgnoreVCSModePropagate
-	}
-
-	// Validate and convert the permissions mode specification.
-	var permissionsMode core.PermissionsMode
-	if createConfiguration.permissionsMode != "" {
-		if err := permissionsMode.UnmarshalText([]byte(createConfiguration.permissionsMode)); err != nil {
-			return fmt.Errorf("unable to parse permissions mode: %w", err)
-		}
-	}
-
-	// Compute the effective permissions mode.
-	// HACK: We technically don't know the daemon's default session version, so
-	// we compute the default permissions mode using the default session version
-	// for this executable, which (given our current distribution strategy) will
-	// be the same as that of the daemon. Of course, the daemon API will
-	// re-validate this, so validation here is merely best-effort and
-	// informational in any case. For more information on the reasoning behind
-	// this, see the note in synchronization.Version.DefaultPermissionsMode.
-	effectivePermissionsMode := permissionsMode
-	if effectivePermissionsMode.IsDefault() {
-		effectivePermissionsMode = synchronization.DefaultVersion.DefaultPermissionsMode()
-	}
-
-	// Validate and convert default file mode specifications.
-	var defaultFileMode, defaultFileModeAlpha, defaultFileModeBeta filesystem.Mode
-	if createConfiguration.defaultFileMode != "" {
-		if err := defaultFileMode.UnmarshalText([]byte(createConfiguration.defaultFileMode)); err != nil {
-			return fmt.Errorf("unable to parse default file mode: %w", err)
-		} else if err = core.EnsureDefaultFileModeValid(effectivePermissionsMode, defaultFileMode); err != nil {
-			return fmt.Errorf("invalid default file mode: %w", err)
-		}
-	}
-	if createConfiguration.defaultFileModeAlpha != "" {
-		if err := defaultFileModeAlpha.UnmarshalText([]byte(createConfiguration.defaultFileModeAlpha)); err != nil {
-			return fmt.Errorf("unable to parse default file mode for alpha: %w", err)
-		} else if err = core.EnsureDefaultFileModeValid(effectivePermissionsMode, defaultFileModeAlpha); err != nil {
-			return fmt.Errorf("invalid default file mode for alpha: %w", err)
-		}
-	}
-	if createConfiguration.defaultFileModeBeta != "" {
-		if err := defaultFileModeBeta.UnmarshalText([]byte(createConfiguration.defaultFileModeBeta)); err != nil {
-			return fmt.Errorf("unable to parse default file mode for beta: %w", err)
-		} else if err = core.EnsureDefaultFileModeValid(effectivePermissionsMode, defaultFileModeBeta); err != nil {
-			return fmt.Errorf("invalid default file mode for beta: %w", err)
-		}
-	}
-
-	// Validate and convert default directory mode specifications.
-	var defaultDirectoryMode, defaultDirectoryModeAlpha, defaultDirectoryModeBeta filesystem.Mode
-	if createConfiguration.defaultDirectoryMode != "" {
-		if err := defaultDirectoryMode.UnmarshalText([]byte(createConfiguration.defaultDirectoryMode)); err != nil {
-			return fmt.Errorf("unable to parse default directory mode: %w", err)
-		} else if err = core.EnsureDefaultDirectoryModeValid(effectivePermissionsMode, defaultDirectoryMode); err != nil {
-			return fmt.Errorf("invalid default directory mode: %w", err)
-		}
-	}
-	if createConfiguration.defaultDirectoryModeAlpha != "" {
-		if err := defaultDirectoryModeAlpha.UnmarshalText([]byte(createConfiguration.defaultDirectoryModeAlpha)); err != nil {
-			return fmt.Errorf("unable to parse default directory mode for alpha: %w", err)
-		} else if err = core.EnsureDefaultDirectoryModeValid(effectivePermissionsMode, defaultDirectoryModeAlpha); err != nil {
-			return fmt.Errorf("invalid default directory mode for alpha: %w", err)
-		}
-	}
-	if createConfiguration.defaultDirectoryModeBeta != "" {
-		if err := defaultDirectoryModeBeta.UnmarshalText([]byte(createConfiguration.defaultDirectoryModeBeta)); err != nil {
-			return fmt.Errorf("unable to parse default directory mode for beta: %w", err)
-		} else if err = core.EnsureDefaultDirectoryModeValid(effectivePermissionsMode, defaultDirectoryModeBeta); err != nil {
-			return fmt.Errorf("invalid default directory mode for beta: %w", err)
-		}
-	}
-
-	// Validate default file owner specifications.
-	if createConfiguration.defaultOwner != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.defaultOwner,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid ownership specification")
-		}
-	}
-	if createConfiguration.defaultOwnerAlpha != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.defaultOwnerAlpha,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid ownership specification for alpha")
-		}
-	}
-	if createConfiguration.defaultOwnerBeta != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.defaultOwnerBeta,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid ownership specification for beta")
-		}
-	}
-
-	// Validate default file group specifications.
-	if createConfiguration.defaultGroup != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.defaultGroup,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid group specification")
-		}
-	}
-	if createConfiguration.defaultGroupAlpha != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.defaultGroupAlpha,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid group specification for alpha")
-		}
-	}
-	if createConfiguration.defaultGroupBeta != "" {
-		if kind, _ := filesystem.ParseOwnershipIdentifier(
-			createConfiguration.defaultGroupBeta,
-		); kind == filesystem.OwnershipIdentifierKindInvalid {
-			return errors.New("invalid group specification for beta")
-		}
-	}
-
-	// Validate and convert compression algorithm specifications.
-	var compressionAlgorithm, compressionAlgorithmAlpha, compressionAlgorithmBeta compression.Algorithm
-	if createConfiguration.compression != "" {
-		if err := compressionAlgorithm.UnmarshalText([]byte(createConfiguration.compression)); err != nil {
-			return fmt.Errorf("unable to parse compression algorithm: %w", err)
-		}
-	}
-	if createConfiguration.compressionAlpha != "" {
-		if err := compressionAlgorithmAlpha.UnmarshalText([]byte(createConfiguration.compressionAlpha)); err != nil {
-			return fmt.Errorf("unable to parse compression algorithm for alpha: %w", err)
-		}
-	}
-	if createConfiguration.compressionBeta != "" {
-		if err := compressionAlgorithmBeta.UnmarshalText([]byte(createConfiguration.compressionBeta)); err != nil {
-			return fmt.Errorf("unable to parse compression algorithm for beta: %w", err)
-		}
-	}
-
-	// Create the command line configuration and merge it into our cumulative
-	// configuration.
-	configuration = synchronization.MergeConfigurations(configuration, &synchronization.Configuration{
-		SynchronizationMode:    synchronizationMode,
-		HashingAlgorithm:       hashingAlgorithm,
-		MaximumEntryCount:      createConfiguration.maximumEntryCount,
-		MaximumStagingFileSize: maximumStagingFileSize,
-		ProbeMode:              probeMode,
-		ScanMode:               scanMode,
-		StageMode:              stageMode,
-		SymbolicLinkMode:       symbolicLinkMode,
-		WatchMode:              watchMode,
-		WatchPollingInterval:   createConfiguration.watchPollingInterval,
-		IgnoreSyntax:           ignoreSyntax,
-		Ignores:                createConfiguration.ignores,
-		IgnoreVCSMode:          ignoreVCSMode,
-		PermissionsMode:        permissionsMode,
-		DefaultFileMode:        uint32(defaultFileMode),
-		DefaultDirectoryMode:   uint32(defaultDirectoryMode),
-		DefaultOwner:           createConfiguration.defaultOwner,
-		DefaultGroup:           createConfiguration.defaultGroup,
-		CompressionAlgorithm:   compressionAlgorithm,
-	})
-
-	// Create the creation specification.
-	specification := &synchronizationsvc.CreationSpecification{
-		Alpha:         alpha,
-		Beta:          beta,
-		Configuration: configuration,
-		ConfigurationAlpha: &synchronization.Configuration{
-			ProbeMode:            probeModeAlpha,
-			ScanMode:             scanModeAlpha,
-			StageMode:            stageModeAlpha,
-			WatchMode:            watchModeAlpha,
-			WatchPollingInterval: createConfiguration.watchPollingIntervalAlpha,
-			DefaultFileMode:      uint32(defaultFileModeAlpha),
-			DefaultDirectoryMode: uint32(defaultDirectoryModeAlpha),
-			DefaultOwner:         createConfiguration.defaultOwnerAlpha,
-			DefaultGroup:         createConfiguration.defaultGroupAlpha,
-			CompressionAlgorithm: compressionAlgorithmAlpha,
-		},
-		ConfigurationBeta: &synchronization.Configuration{
-			ProbeMode:            probeModeBeta,
-			ScanMode:             scanModeBeta,
-			StageMode:            stageModeBeta,
-			WatchMode:            watchModeBeta,
-			WatchPollingInterval: createConfiguration.watchPollingIntervalBeta,
-			DefaultFileMode:      uint32(defaultFileModeBeta),
-			DefaultDirectoryMode: uint32(defaultDirectoryModeBeta),
-			DefaultOwner:         createConfiguration.defaultOwnerBeta,
-			DefaultGroup:         createConfiguration.defaultGroupBeta,
-			CompressionAlgorithm: compressionAlgorithmBeta,
-		},
-		Name:   createConfiguration.name,
-		Labels: labels,
-		Paused: createConfiguration.paused,
-	}
-
-	// Connect to the daemon and defer closure of the connection.
-	daemonConnection, err := daemon.Connect(true, true)
-	if err != nil {
-		return fmt.Errorf("unable to connect to daemon: %w", err)
-	}
-	defer daemonConnection.Close()
-
-	// Perform the create operation.
-	identifier, err := CreateWithSpecification(daemonConnection, specification)
-	if err != nil {
-		return err
-	}
-
-	// Print the session identifier.
-	fmt.Println("Created session", identifier)
-
-	// Success.
 	return nil
 }
+
+// Validate the name.
+
+// Parse, validate, and record labels.
+
+// Create a default session configuration that will form the basis of our
+// cumulative configuration.
+
+// Unless disabled, attempt to load configuration from the global
+// configuration file and merge it into our cumulative configuration.
+
+// Compute the path to the global configuration file.
+
+// Attempt to load the file. We allow it to not exist.
+
+// If additional default configuration files have been specified, then load
+// them and merge them into the cumulative configuration.
+
+// Validate and convert the synchronization mode specification.
+
+// Validate and convert the hashing algorithm specification.
+
+// There's no need to validate the maximum entry count - any uint64 value is
+// valid.
+
+// Validate and convert the maximum staging file size.
+
+// Validate and convert probe mode specifications.
+
+// Validate and convert scan mode specifications.
+
+// Validate and convert staging mode specifications.
+
+// Validate and convert the symbolic link mode specification.
+
+// Validate and convert watch mode specifications.
+
+// There's no need to validate the watch polling intervals - any uint32
+// values are valid.
+
+// Validate and convert the ignore syntax specification.
+
+// Unfortunately we can't validate ignore specifications in any meaningful
+// way because we don't yet know the ignore syntax being used. This could be
+// specified by the global YAML configuration or (more likely) determined by
+// the default session version within the daemon. These ignores will
+// eventually be validated at endpoint initialization time, but there's no
+// convenient way to do it earlier in the session creation process.
+
+// Validate and convert the VCS ignore mode specification.
+
+// Validate and convert the permissions mode specification.
+
+// Compute the effective permissions mode.
+// HACK: We technically don't know the daemon's default session version, so
+// we compute the default permissions mode using the default session version
+// for this executable, which (given our current distribution strategy) will
+// be the same as that of the daemon. Of course, the daemon API will
+// re-validate this, so validation here is merely best-effort and
+// informational in any case. For more information on the reasoning behind
+// this, see the note in synchronization.Version.DefaultPermissionsMode.
+
+// Validate and convert default file mode specifications.
+
+// Validate and convert default directory mode specifications.
+
+// Validate default file owner specifications.
+
+// Validate default file group specifications.
+
+// Validate and convert compression algorithm specifications.
+
+// Create the command line configuration and merge it into our cumulative
+// configuration.
+
+// Create the creation specification.
+
+// Connect to the daemon and defer closure of the connection.
+
+// Perform the create operation.
+
+// Print the session identifier.
+
+// Success.
 
 // createCommand is the create command.
 var createCommand = &cobra.Command{

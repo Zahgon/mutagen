@@ -1,8 +1,6 @@
 package synchronization
 
 import (
-	"math"
-
 	"github.com/mutagen-io/mutagen/pkg/filesystem"
 	"github.com/mutagen-io/mutagen/pkg/filesystem/behavior"
 	"github.com/mutagen-io/mutagen/pkg/synchronization/compression"
@@ -15,146 +13,74 @@ import (
 const DefaultVersion Version = Version_Version1
 
 // Supported indicates whether or not the session version is supported.
-func (v Version) Supported() bool {
-	switch v {
-	case Version_Version1:
-		return true
-	default:
-		return false
-	}
-}
+func (v Version) Supported() bool { _ = "STUB: not implemented"; return false }
 
 // DefaultSynchronizationMode returns the default synchronization mode for the
 // session version.
 func (v Version) DefaultSynchronizationMode() core.SynchronizationMode {
-	switch v {
-	case Version_Version1:
-		return core.SynchronizationMode_SynchronizationModeTwoWaySafe
-	default:
-		panic("unknown or unsupported session version")
-	}
+	_ = "STUB: not implemented"
+	return *new(core.SynchronizationMode)
 }
 
 // DefaultHashingAlgorithm returns the default hashing algorithm for the session
 // version.
 func (v Version) DefaultHashingAlgorithm() hashing.Algorithm {
-	switch v {
-	case Version_Version1:
-		return hashing.Algorithm_AlgorithmSHA1
-	default:
-		panic("unknown or unsupported session version")
-	}
+	_ = "STUB: not implemented"
+	return *new(hashing.Algorithm)
 }
 
 // DefaultMaximumEntryCount returns the default maximum entry count for the
 // session version.
-func (v Version) DefaultMaximumEntryCount() uint64 {
-	switch v {
-	case Version_Version1:
-		return math.MaxUint64
-	default:
-		panic("unknown or unsupported session version")
-	}
-}
+func (v Version) DefaultMaximumEntryCount() uint64 { _ = "STUB: not implemented"; return 0 }
 
 // DefaultMaximumStagingFileSize returns the default maximum staging file size
 // for the session version.
-func (v Version) DefaultMaximumStagingFileSize() uint64 {
-	switch v {
-	case Version_Version1:
-		return math.MaxUint64
-	default:
-		panic("unknown or unsupported session version")
-	}
-}
+func (v Version) DefaultMaximumStagingFileSize() uint64 { _ = "STUB: not implemented"; return 0 }
 
 // DefaultProbeMode returns the default probe mode for the session version.
 func (v Version) DefaultProbeMode() behavior.ProbeMode {
-	switch v {
-	case Version_Version1:
-		return behavior.ProbeMode_ProbeModeProbe
-	default:
-		panic("unknown or unsupported session version")
-	}
+	_ = "STUB: not implemented"
+	return *new(behavior.ProbeMode)
 }
 
 // DefaultScanMode returns the default scan mode for the session version.
-func (v Version) DefaultScanMode() ScanMode {
-	switch v {
-	case Version_Version1:
-		return ScanMode_ScanModeAccelerated
-	default:
-		panic("unknown or unsupported session version")
-	}
-}
+func (v Version) DefaultScanMode() ScanMode { _ = "STUB: not implemented"; return *new(ScanMode) }
 
 // DefaultStageMode returns the default staging mode for the session version.
-func (v Version) DefaultStageMode() StageMode {
-	switch v {
-	case Version_Version1:
-		return StageMode_StageModeMutagen
-	default:
-		panic("unknown or unsupported session version")
-	}
-}
+func (v Version) DefaultStageMode() StageMode { _ = "STUB: not implemented"; return *new(StageMode) }
 
 // DefaultSymbolicLinkMode returns the default symbolic link mode for the
 // session version.
 func (v Version) DefaultSymbolicLinkMode() core.SymbolicLinkMode {
-	switch v {
-	case Version_Version1:
-		return core.SymbolicLinkMode_SymbolicLinkModePortable
-	default:
-		panic("unknown or unsupported session version")
-	}
+	_ = "STUB: not implemented"
+	return *new(core.SymbolicLinkMode)
 }
 
 // DefaultWatchMode returns the default watch mode for the session version.
-func (v Version) DefaultWatchMode() WatchMode {
-	switch v {
-	case Version_Version1:
-		return WatchMode_WatchModePortable
-	default:
-		panic("unknown or unsupported session version")
-	}
-}
+func (v Version) DefaultWatchMode() WatchMode { _ = "STUB: not implemented"; return *new(WatchMode) }
 
 // DefaultWatchPollingInterval returns the default watch polling interval for
 // the session version.
-func (v Version) DefaultWatchPollingInterval() uint32 {
-	switch v {
-	case Version_Version1:
-		return 10
-	default:
-		panic("unknown or unsupported session version")
-	}
-}
+func (v Version) DefaultWatchPollingInterval() uint32 { _ = "STUB: not implemented"; return 0 }
 
 // DefaultIgnoreSyntax returns the default ignore syntax for the session
 // version.
 func (v Version) DefaultIgnoreSyntax() ignore.Syntax {
-	switch v {
-	case Version_Version1:
-		return ignore.Syntax_SyntaxMutagen
-	default:
-		panic("unknown or unsupported session version")
-	}
+	_ = "STUB: not implemented"
+	return *new(ignore.Syntax)
 }
 
 // DefaultIgnoreVCSMode returns the default VCS ignore mode for the session
 // version.
 func (v Version) DefaultIgnoreVCSMode() ignore.IgnoreVCSMode {
-	switch v {
-	case Version_Version1:
-		return ignore.IgnoreVCSMode_IgnoreVCSModePropagate
-	default:
-		panic("unknown or unsupported session version")
-	}
+	_ = "STUB: not implemented"
+	return *new(ignore.IgnoreVCSMode)
 }
 
 // DefaultPermissionsMode returns the default permissions mode for the session
 // version.
 func (v Version) DefaultPermissionsMode() core.PermissionsMode {
+	_ = "STUB: not implemented"
 	// NOTE: Due to the hack listed in Configuration.EnsureValid (regarding the
 	// computation of the default permissions mode), it would be advisable to
 	// keep the default here the same for all session versions. If we want this
@@ -170,68 +96,34 @@ func (v Version) DefaultPermissionsMode() core.PermissionsMode {
 	// version, but that rapidly spirals into other APIs and it's not even clear
 	// how to enforce that the daemon's default session version is what's being
 	// used for validation in the command line interface or external tools.
-	switch v {
-	case Version_Version1:
-		return core.PermissionsMode_PermissionsModePortable
-	default:
-		panic("unknown or unsupported session version")
-	}
+	return *new(core.PermissionsMode)
 }
 
 // DefaultFileMode returns the default file permission mode for the session
 // version.
 func (v Version) DefaultFileMode() filesystem.Mode {
-	switch v {
-	case Version_Version1:
-		return filesystem.ModePermissionUserRead |
-			filesystem.ModePermissionUserWrite
-	default:
-		panic("unknown or unsupported session version")
-	}
+	_ = "STUB: not implemented"
+	return *new(filesystem.Mode)
 }
 
 // DefaultDirectoryMode returns the default directory permission mode for the
 // session version.
 func (v Version) DefaultDirectoryMode() filesystem.Mode {
-	switch v {
-	case Version_Version1:
-		return filesystem.ModePermissionUserRead |
-			filesystem.ModePermissionUserWrite |
-			filesystem.ModePermissionUserExecute
-	default:
-		panic("unknown or unsupported session version")
-	}
+	_ = "STUB: not implemented"
+	return *new(filesystem.Mode)
 }
 
 // DefaultOwnerSpecification returns the default owner specification for the
 // session version.
-func (v Version) DefaultOwnerSpecification() string {
-	switch v {
-	case Version_Version1:
-		return ""
-	default:
-		panic("unknown or unsupported session version")
-	}
-}
+func (v Version) DefaultOwnerSpecification() string { _ = "STUB: not implemented"; return "" }
 
 // DefaultGroupSpecification returns the default owner group specification for
 // the session version.
-func (v Version) DefaultGroupSpecification() string {
-	switch v {
-	case Version_Version1:
-		return ""
-	default:
-		panic("unknown or unsupported session version")
-	}
-}
+func (v Version) DefaultGroupSpecification() string { _ = "STUB: not implemented"; return "" }
 
 // DefaultCompressionAlgorithm returns the default compression algorithm for the
 // session version.
 func (v Version) DefaultCompressionAlgorithm() compression.Algorithm {
-	switch v {
-	case Version_Version1:
-		return compression.Algorithm_AlgorithmDeflate
-	default:
-		panic("unknown or unsupported session version")
-	}
+	_ = "STUB: not implemented"
+	return *new(compression.Algorithm)
 }

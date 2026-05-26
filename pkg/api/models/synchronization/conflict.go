@@ -18,37 +18,23 @@ type Conflict struct {
 // loadFromInternal sets a conflict to match an internal Protocol Buffers
 // representation. The conflict must be valid.
 func (c *Conflict) loadFromInternal(conflict *core.Conflict) {
+	_ = "STUB: not implemented"
 	// Propagate the conflict root.
-	c.Root = conflict.Root
-
-	// Propagate alpha changes.
-	c.AlphaChanges = make([]Change, len(conflict.AlphaChanges))
-	for i := 0; i < len(conflict.AlphaChanges); i++ {
-		c.AlphaChanges[i].loadFromInternal(conflict.AlphaChanges[i])
-	}
-
-	// Propagate beta changes.
-	c.BetaChanges = make([]Change, len(conflict.BetaChanges))
-	for i := 0; i < len(conflict.BetaChanges); i++ {
-		c.BetaChanges[i].loadFromInternal(conflict.BetaChanges[i])
-	}
+	return
 }
+
+// Propagate alpha changes.
+
+// Propagate beta changes.
 
 // exportConflicts is a convenience function that calls
 // Conflict.loadFromInternal for a slice of conflicts.
 func exportConflicts(conflicts []*core.Conflict) []Conflict {
+	_ = "STUB: not implemented"
 	// If there are no conflicts, then just return a nil slice.
-	count := len(conflicts)
-	if count == 0 {
-		return nil
-	}
-
-	// Create the resulting slice.
-	results := make([]Conflict, count)
-	for i := 0; i < count; i++ {
-		results[i].loadFromInternal(conflicts[i])
-	}
-
-	// Done.
-	return results
+	return nil
 }
+
+// Create the resulting slice.
+
+// Done.

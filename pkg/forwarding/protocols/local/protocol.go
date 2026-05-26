@@ -2,13 +2,10 @@ package local
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/mutagen-io/mutagen/pkg/forwarding"
-	"github.com/mutagen-io/mutagen/pkg/forwarding/endpoint/local"
 	"github.com/mutagen-io/mutagen/pkg/logging"
 	urlpkg "github.com/mutagen-io/mutagen/pkg/url"
-	forwardingurl "github.com/mutagen-io/mutagen/pkg/url/forwarding"
 )
 
 // protocolHandler implements the forwarding.ProtocolHandler interface for
@@ -26,26 +23,14 @@ func (p *protocolHandler) Connect(
 	configuration *forwarding.Configuration,
 	source bool,
 ) (forwarding.Endpoint, error) {
+	_ = "STUB: not implemented"
 	// Verify that the URL is of the correct kind and protocol.
-	if url.Kind != urlpkg.Kind_Forwarding {
-		panic("non-forwarding URL dispatched to forwarding protocol handler")
-	} else if url.Protocol != urlpkg.Protocol_Local {
-		panic("non-local URL dispatched to local protocol handler")
-	}
-
-	// Parse the target specification from the URL's Path component.
-	protocol, address, err := forwardingurl.Parse(url.Path)
-	if err != nil {
-		return nil, fmt.Errorf("unable to parse target specification: %w", err)
-	}
-
-	// Handle creation based on mode.
-	if source {
-		return local.NewListenerEndpoint(logger, version, configuration, protocol, address, true)
-	} else {
-		return local.NewDialerEndpoint(logger, version, configuration, protocol, address)
-	}
+	return *new(forwarding.Endpoint), nil
 }
+
+// Parse the target specification from the URL's Path component.
+
+// Handle creation based on mode.
 
 func init() {
 	// Register the local protocol handler with the forwarding package.

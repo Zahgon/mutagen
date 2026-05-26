@@ -1,9 +1,5 @@
 package multiplexing
 
-import (
-	"fmt"
-)
-
 // multiplexerAddress implements net.Addr for Multiplexer.
 type multiplexerAddress struct {
 	// even indicates whether or not this is the even-valued multiplexer.
@@ -11,17 +7,10 @@ type multiplexerAddress struct {
 }
 
 // Network implements net.Addr.Network.
-func (a *multiplexerAddress) Network() string {
-	return "multiplexed"
-}
+func (a *multiplexerAddress) Network() string { _ = "STUB: not implemented"; return "" }
 
 // String implements net.Addr.String.
-func (a *multiplexerAddress) String() string {
-	if a.even {
-		return "multiplexer:even"
-	}
-	return "multiplexer:odd"
-}
+func (a *multiplexerAddress) String() string { _ = "STUB: not implemented"; return "" }
 
 // streamAddress implements net.Addr for Stream.
 type streamAddress struct {
@@ -32,15 +21,7 @@ type streamAddress struct {
 }
 
 // Network implements net.Addr.Network.
-func (a *streamAddress) Network() string {
-	return "multiplexed"
-}
+func (a *streamAddress) Network() string { _ = "STUB: not implemented"; return "" }
 
 // String implements net.Addr.String.
-func (a *streamAddress) String() string {
-	if a.remote {
-		return fmt.Sprintf("remote:%d", a.identifier)
-	} else {
-		return fmt.Sprintf("local:%d", a.identifier)
-	}
-}
+func (a *streamAddress) String() string { _ = "STUB: not implemented"; return "" }

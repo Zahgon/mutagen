@@ -7,11 +7,10 @@
 package rsync
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -32,49 +31,23 @@ type BlockHash struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *BlockHash) Reset() {
-	*x = BlockHash{}
-	mi := &file_synchronization_rsync_engine_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *BlockHash) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *BlockHash) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *BlockHash) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*BlockHash) ProtoMessage() {}
+func (*BlockHash) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *BlockHash) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_rsync_engine_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use BlockHash.ProtoReflect.Descriptor instead.
-func (*BlockHash) Descriptor() ([]byte, []int) {
-	return file_synchronization_rsync_engine_proto_rawDescGZIP(), []int{0}
-}
+func (*BlockHash) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *BlockHash) GetWeak() uint32 {
-	if x != nil {
-		return x.Weak
-	}
-	return 0
-}
+func (x *BlockHash) GetWeak() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *BlockHash) GetStrong() []byte {
-	if x != nil {
-		return x.Strong
-	}
-	return nil
-}
+func (x *BlockHash) GetStrong() []byte { _ = "STUB: not implemented"; return nil }
 
 // Signature represents an rsync base signature. It encodes the block size used
 // to generate the signature, the size of the last block in the signature (which
@@ -91,56 +64,25 @@ type Signature struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Signature) Reset() {
-	*x = Signature{}
-	mi := &file_synchronization_rsync_engine_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Signature) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Signature) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Signature) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Signature) ProtoMessage() {}
+func (*Signature) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Signature) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_rsync_engine_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Signature.ProtoReflect.Descriptor instead.
-func (*Signature) Descriptor() ([]byte, []int) {
-	return file_synchronization_rsync_engine_proto_rawDescGZIP(), []int{1}
-}
+func (*Signature) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Signature) GetBlockSize() uint64 {
-	if x != nil {
-		return x.BlockSize
-	}
-	return 0
-}
+func (x *Signature) GetBlockSize() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Signature) GetLastBlockSize() uint64 {
-	if x != nil {
-		return x.LastBlockSize
-	}
-	return 0
-}
+func (x *Signature) GetLastBlockSize() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Signature) GetHashes() []*BlockHash {
-	if x != nil {
-		return x.Hashes
-	}
-	return nil
-}
+func (x *Signature) GetHashes() []*BlockHash { _ = "STUB: not implemented"; return nil }
 
 // Operation represents an rsync operation, which can be either a data operation
 // or a block operation.
@@ -160,56 +102,25 @@ type Operation struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Operation) Reset() {
-	*x = Operation{}
-	mi := &file_synchronization_rsync_engine_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Operation) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Operation) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Operation) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Operation) ProtoMessage() {}
+func (*Operation) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Operation) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_rsync_engine_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Operation.ProtoReflect.Descriptor instead.
-func (*Operation) Descriptor() ([]byte, []int) {
-	return file_synchronization_rsync_engine_proto_rawDescGZIP(), []int{2}
-}
+func (*Operation) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Operation) GetData() []byte {
-	if x != nil {
-		return x.Data
-	}
-	return nil
-}
+func (x *Operation) GetData() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *Operation) GetStart() uint64 {
-	if x != nil {
-		return x.Start
-	}
-	return 0
-}
+func (x *Operation) GetStart() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Operation) GetCount() uint64 {
-	if x != nil {
-		return x.Count
-	}
-	return 0
-}
+func (x *Operation) GetCount() uint64 { _ = "STUB: not implemented"; return 0 }
 
 var File_synchronization_rsync_engine_proto protoreflect.FileDescriptor
 
@@ -234,10 +145,8 @@ var (
 )
 
 func file_synchronization_rsync_engine_proto_rawDescGZIP() []byte {
-	file_synchronization_rsync_engine_proto_rawDescOnce.Do(func() {
-		file_synchronization_rsync_engine_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_synchronization_rsync_engine_proto_rawDesc), len(file_synchronization_rsync_engine_proto_rawDesc)))
-	})
-	return file_synchronization_rsync_engine_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_synchronization_rsync_engine_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
@@ -255,26 +164,5 @@ var file_synchronization_rsync_engine_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_synchronization_rsync_engine_proto_init() }
-func file_synchronization_rsync_engine_proto_init() {
-	if File_synchronization_rsync_engine_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_synchronization_rsync_engine_proto_rawDesc), len(file_synchronization_rsync_engine_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   3,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_synchronization_rsync_engine_proto_goTypes,
-		DependencyIndexes: file_synchronization_rsync_engine_proto_depIdxs,
-		MessageInfos:      file_synchronization_rsync_engine_proto_msgTypes,
-	}.Build()
-	File_synchronization_rsync_engine_proto = out.File
-	file_synchronization_rsync_engine_proto_goTypes = nil
-	file_synchronization_rsync_engine_proto_depIdxs = nil
-}
+func init()                                         { file_synchronization_rsync_engine_proto_init() }
+func file_synchronization_rsync_engine_proto_init() { _ = "STUB: not implemented"; return }

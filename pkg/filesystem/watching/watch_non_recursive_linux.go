@@ -2,9 +2,6 @@ package watching
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"os"
 	"sync"
 
 	"github.com/mutagen-io/mutagen/pkg/container/lru"
@@ -43,126 +40,75 @@ type nonRecursiveWatcher struct {
 
 // NewNonRecursiveWatcher creates a new inotify-based non-recursive watcher.
 func NewNonRecursiveWatcher() (NonRecursiveWatcher, error) {
+	_ = "STUB: not implemented"
 	// Create the raw event channel.
-	rawEvents := make(chan notify.EventInfo, inotifyChannelCapacity)
-
-	// Create a context to regulate the watcher's run loop.
-	ctx, cancel := context.WithCancel(context.Background())
-
-	// Create the watcher. The LRU evictor ensures that we don't
-	// exceed the maximum number of inotify watches by unwatching the
-	// least recently used paths when the cache overflows.
-	watcher := &nonRecursiveWatcher{
-		watch:  notify.NewWatcher(rawEvents),
-		events: make(chan string),
-		errors: make(chan error, 1),
-		cancel: cancel,
-	}
-	watcher.evictor = lru.New[string, int](
-		inotifyDefaultMaximumWatches,
-		func(path string, _ int) {
-			if err := watcher.watch.Unwatch(path); err != nil {
-				select {
-				case watcher.errors <- fmt.Errorf("unwatch error: %w", err):
-				default:
-				}
-			}
-		},
-	)
-
-	// Track run loop termination.
-	watcher.done.Add(1)
-
-	// Start the run loop.
-	go func() {
-		select {
-		case watcher.errors <- watcher.run(ctx, rawEvents):
-		default:
-		}
-		watcher.done.Done()
-	}()
-
-	// Success.
-	return watcher, nil
+	return *new(NonRecursiveWatcher), nil
 }
+
+// Create a context to regulate the watcher's run loop.
+
+// Create the watcher. The LRU evictor ensures that we don't
+// exceed the maximum number of inotify watches by unwatching the
+// least recently used paths when the cache overflows.
+
+// Track run loop termination.
+
+// Start the run loop.
+
+// Success.
 
 // run implements the event processing run loop for nonRecursiveWatcher.
 func (w *nonRecursiveWatcher) run(ctx context.Context, rawEvents <-chan notify.EventInfo) error {
+	_ = "STUB: not implemented"
 	// Loop indefinitely, polling for cancellation and events.
-	for {
-		select {
-		case <-ctx.Done():
-			return ErrWatchTerminated
-		case e, ok := <-rawEvents:
-			// Ensure that the event channel wasn't closed.
-			if !ok {
-				return errors.New("raw events channel closed")
-			}
-
-			// Transmit the path.
-			select {
-			case w.events <- e.Path():
-			case <-ctx.Done():
-				return ErrWatchTerminated
-			}
-		}
-	}
+	return nil
 }
+
+// Ensure that the event channel wasn't closed.
+
+// Transmit the path.
 
 // Watch implements NonRecursiveWatcher.Watch.
 func (w *nonRecursiveWatcher) Watch(path string) {
+	_ = "STUB: not implemented"
 	// Attempt to evict the path if already watched, that way we can establish a
 	// clean watch and make the path the most-recently-added record. If the path
 	// isn't currently watched, then this is a no-op.
-	w.evictor.Remove(path)
-
-	// Start the watch. If it fails due to a non-existence error, then we can
-	// just avoid adding it. If it fails for any other reason, then report the
-	// error via the errors channel.
-	err := w.watch.Watch(
-		path,
-		notify.InModify|notify.InAttrib|
-			notify.InCloseWrite|
-			notify.InMovedFrom|notify.InMovedTo|
-			notify.InCreate|notify.InDelete|
-			notify.InDeleteSelf|notify.InMoveSelf,
-	)
-	if err != nil {
-		if !os.IsNotExist(err) {
-			select {
-			case w.errors <- fmt.Errorf("watch error: %w", err):
-			default:
-			}
-		}
-	} else {
-		w.evictor.Add(path, 0)
-	}
+	return
 }
+
+// Start the watch. If it fails due to a non-existence error, then we can
+// just avoid adding it. If it fails for any other reason, then report the
+// error via the errors channel.
 
 // Unwatch implements NonRecursiveWatcher.Unwatch.
 func (w *nonRecursiveWatcher) Unwatch(path string) {
+	_ = "STUB: not implemented"
 	// Remove the watch via eviction. This is a no-op if the path isn't watched.
-	w.evictor.Remove(path)
+	return
 }
 
 // Events implements NonRecursiveWatcher.Events.
 func (w *nonRecursiveWatcher) Events() <-chan string {
-	return w.events
+	_ = "STUB: not implemented"
+
+	// Errors implements NonRecursiveWatcher.Errors.
+	return nil
 }
 
-// Errors implements NonRecursiveWatcher.Errors.
 func (w *nonRecursiveWatcher) Errors() <-chan error {
-	return w.errors
+	_ = "STUB: not implemented"
+
+	// Terminate implements NonRecursiveWatcher.Terminate.
+	return nil
 }
 
-// Terminate implements NonRecursiveWatcher.Terminate.
 func (w *nonRecursiveWatcher) Terminate() error {
+	_ = "STUB: not implemented"
 	// Signal termination.
-	w.cancel()
-
-	// Wait for the run loop to exit.
-	w.done.Wait()
-
-	// Terminate the underlying watcher.
-	return w.watch.Close()
+	return nil
 }
+
+// Wait for the run loop to exit.
+
+// Terminate the underlying watcher.

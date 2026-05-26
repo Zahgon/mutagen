@@ -9,16 +9,13 @@ package filesystem
 type file int
 
 // Read implements io.Reader.Read.
-func (f file) Read(buffer []byte) (int, error) {
-	return readRetryingOnEINTR(int(f), buffer)
-}
+func (f file) Read(buffer []byte) (int, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // Seek implements io.Seeker.Seek.
 func (f file) Seek(offset int64, whence int) (int64, error) {
-	return seekConsideringEINTR(int(f), offset, whence)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // Close implements io.Closer.Close.
-func (f file) Close() error {
-	return closeConsideringEINTR(int(f))
-}
+func (f file) Close() error { _ = "STUB: not implemented"; return nil }

@@ -1,11 +1,8 @@
 package agent
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
-	"strings"
-	"unicode/utf8"
 )
 
 // Transport is the standard agent transport interface, allowing the agent
@@ -48,33 +45,19 @@ type Transport interface {
 // method will be returned un-wrapped, so it can be treated as an
 // os/exec.ExitError.
 func run(transport Transport, command string) error {
+	_ = "STUB: not implemented"
 	// Create the process.
-	process, err := transport.Command(command)
-	if err != nil {
-		return fmt.Errorf("unable to create command: %w", err)
-	}
-
-	// Run the command. We use the Output method as opposed to the Run method
-	// because the former will collect standard error output that can be useful
-	// in formulating an error message for the purposes of debugging.
-	_, err = process.Output()
-
-	// If there was an error, then attempt to convert it to a more useful error
-	// that includes standard error output from the remote.
-	if err != nil {
-		exitErr, ok := err.(*exec.ExitError)
-		if ok && utf8.Valid(exitErr.Stderr) {
-			remoteError := strings.TrimSuffix(string(exitErr.Stderr), "\n")
-			if len(remoteError) > 0 {
-				return fmt.Errorf("remote error: %s", remoteError)
-			}
-		}
-		return err
-	}
-
-	// Success.
 	return nil
 }
+
+// Run the command. We use the Output method as opposed to the Run method
+// because the former will collect standard error output that can be useful
+// in formulating an error message for the purposes of debugging.
+
+// If there was an error, then attempt to convert it to a more useful error
+// that includes standard error output from the remote.
+
+// Success.
 
 // output is a utility method that invokes a command via a transport, waits for
 // it to complete, and returns its standard output and exit error. If there is
@@ -82,12 +65,9 @@ func run(transport Transport, command string) error {
 // result of the run method will be returned un-wrapped, so it can be treated as
 // an os/exec.ExitError.
 func output(transport Transport, command string) ([]byte, error) {
+	_ = "STUB: not implemented"
 	// Create the process.
-	process, err := transport.Command(command)
-	if err != nil {
-		return nil, fmt.Errorf("unable to create command: %w", err)
-	}
-
-	// Run the process.
-	return process.Output()
+	return nil, nil
 }
+
+// Run the process.

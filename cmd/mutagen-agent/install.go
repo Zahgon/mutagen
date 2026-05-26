@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 
 	"github.com/mutagen-io/mutagen/cmd"
@@ -12,14 +10,12 @@ import (
 
 // installMain is the entry point for the install command.
 func installMain(_ *cobra.Command, _ []string) error {
+	_ = "STUB: not implemented"
 	// Perform the installation.
-	if err := agent.Install(); err != nil {
-		return fmt.Errorf("installation error: %w", err)
-	}
-
-	// Success.
 	return nil
 }
+
+// Success.
 
 // installCommand is the install command.
 var installCommand = &cobra.Command{

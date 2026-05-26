@@ -7,12 +7,11 @@
 package core
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -43,70 +42,32 @@ type CacheEntry struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CacheEntry) Reset() {
-	*x = CacheEntry{}
-	mi := &file_synchronization_core_cache_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *CacheEntry) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *CacheEntry) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *CacheEntry) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*CacheEntry) ProtoMessage() {}
+func (*CacheEntry) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *CacheEntry) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_core_cache_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use CacheEntry.ProtoReflect.Descriptor instead.
-func (*CacheEntry) Descriptor() ([]byte, []int) {
-	return file_synchronization_core_cache_proto_rawDescGZIP(), []int{0}
-}
+func (*CacheEntry) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *CacheEntry) GetMode() uint32 {
-	if x != nil {
-		return x.Mode
-	}
-	return 0
-}
+func (x *CacheEntry) GetMode() uint32 { _ = "STUB: not implemented"; return 0 }
 
 func (x *CacheEntry) GetModificationTime() *timestamppb.Timestamp {
-	if x != nil {
-		return x.ModificationTime
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *CacheEntry) GetSize() uint64 {
-	if x != nil {
-		return x.Size
-	}
-	return 0
-}
+func (x *CacheEntry) GetSize() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *CacheEntry) GetFileID() uint64 {
-	if x != nil {
-		return x.FileID
-	}
-	return 0
-}
+func (x *CacheEntry) GetFileID() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *CacheEntry) GetDigest() []byte {
-	if x != nil {
-		return x.Digest
-	}
-	return nil
-}
+func (x *CacheEntry) GetDigest() []byte { _ = "STUB: not implemented"; return nil }
 
 // Cache provides a store for file metadata and digets to allow for efficient
 // rescans.
@@ -118,42 +79,21 @@ type Cache struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Cache) Reset() {
-	*x = Cache{}
-	mi := &file_synchronization_core_cache_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Cache) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Cache) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Cache) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Cache) ProtoMessage() {}
+func (*Cache) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Cache) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_core_cache_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Cache.ProtoReflect.Descriptor instead.
-func (*Cache) Descriptor() ([]byte, []int) {
-	return file_synchronization_core_cache_proto_rawDescGZIP(), []int{1}
-}
+func (*Cache) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Cache) GetEntries() map[string]*CacheEntry {
-	if x != nil {
-		return x.Entries
-	}
-	return nil
-}
+func (x *Cache) GetEntries() map[string]*CacheEntry { _ = "STUB: not implemented"; return nil }
 
 var File_synchronization_core_cache_proto protoreflect.FileDescriptor
 
@@ -179,10 +119,8 @@ var (
 )
 
 func file_synchronization_core_cache_proto_rawDescGZIP() []byte {
-	file_synchronization_core_cache_proto_rawDescOnce.Do(func() {
-		file_synchronization_core_cache_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_synchronization_core_cache_proto_rawDesc), len(file_synchronization_core_cache_proto_rawDesc)))
-	})
-	return file_synchronization_core_cache_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_synchronization_core_cache_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
@@ -203,26 +141,5 @@ var file_synchronization_core_cache_proto_depIdxs = []int32{
 	0, // [0:3] is the sub-list for field type_name
 }
 
-func init() { file_synchronization_core_cache_proto_init() }
-func file_synchronization_core_cache_proto_init() {
-	if File_synchronization_core_cache_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_synchronization_core_cache_proto_rawDesc), len(file_synchronization_core_cache_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   3,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_synchronization_core_cache_proto_goTypes,
-		DependencyIndexes: file_synchronization_core_cache_proto_depIdxs,
-		MessageInfos:      file_synchronization_core_cache_proto_msgTypes,
-	}.Build()
-	File_synchronization_core_cache_proto = out.File
-	file_synchronization_core_cache_proto_goTypes = nil
-	file_synchronization_core_cache_proto_depIdxs = nil
-}
+func init()                                       { file_synchronization_core_cache_proto_init() }
+func file_synchronization_core_cache_proto_init() { _ = "STUB: not implemented"; return }

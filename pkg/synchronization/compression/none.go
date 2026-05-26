@@ -14,20 +14,26 @@ type noneCompressor struct {
 
 // Flush implements stream.Flusher.Flush.
 func (c *noneCompressor) Flush() error {
+	_ = "STUB: not implemented"
+
+	// Close implements io.Closer.Close.
 	return nil
 }
 
-// Close implements io.Closer.Close.
 func (c *noneCompressor) Close() error {
+	_ = "STUB: not implemented"
+
+	// compressNone implements no-op compression for uncompressed streams.
 	return nil
 }
 
-// compressNone implements no-op compression for uncompressed streams.
 func compressNone(compressed io.Writer) stream.WriteFlushCloser {
-	return &noneCompressor{compressed}
+	_ = "STUB: not implemented"
+	return *new(stream.WriteFlushCloser)
 }
 
 // decompressNone implements no-op decompression for uncompressed streams.
 func decompressNone(compressed io.Reader) io.ReadCloser {
-	return io.NopCloser(compressed)
+	_ = "STUB: not implemented"
+	return *new(io.ReadCloser)
 }

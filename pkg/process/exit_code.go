@@ -30,11 +30,13 @@ const (
 // IsPOSIXShellInvalidCommand returns whether or not a process state represents
 // an "invalid" error from a POSIX shell.
 func IsPOSIXShellInvalidCommand(state *os.ProcessState) bool {
-	return state.ExitCode() == posixShellInvalidCommandExitCode
+	_ = "STUB: not implemented"
+	return false
 }
 
 // IsPOSIXShellCommandNotFound returns whether or not a process state represents
 // a "command not found" error from a POSIX shell.
 func IsPOSIXShellCommandNotFound(state *os.ProcessState) bool {
-	return state.ExitCode() == posixShellCommandNotFoundExitCode
+	_ = "STUB: not implemented"
+	return false
 }

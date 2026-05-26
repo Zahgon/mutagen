@@ -33,9 +33,6 @@ type bufioCarrier struct {
 // io.ReadWriteCloser. The underlying stream must have the property that its
 // Close method unblocks any pending Read or Write calls.
 func NewCarrierFromStream(stream io.ReadWriteCloser) Carrier {
-	return &bufioCarrier{
-		bufio.NewReader(stream),
-		stream,
-		stream,
-	}
+	_ = "STUB: not implemented"
+	return *new(Carrier)
 }

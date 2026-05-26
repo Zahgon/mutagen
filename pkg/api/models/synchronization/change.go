@@ -19,8 +19,4 @@ type Change struct {
 
 // loadFromInternal sets a change to match an internal Protocol Buffers
 // representation. The change must be valid.
-func (c *Change) loadFromInternal(change *core.Change) {
-	c.Path = change.Path
-	c.Old = newEntryFromInternalEntry(change.Old)
-	c.New = newEntryFromInternalEntry(change.New)
-}
+func (c *Change) loadFromInternal(change *core.Change) { _ = "STUB: not implemented"; return }

@@ -7,12 +7,6 @@ import (
 // probeUnicodeDecompositionFastByFormat checks if the specified format matches
 // well-known Unicode decomposition behavior.
 func probeUnicodeDecompositionFastByFormat(f format.Format) (bool, bool) {
-	switch f {
-	case format.FormatAPFS:
-		return false, true
-	case format.FormatHFS:
-		return true, true
-	default:
-		return false, false
-	}
+	_ = "STUB: not implemented"
+	return false, false
 }

@@ -1,12 +1,9 @@
 package transport
 
 import (
-	"fmt"
 	"io"
 	"os/exec"
-	"runtime"
 	"sync"
-	"syscall"
 	"time"
 )
 
@@ -35,73 +32,41 @@ type Stream struct {
 // fails, the command should be considered unusable. If standardErrorReceiver is
 // non-nil, then the process' standard error output will be forwarded to it.
 func NewStream(process *exec.Cmd, standardErrorReceiver io.Writer) (*Stream, error) {
+	_ = "STUB: not implemented"
 	// Create a pipe to the process' standard input stream.
-	standardInput, err := process.StdinPipe()
-	if err != nil {
-		return nil, fmt.Errorf("unable to redirect process input: %w", err)
-	}
-
-	// Create a pipe from the process' standard output stream.
-	standardOutput, err := process.StdoutPipe()
-	if err != nil {
-		standardInput.Close()
-		return nil, fmt.Errorf("unable to redirect process output: %w", err)
-	}
-
-	// If a standard error receiver has been specified, then create a pipe from
-	// the process' standard error stream and forward it to the receiver. We do
-	// this manually (instead of just assigning the receiver to process.Stderr)
-	// to avoid golang/go#23019. We perform the same closure on the standard
-	// error stream as os/exec's standard forwarding Goroutines, a fix designed
-	// to avoid golang/go#10400.
-	if standardErrorReceiver != nil {
-		standardError, err := process.StderrPipe()
-		if err != nil {
-			standardInput.Close()
-			standardOutput.Close()
-			return nil, fmt.Errorf("unable to redirect process error output: %w", err)
-		}
-		go func() {
-			io.Copy(standardErrorReceiver, standardError)
-			standardError.Close()
-		}()
-	}
-
-	// Create the result.
-	return &Stream{
-		process:        process,
-		standardInput:  standardInput,
-		standardOutput: standardOutput,
-	}, nil
+	return nil, nil
 }
+
+// Create a pipe from the process' standard output stream.
+
+// If a standard error receiver has been specified, then create a pipe from
+// the process' standard error stream and forward it to the receiver. We do
+// this manually (instead of just assigning the receiver to process.Stderr)
+// to avoid golang/go#23019. We perform the same closure on the standard
+// error stream as os/exec's standard forwarding Goroutines, a fix designed
+// to avoid golang/go#10400.
+
+// Create the result.
 
 // Read implements io.Reader.Read.
-func (s *Stream) Read(buffer []byte) (int, error) {
-	return s.standardOutput.Read(buffer)
-}
+func (s *Stream) Read(buffer []byte) (int, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // Write implements io.Writer.Write.
-func (s *Stream) Write(buffer []byte) (int, error) {
-	return s.standardInput.Write(buffer)
-}
+func (s *Stream) Write(buffer []byte) (int, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // SetTerminationDelay sets the termination delay for the stream. This method
 // will panic if terminationDelay is negative. This method is safe to call
 // concurrently with Close, though, if called concurrently, there is no
 // guarantee that the new delay will be set in time for Close to use it.
 func (s *Stream) SetTerminationDelay(terminationDelay time.Duration) {
+	_ = "STUB: not implemented"
 	// Validate the kill delay time.
-	if terminationDelay < 0 {
-		panic("negative termination delay specified")
-	}
-
-	// Lock and defer release of the termination delay lock.
-	s.terminationDelayLock.Lock()
-	defer s.terminationDelayLock.Unlock()
-
-	// Set the termination delay.
-	s.terminationDelay = terminationDelay
+	return
 }
+
+// Lock and defer release of the termination delay lock.
+
+// Set the termination delay.
 
 // Close closes the process' streams and terminates the process using heuristics
 // designed for agent transport processes. These heuristics are necessary to
@@ -156,54 +121,22 @@ func (s *Stream) SetTerminationDelay(terminationDelay time.Duration) {
 // correctly handle and forward standard input closure and SIGTERM signals, and
 // that they'll terminate when their underlying agent process terminates.
 func (s *Stream) Close() error {
+	_ = "STUB: not implemented"
 	// Start a background Goroutine that will wait for the process to exit and
 	// return the wait result. We'll rely on this call to Wait to close the
 	// standard output and error streams. We don't have to worry about
 	// golang/go#23019 in this case because we're only using pipes and thus Wait
 	// doesn't have any internal copying Goroutines to wait on.
-	waitResults := make(chan error, 1)
-	go func() {
-		waitResults <- s.process.Wait()
-	}()
-
-	// Start by waiting for the process to terminate on its own.
-	s.terminationDelayLock.Lock()
-	terminationDelay := s.terminationDelay
-	s.terminationDelayLock.Unlock()
-	waitTimer := time.NewTimer(terminationDelay)
-	select {
-	case err := <-waitResults:
-		waitTimer.Stop()
-		return err
-	case <-waitTimer.C:
-	}
-
-	// Close the process' standard input and wait up to one second for it to
-	// terminate on its own.
-	s.standardInput.Close()
-	waitTimer.Reset(time.Second)
-	select {
-	case err := <-waitResults:
-		waitTimer.Stop()
-		return err
-	case <-waitTimer.C:
-	}
-
-	// If this is a POSIX system, then send SIGTERM to the process and wait up
-	// to one second for it to terminate on its own.
-	if runtime.GOOS != "windows" {
-		s.process.Process.Signal(syscall.SIGTERM)
-		waitTimer.Reset(time.Second)
-		select {
-		case err := <-waitResults:
-			waitTimer.Stop()
-			return err
-		case <-waitTimer.C:
-		}
-	}
-
-	// Kill the process (via SIGKILL on POSIX and TerminateProcess on Windows)
-	// and wait for it to exit.
-	s.process.Process.Kill()
-	return <-waitResults
+	return nil
 }
+
+// Start by waiting for the process to terminate on its own.
+
+// Close the process' standard input and wait up to one second for it to
+// terminate on its own.
+
+// If this is a POSIX system, then send SIGTERM to the process and wait up
+// to one second for it to terminate on its own.
+
+// Kill the process (via SIGKILL on POSIX and TerminateProcess on Windows)
+// and wait for it to exit.

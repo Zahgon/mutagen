@@ -15,26 +15,16 @@ type Problem struct {
 
 // loadFromInternal sets a problem to match an internal Protocol Buffers
 // representation. The problem must be valid.
-func (p *Problem) loadFromInternal(problem *core.Problem) {
-	p.Path = problem.Path
-	p.Error = problem.Error
-}
+func (p *Problem) loadFromInternal(problem *core.Problem) { _ = "STUB: not implemented"; return }
 
 // exportProblems is a convenience function that calls Problem.loadFromInternal
 // for a slice of problems.
 func exportProblems(problems []*core.Problem) []Problem {
+	_ = "STUB: not implemented"
 	// If there are no problems, then just return a nil slice.
-	count := len(problems)
-	if count == 0 {
-		return nil
-	}
-
-	// Create the resulting slice.
-	results := make([]Problem, count)
-	for i := 0; i < count; i++ {
-		results[i].loadFromInternal(problems[i])
-	}
-
-	// Done.
-	return results
+	return nil
 }
+
+// Create the resulting slice.
+
+// Done.

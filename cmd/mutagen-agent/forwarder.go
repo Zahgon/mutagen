@@ -1,67 +1,34 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"os/signal"
-
 	"github.com/spf13/cobra"
 
 	"github.com/mutagen-io/mutagen/cmd"
 
 	"github.com/mutagen-io/mutagen/pkg/agent"
-	"github.com/mutagen-io/mutagen/pkg/forwarding/endpoint/remote"
-	"github.com/mutagen-io/mutagen/pkg/logging"
-	"github.com/mutagen-io/mutagen/pkg/mutagen"
 )
 
 // forwarderMain is the entry point for the forwarder command.
 func forwarderMain(_ *cobra.Command, _ []string) error {
+	_ = "STUB: not implemented"
 	// Create a channel to track termination signals. We do this before creating
 	// and starting other infrastructure so that we can ensure things terminate
 	// smoothly, not mid-initialization.
-	signalTermination := make(chan os.Signal, 1)
-	signal.Notify(signalTermination, cmd.TerminationSignals...)
-
-	// Set up a logger on the standard error stream.
-	logLevel := logging.LevelInfo
-	if forwarderConfiguration.logLevel != "" {
-		if l, ok := logging.NameToLevel(forwarderConfiguration.logLevel); !ok {
-			return fmt.Errorf("invalid log level specified: %s", forwarderConfiguration.logLevel)
-		} else {
-			logLevel = l
-		}
-	}
-	logger := logging.NewLogger(logLevel, os.Stderr)
-
-	// Create a stream using standard input/output.
-	stream := newStdioStream()
-
-	// Perform an agent handshake.
-	if err := agent.ServerHandshake(stream); err != nil {
-		return fmt.Errorf("server handshake failed: %w", err)
-	}
-
-	// Perform a version handshake.
-	if err := mutagen.ServerVersionHandshake(stream); err != nil {
-		return fmt.Errorf("version handshake error: %w", err)
-	}
-
-	// Serve a forwarder on standard input/output and monitor for its
-	// termination.
-	forwardingTermination := make(chan error, 1)
-	go func() {
-		forwardingTermination <- remote.ServeEndpoint(logger, stream)
-	}()
-
-	// Wait for termination from a signal or the forwarder.
-	select {
-	case s := <-signalTermination:
-		return fmt.Errorf("terminated by signal: %s", s)
-	case err := <-forwardingTermination:
-		return fmt.Errorf("forwarding terminated: %w", err)
-	}
+	return nil
 }
+
+// Set up a logger on the standard error stream.
+
+// Create a stream using standard input/output.
+
+// Perform an agent handshake.
+
+// Perform a version handshake.
+
+// Serve a forwarder on standard input/output and monitor for its
+// termination.
+
+// Wait for termination from a signal or the forwarder.
 
 // forwarderCommand is the forwarder command.
 var forwarderCommand = &cobra.Command{

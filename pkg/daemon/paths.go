@@ -1,12 +1,5 @@
 package daemon
 
-import (
-	"fmt"
-	"path/filepath"
-
-	"github.com/mutagen-io/mutagen/pkg/filesystem"
-)
-
 const (
 	// lockName is the name of the daemon lock. It resides within the daemon
 	// subdirectory of the Mutagen directory.
@@ -19,24 +12,22 @@ const (
 // subpath computes a subpath of the daemon subdirectory, creating the daemon
 // subdirectory in the process.
 func subpath(name string) (string, error) {
+	_ = "STUB: not implemented"
 	// Compute the daemon root directory path and ensure it exists.
-	daemonRoot, err := filesystem.Mutagen(true, filesystem.MutagenDaemonDirectoryName)
-	if err != nil {
-		return "", fmt.Errorf("unable to compute daemon directory: %w", err)
-	}
-
-	// Compute the combined path.
-	return filepath.Join(daemonRoot, name), nil
+	return "", nil
 }
+
+// Compute the combined path.
 
 // lockPath computes the path to the daemon lock, creating any intermediate
 // directories as necessary.
 func lockPath() (string, error) {
-	return subpath(lockName)
+	_ = "STUB: not implemented"
+	return "",
+
+		// EndpointPath computes the path to the daemon IPC endpoint, creating any
+		// intermediate directories as necessary.
+		nil
 }
 
-// EndpointPath computes the path to the daemon IPC endpoint, creating any
-// intermediate directories as necessary.
-func EndpointPath() (string, error) {
-	return subpath(endpointName)
-}
+func EndpointPath() (string, error) { _ = "STUB: not implemented"; return "", nil }

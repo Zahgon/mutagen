@@ -8,9 +8,8 @@ package prompting
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -40,30 +39,21 @@ type promptingClient struct {
 }
 
 func NewPromptingClient(cc grpc.ClientConnInterface) PromptingClient {
-	return &promptingClient{cc}
+	_ = "STUB: not implemented"
+	return *new(PromptingClient)
 }
 
 func (c *promptingClient) Host(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[HostRequest, HostResponse], error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &Prompting_ServiceDesc.Streams[0], Prompting_Host_FullMethodName, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &grpc.GenericClientStream[HostRequest, HostResponse]{ClientStream: stream}
-	return x, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type Prompting_HostClient = grpc.BidiStreamingClient[HostRequest, HostResponse]
 
 func (c *promptingClient) Prompt(ctx context.Context, in *PromptRequest, opts ...grpc.CallOption) (*PromptResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PromptResponse)
-	err := c.cc.Invoke(ctx, Prompting_Prompt_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // PromptingServer is the server API for Prompting service.
@@ -87,55 +77,52 @@ type PromptingServer interface {
 type UnimplementedPromptingServer struct{}
 
 func (UnimplementedPromptingServer) Host(grpc.BidiStreamingServer[HostRequest, HostResponse]) error {
-	return status.Error(codes.Unimplemented, "method Host not implemented")
+	_ = "STUB: not implemented"
+	return nil
 }
-func (UnimplementedPromptingServer) Prompt(context.Context, *PromptRequest) (*PromptResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Prompt not implemented")
-}
-func (UnimplementedPromptingServer) mustEmbedUnimplementedPromptingServer() {}
-func (UnimplementedPromptingServer) testEmbeddedByValue()                   {}
 
-// UnsafePromptingServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to PromptingServer will
-// result in compilation errors.
+func (UnimplementedPromptingServer) Prompt(context.Context, *PromptRequest) (*PromptResponse, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedPromptingServer) mustEmbedUnimplementedPromptingServer() {
+	_ = "STUB: not implemented"
+	return
+}
+func (UnimplementedPromptingServer) testEmbeddedByValue() {
+	_ = "STUB: not implemented"
+
+	// UnsafePromptingServer may be embedded to opt out of forward compatibility for this service.
+	// Use of this interface is not recommended, as added methods to PromptingServer will
+	// result in compilation errors.
+	return
+}
+
 type UnsafePromptingServer interface {
 	mustEmbedUnimplementedPromptingServer()
 }
 
 func RegisterPromptingServer(s grpc.ServiceRegistrar, srv PromptingServer) {
+	_ = "STUB: not implemented"
 	// If the following call panics, it indicates UnimplementedPromptingServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&Prompting_ServiceDesc, srv)
+	return
 }
 
 func _Prompting_Host_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(PromptingServer).Host(&grpc.GenericServerStream[HostRequest, HostResponse]{ServerStream: stream})
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type Prompting_HostServer = grpc.BidiStreamingServer[HostRequest, HostResponse]
 
 func _Prompting_Prompt_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PromptRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PromptingServer).Prompt(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Prompting_Prompt_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PromptingServer).Prompt(ctx, req.(*PromptRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Prompting_ServiceDesc is the grpc.ServiceDesc for Prompting service.

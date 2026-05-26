@@ -27,21 +27,15 @@ type Configuration struct {
 // loadFromInternal sets a configuration to match an internal Protocol Buffers
 // representation. The configuration must be valid.
 func (c *Configuration) loadFromInternal(configuration *forwarding.Configuration) {
+	_ = "STUB: not implemented"
 	// Propagate socket configuration.
-	c.Socket.OverwriteMode = configuration.SocketOverwriteMode
-	c.Socket.Owner = configuration.SocketOwner
-	c.Socket.Group = configuration.SocketGroup
-	c.Socket.PermissionMode = filesystem.Mode(configuration.SocketPermissionMode)
+	return
 }
 
 // ToInternal converts a public configuration representation to an internal
 // Protocol Buffers session configuration. It does not validate the resulting
 // configuration.
 func (c *Configuration) ToInternal() *forwarding.Configuration {
-	return &forwarding.Configuration{
-		SocketOverwriteMode:  c.Socket.OverwriteMode,
-		SocketOwner:          c.Socket.Owner,
-		SocketGroup:          c.Socket.Group,
-		SocketPermissionMode: uint32(c.Socket.PermissionMode),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

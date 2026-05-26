@@ -19,5 +19,6 @@ func init() {
 // NewRecursiveWatcher creates a new fanotify-based recursive watcher using the
 // specified target path.
 func NewRecursiveWatcher(target string) (RecursiveWatcher, error) {
-	return fanotify.NewRecursiveWatcher(target)
+	_ = "STUB: not implemented"
+	return *new(RecursiveWatcher), nil
 }

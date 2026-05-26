@@ -2,7 +2,6 @@ package synchronization
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/mutagen-io/mutagen/pkg/logging"
 	urlpkg "github.com/mutagen-io/mutagen/pkg/url"
@@ -41,20 +40,11 @@ func connect(
 	configuration *Configuration,
 	alpha bool,
 ) (Endpoint, error) {
+	_ = "STUB: not implemented"
 	// Local the appropriate protocol handler.
-	handler, ok := ProtocolHandlers[url.Protocol]
-	if !ok {
-		return nil, fmt.Errorf("unknown protocol: %s", url.Protocol)
-	} else if handler == nil {
-		panic("nil protocol handler registered")
-	}
-
-	// Dispatch the dialing.
-	endpoint, err := handler.Connect(ctx, logger, url, prompter, session, version, configuration, alpha)
-	if err != nil {
-		return nil, fmt.Errorf("unable to connect to endpoint: %w", err)
-	}
-
-	// Success.
-	return endpoint, nil
+	return *new(Endpoint), nil
 }
+
+// Dispatch the dialing.
+
+// Success.

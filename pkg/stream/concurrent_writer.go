@@ -16,15 +16,15 @@ type concurrentWriter struct {
 // NewConcurrentWriter creates a new writer that serializes operations on the
 // underlying writer.
 func NewConcurrentWriter(writer io.Writer) io.Writer {
-	return &concurrentWriter{writer: writer}
+	_ = "STUB: not implemented"
+	return *new(io.Writer)
 }
 
 // Write implements io.Writer.Write.
 func (w *concurrentWriter) Write(buffer []byte) (int, error) {
+	_ = "STUB: not implemented"
 	// Lock the writer and defer its release.
-	w.lock.Lock()
-	defer w.lock.Unlock()
-
-	// Perform the write.
-	return w.writer.Write(buffer)
+	return 0, nil
 }
+
+// Perform the write.

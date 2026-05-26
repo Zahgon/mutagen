@@ -1,10 +1,5 @@
 package docker
 
-import (
-	"errors"
-	"fmt"
-)
-
 // DaemonConnectionFlags encodes top-level Docker command line flags that
 // control the Docker daemon connection. These flags are shared between the
 // Docker CLI and Docker Compose. These flags can be loaded from Mutagen URL
@@ -33,130 +28,36 @@ type DaemonConnectionFlags struct {
 // LoadDaemonConnectionFlagsFromURLParameters loads top-level Docker daemon
 // connection flags from Mutagen URL parameters.
 func LoadDaemonConnectionFlagsFromURLParameters(parameters map[string]string) (*DaemonConnectionFlags, error) {
+	_ = "STUB: not implemented"
 	// Create a zero-valued result (corresponding to no flags).
-	result := &DaemonConnectionFlags{}
-
-	// Validate and convert parameters.
-	for key, value := range parameters {
-		switch key {
-		case "config":
-			if value == "" {
-				return nil, errors.New("config parameter has empty value")
-			}
-			result.Config = value
-		case "context":
-			if value == "" {
-				return nil, errors.New("context parameter has empty value")
-			}
-			result.Context = value
-		case "host":
-			if value == "" {
-				return nil, errors.New("host parameter has empty value")
-			}
-			result.Host = value
-		case "tls":
-			if value != "" {
-				return nil, errors.New("tls parameter has non-empty value")
-			}
-			result.TLS = true
-		case "tlscacert":
-			if value == "" {
-				return nil, errors.New("tlacacert parameter has empty value")
-			}
-			result.TLSCACert = value
-		case "tlscert":
-			if value == "" {
-				return nil, errors.New("tlscert parameter has empty value")
-			}
-			result.TLSCert = value
-		case "tlskey":
-			if value == "" {
-				return nil, errors.New("tlskey parameter has empty value")
-			}
-			result.TLSKey = value
-		case "tlsverify":
-			if value != "" {
-				return nil, errors.New("tlsverify parameter has non-empty value")
-			}
-			result.TLSVerify = true
-		default:
-			return nil, fmt.Errorf("unknown parameter: %s", key)
-		}
-	}
-
-	// Success.
-	return result, nil
+	return nil, nil
 }
+
+// Validate and convert parameters.
+
+// Success.
 
 // ToFlags reconstitues top-level daemon connection flags so that they can be
 // passed to a Docker CLI or Docker Compose command.
 func (f *DaemonConnectionFlags) ToFlags() []string {
+	_ = "STUB: not implemented"
 	// Set up the result.
-	var result []string
-
-	// Add flags as necessary.
-	if f.Config != "" {
-		result = append(result, "--config", f.Config)
-	}
-	if f.Host != "" {
-		result = append(result, "--host", f.Host)
-	}
-	if f.Context != "" {
-		result = append(result, "--context", f.Context)
-	}
-	if f.TLS {
-		result = append(result, "--tls")
-	}
-	if f.TLSCACert != "" {
-		result = append(result, "--tlscacert", f.TLSCACert)
-	}
-	if f.TLSCert != "" {
-		result = append(result, "--tlscert", f.TLSCert)
-	}
-	if f.TLSKey != "" {
-		result = append(result, "--tlskey", f.TLSKey)
-	}
-	if f.TLSVerify {
-		result = append(result, "--tlsverify")
-	}
-
-	// Done.
-	return result
+	return nil
 }
+
+// Add flags as necessary.
+
+// Done.
 
 // ToURLParameters converts top-level daemon connection flags to parameters that
 // can be embedded in a Mutagen URL. These parameters can be converted back
 // using LoadDaemonConnectionFlagsFromURLParameters.
 func (f *DaemonConnectionFlags) ToURLParameters() map[string]string {
+	_ = "STUB: not implemented"
 	// Create an empty set of parameters.
-	result := make(map[string]string)
-
-	// Add parameters as necessary.
-	if f.Config != "" {
-		result["config"] = f.Config
-	}
-	if f.Host != "" {
-		result["host"] = f.Host
-	}
-	if f.Context != "" {
-		result["context"] = f.Context
-	}
-	if f.TLS {
-		result["tls"] = ""
-	}
-	if f.TLSCACert != "" {
-		result["tlscacert"] = f.TLSCACert
-	}
-	if f.TLSCert != "" {
-		result["tlscert"] = f.TLSCert
-	}
-	if f.TLSKey != "" {
-		result["tlskey"] = f.TLSKey
-	}
-	if f.TLSVerify {
-		result["tlsverify"] = ""
-	}
-
-	// Done.
-	return result
+	return nil
 }
+
+// Add parameters as necessary.
+
+// Done.

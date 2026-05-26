@@ -2,9 +2,6 @@ package syscall
 
 import (
 	"syscall"
-	"unsafe"
-
-	"golang.org/x/sys/unix"
 )
 
 // syscallFunc is a handle type for Solaris libc functions.
@@ -31,53 +28,26 @@ var (
 
 // Symlinkat is a Go entry point for the symlinkat system call.
 func Symlinkat(target string, directory int, path string) error {
+	_ = "STUB: not implemented"
 	// Extract a raw pointer to the target path bytes.
-	var targetBytes *byte
-	var err error
-	targetBytes, err = unix.BytePtrFromString(target)
-	if err != nil {
-		return err
-	}
-
-	// Extract a raw pointer to the path bytes.
-	var pathBytes *byte
-	pathBytes, err = unix.BytePtrFromString(path)
-	if err != nil {
-		return err
-	}
-
-	// Perform the system call.
-	_, _, errnoErr := sysvicall6(uintptr(unsafe.Pointer(&procSymlinkat)), 3, uintptr(unsafe.Pointer(targetBytes)), uintptr(directory), uintptr(unsafe.Pointer(pathBytes)), 0, 0, 0)
-	if errnoErr != 0 {
-		return errnoErr
-	}
-
-	// Success.
 	return nil
 }
 
+// Extract a raw pointer to the path bytes.
+
+// Perform the system call.
+
+// Success.
+
 // Readlinkat is a Go entry point for the readlinkat system call.
 func Readlinkat(directory int, path string, buffer []byte) (int, error) {
+	_ = "STUB: not implemented"
 	// Extract a raw pointer to the path bytes.
-	var pathBytes *byte
-	var err error
-	pathBytes, err = unix.BytePtrFromString(path)
-	if err != nil {
-		return 0, err
-	}
-
-	// Extract a raw pointer to the buffer bytes.
-	var bufferBytes *byte
-	if len(buffer) > 0 {
-		bufferBytes = &buffer[0]
-	}
-
-	// Perform the system call.
-	n, _, errnoErr := sysvicall6(uintptr(unsafe.Pointer(&procReadlinkat)), 4, uintptr(directory), uintptr(unsafe.Pointer(pathBytes)), uintptr(unsafe.Pointer(bufferBytes)), uintptr(len(buffer)), 0, 0)
-	if errnoErr != 0 {
-		return int(n), errnoErr
-	}
-
-	// Success.
-	return int(n), nil
+	return 0, nil
 }
+
+// Extract a raw pointer to the buffer bytes.
+
+// Perform the system call.
+
+// Success.

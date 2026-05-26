@@ -1,8 +1,6 @@
 package synchronization
 
 import (
-	"encoding/hex"
-
 	"github.com/mutagen-io/mutagen/pkg/synchronization/core"
 )
 
@@ -53,39 +51,15 @@ type ProblematicEntry struct {
 // newEntryFromInternalEntry creates a new entry representation from an internal
 // Protocol Buffers representation. The entry must be valid.
 func newEntryFromInternalEntry(entry *core.Entry) *Entry {
+	_ = "STUB: not implemented"
 	// Handle the case of non-existent entries.
-	if entry == nil {
-		return nil
-	}
-
-	// Create the result.
-	result := &Entry{Kind: entry.Kind}
-
-	// Propagate the relevant fields.
-	switch entry.Kind {
-	case core.EntryKind_Directory:
-		result.DirectoryEntry = &DirectoryEntry{}
-		if l := len(entry.Contents); l > 0 {
-			result.Contents = make(map[string]*Entry, l)
-			for n, c := range entry.Contents {
-				result.Contents[n] = newEntryFromInternalEntry(c)
-			}
-		}
-	case core.EntryKind_File:
-		result.FileEntry = &FileEntry{
-			Digest:     hex.EncodeToString(entry.Digest),
-			Executable: entry.Executable,
-		}
-	case core.EntryKind_SymbolicLink:
-		result.SymbolicLinkEntry = &SymbolicLinkEntry{Target: entry.Target}
-	case core.EntryKind_Untracked:
-		// There are no fields to propagate for untracked content.
-	case core.EntryKind_Problematic:
-		result.ProblematicEntry = &ProblematicEntry{Problem: entry.Problem}
-	default:
-		panic("invalid entry kind")
-	}
-
-	// Done.
-	return result
+	return nil
 }
+
+// Create the result.
+
+// Propagate the relevant fields.
+
+// There are no fields to propagate for untracked content.
+
+// Done.

@@ -6,21 +6,22 @@ import (
 	"io"
 
 	"github.com/mutagen-io/mutagen/pkg/stream"
-
-	"github.com/mutagen-io/mutagen/sspl/pkg/compression/zstd"
 )
 
 // zstandardSupportStatus returns Zstandard compression support status.
 func zstandardSupportStatus() AlgorithmSupportStatus {
-	return AlgorithmSupportStatusSupported
+	_ = "STUB: not implemented"
+	return *new(AlgorithmSupportStatus)
 }
 
 // compressZstandard implements compression for Zstandard streams.
 func compressZstandard(compressed io.Writer) stream.WriteFlushCloser {
-	return zstd.NewCompressor(compressed)
+	_ = "STUB: not implemented"
+	return *new(stream.WriteFlushCloser)
 }
 
 // decompressZstandard implements decompression for Zstandard streams.
 func decompressZstandard(compressed io.Reader) io.ReadCloser {
-	return zstd.NewDecompressor(compressed)
+	_ = "STUB: not implemented"
+	return *new(io.ReadCloser)
 }

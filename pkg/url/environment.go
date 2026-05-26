@@ -27,32 +27,11 @@ var lookupEnv = os.LookupEnv
 // variable, as well as whether or not it was found. Endpoint-specific variables
 // take precedence over non-specific variables.
 func getEnvironmentVariable(name string, kind Kind, first bool) (string, bool) {
+	_ = "STUB: not implemented"
 	// Validate the variable name.
-	if name == "" {
-		return "", false
-	}
-
-	// Check for an endpoint-specific variant.
-	var endpointSpecificName string
-	if kind == Kind_Synchronization {
-		if first {
-			endpointSpecificName = alphaSpecificEnvironmentVariablePrefix + name
-		} else {
-			endpointSpecificName = betaSpecificEnvironmentVariablePrefix + name
-		}
-	} else if kind == Kind_Forwarding {
-		if first {
-			endpointSpecificName = sourceSpecificEnvironmentVariablePrefix + name
-		} else {
-			endpointSpecificName = destinationSpecificEnvironmentVariablePrefix + name
-		}
-	} else {
-		panic("unhandled URL kind")
-	}
-	if value, ok := lookupEnv(endpointSpecificName); ok {
-		return value, true
-	}
-
-	// Check for the general variant.
-	return lookupEnv(name)
+	return "", false
 }
+
+// Check for an endpoint-specific variant.
+
+// Check for the general variant.

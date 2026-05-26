@@ -32,49 +32,38 @@ func NewDialerEndpoint(
 	protocol string,
 	address string,
 ) (forwarding.Endpoint, error) {
+	_ = "STUB: not implemented"
 	// Create a cancellable context that we can use to regulate connections.
-	dialingCtx, dialingCancel := context.WithCancel(context.Background())
-
-	// Create the dialer (unless we're targeting a Windows named pipe).
-	var dialer *net.Dialer
-	if protocol != "npipe" {
-		dialer = &net.Dialer{}
-	}
-
-	// Create the endpoint.
-	return &dialerEndpoint{
-		logger:        logger,
-		dialingCtx:    dialingCtx,
-		dialingCancel: dialingCancel,
-		dialer:        dialer,
-		protocol:      protocol,
-		address:       address,
-	}, nil
+	return *new(forwarding.Endpoint), nil
 }
+
+// Create the dialer (unless we're targeting a Windows named pipe).
+
+// Create the endpoint.
 
 // TransportErrors implements forwarding.Endpoint.TransportErrors.
 func (e *dialerEndpoint) TransportErrors() <-chan error {
+	_ = "STUB: not implemented"
+
+	// Open implements forwarding.Endpoint.Open.
 	return nil
 }
 
-// Open implements forwarding.Endpoint.Open.
 func (e *dialerEndpoint) Open() (net.Conn, error) {
+	_ = "STUB: not implemented"
 	// If we're dealing with a Windows named pipe target, then perform dialing
 	// using the platform-specific dialing function.
-	if e.protocol == "npipe" {
-		return dialWindowsNamedPipe(e.dialingCtx, e.address)
-	}
-
-	// For all other protocols (i.e. TCP and Unix domain sockets), use the
-	// standard dialer.
-	return e.dialer.DialContext(e.dialingCtx, e.protocol, e.address)
+	return *new(net.Conn), nil
 }
+
+// For all other protocols (i.e. TCP and Unix domain sockets), use the
+// standard dialer.
 
 // Shutdown implements forwarding.Endpoint.Shutdown.
 func (e *dialerEndpoint) Shutdown() error {
+	_ = "STUB: not implemented"
 	// Cancel the dialing context to unblock any dialing operations.
-	e.dialingCancel()
-
-	// Success.
 	return nil
 }
+
+// Success.

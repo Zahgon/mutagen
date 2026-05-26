@@ -10,5 +10,6 @@ const RecursiveWatchingSupported = false
 // native recursive watching. This platform does not support recursive watching
 // and this function will panic if called.
 func NewRecursiveWatcher(_ string) (RecursiveWatcher, error) {
-	panic("recursive watching not supported on this platform")
+	_ = "STUB: not implemented"
+	return *new(RecursiveWatcher), nil
 }

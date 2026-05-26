@@ -7,11 +7,10 @@
 package forwarding
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -43,63 +42,30 @@ type Configuration struct {
 	sizeCache            protoimpl.SizeCache
 }
 
-func (x *Configuration) Reset() {
-	*x = Configuration{}
-	mi := &file_forwarding_configuration_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Configuration) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Configuration) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Configuration) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Configuration) ProtoMessage() {}
+func (*Configuration) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Configuration) ProtoReflect() protoreflect.Message {
-	mi := &file_forwarding_configuration_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Configuration.ProtoReflect.Descriptor instead.
-func (*Configuration) Descriptor() ([]byte, []int) {
-	return file_forwarding_configuration_proto_rawDescGZIP(), []int{0}
-}
+func (*Configuration) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 func (x *Configuration) GetSocketOverwriteMode() SocketOverwriteMode {
-	if x != nil {
-		return x.SocketOverwriteMode
-	}
-	return SocketOverwriteMode_SocketOverwriteModeDefault
+	_ = "STUB: not implemented"
+	return *new(SocketOverwriteMode)
 }
 
-func (x *Configuration) GetSocketOwner() string {
-	if x != nil {
-		return x.SocketOwner
-	}
-	return ""
-}
+func (x *Configuration) GetSocketOwner() string { _ = "STUB: not implemented"; return "" }
 
-func (x *Configuration) GetSocketGroup() string {
-	if x != nil {
-		return x.SocketGroup
-	}
-	return ""
-}
+func (x *Configuration) GetSocketGroup() string { _ = "STUB: not implemented"; return "" }
 
-func (x *Configuration) GetSocketPermissionMode() uint32 {
-	if x != nil {
-		return x.SocketPermissionMode
-	}
-	return 0
-}
+func (x *Configuration) GetSocketPermissionMode() uint32 { _ = "STUB: not implemented"; return 0 }
 
 var File_forwarding_configuration_proto protoreflect.FileDescriptor
 
@@ -119,10 +85,8 @@ var (
 )
 
 func file_forwarding_configuration_proto_rawDescGZIP() []byte {
-	file_forwarding_configuration_proto_rawDescOnce.Do(func() {
-		file_forwarding_configuration_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_forwarding_configuration_proto_rawDesc), len(file_forwarding_configuration_proto_rawDesc)))
-	})
-	return file_forwarding_configuration_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_forwarding_configuration_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
@@ -139,27 +103,5 @@ var file_forwarding_configuration_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_forwarding_configuration_proto_init() }
-func file_forwarding_configuration_proto_init() {
-	if File_forwarding_configuration_proto != nil {
-		return
-	}
-	file_forwarding_socket_overwrite_mode_proto_init()
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_forwarding_configuration_proto_rawDesc), len(file_forwarding_configuration_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   1,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_forwarding_configuration_proto_goTypes,
-		DependencyIndexes: file_forwarding_configuration_proto_depIdxs,
-		MessageInfos:      file_forwarding_configuration_proto_msgTypes,
-	}.Build()
-	File_forwarding_configuration_proto = out.File
-	file_forwarding_configuration_proto_goTypes = nil
-	file_forwarding_configuration_proto_depIdxs = nil
-}
+func init()                                     { file_forwarding_configuration_proto_init() }
+func file_forwarding_configuration_proto_init() { _ = "STUB: not implemented"; return }

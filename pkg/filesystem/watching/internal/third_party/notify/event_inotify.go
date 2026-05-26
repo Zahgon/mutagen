@@ -100,7 +100,7 @@ type event struct {
 	event Event
 }
 
-func (e *event) Event() Event         { return e.event }
-func (e *event) Path() string         { return e.path }
-func (e *event) Sys() any             { return &e.sys }
-func (e *event) isDir() (bool, error) { return e.sys.Mask&unix.IN_ISDIR != 0, nil }
+func (e *event) Event() Event         { _ = "STUB: not implemented"; return *new(Event) }
+func (e *event) Path() string         { _ = "STUB: not implemented"; return "" }
+func (e *event) Sys() any             { _ = "STUB: not implemented"; return *new(any) }
+func (e *event) isDir() (bool, error) { _ = "STUB: not implemented"; return false, nil }

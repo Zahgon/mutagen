@@ -17,34 +17,27 @@ type ValveWriter struct {
 
 // NewValveWriter creates a new ValveWriter instance using the specified writer.
 // The writer may be nil, in which case the writer will start pre-shut.
-func NewValveWriter(writer io.Writer) *ValveWriter {
-	return &ValveWriter{writer: writer}
-}
+func NewValveWriter(writer io.Writer) *ValveWriter { _ = "STUB: not implemented"; return nil }
 
 // Write implements io.Writer.Write.
 func (w *ValveWriter) Write(buffer []byte) (int, error) {
+	_ = "STUB: not implemented"
 	// Lock the writer and defer its release.
-	w.writerLock.Lock()
-	defer w.writerLock.Unlock()
-
-	// If there's no writer, then just pretend that we wrote all of the data.
-	if w.writer == nil {
-		return len(buffer), nil
-	}
-
-	// Otherwise write to the underlying writer.
-	return w.writer.Write(buffer)
+	return 0, nil
 }
+
+// If there's no writer, then just pretend that we wrote all of the data.
+
+// Otherwise write to the underlying writer.
 
 // Shut closes the valve and prevents future writes to the underlying writer. It
 // is safe to call Shut concurrently with Write, but doing so will not preempt
 // or unblock pending calls to Write. Calling Shut will release the reference to
 // the underlying writer.
 func (w *ValveWriter) Shut() {
+	_ = "STUB: not implemented"
 	// Lock the writer and defer its release.
-	w.writerLock.Lock()
-	defer w.writerLock.Unlock()
-
-	// Nil out the writer to stop any future writes to it.
-	w.writer = nil
+	return
 }
+
+// Nil out the writer to stop any future writes to it.

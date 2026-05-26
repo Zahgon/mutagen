@@ -1,71 +1,25 @@
 package ignore
 
-import (
-	"fmt"
-)
-
 // IsDefault indicates whether or not the ignore syntax is Syntax_SyntaxDefault.
-func (s Syntax) IsDefault() bool {
-	return s == Syntax_SyntaxDefault
-}
+func (s Syntax) IsDefault() bool { _ = "STUB: not implemented"; return false }
 
 // MarshalText implements encoding.TextMarshaler.MarshalText.
-func (s Syntax) MarshalText() ([]byte, error) {
-	var result string
-	switch s {
-	case Syntax_SyntaxDefault:
-	case Syntax_SyntaxMutagen:
-		result = "mutagen"
-	case Syntax_SyntaxDocker:
-		result = "docker"
-	default:
-		result = "unknown"
-	}
-	return []byte(result), nil
-}
+func (s Syntax) MarshalText() ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // UnmarshalText implements encoding.TextUnmarshaler.UnmarshalText.
 func (s *Syntax) UnmarshalText(textBytes []byte) error {
+	_ = "STUB: not implemented"
 	// Convert the bytes to a string.
-	text := string(textBytes)
-
-	// Convert to an ignore syntax.
-	switch text {
-	case "mutagen":
-		*s = Syntax_SyntaxMutagen
-	case "docker":
-		*s = Syntax_SyntaxDocker
-	default:
-		return fmt.Errorf("unknown ignore syntax specification: %s", text)
-	}
-
-	// Success.
 	return nil
 }
 
+// Convert to an ignore syntax.
+
+// Success.
+
 // Supported indicates whether or not a particular ignore syntax is a valid,
 // non-default value.
-func (s Syntax) Supported() bool {
-	switch s {
-	case Syntax_SyntaxMutagen:
-		return true
-	case Syntax_SyntaxDocker:
-		return true
-	default:
-		return false
-	}
-}
+func (s Syntax) Supported() bool { _ = "STUB: not implemented"; return false }
 
 // Description returns a human-readable description of an ignore syntax.
-func (s Syntax) Description() string {
-	switch s {
-	case Syntax_SyntaxDefault:
-		return "Default"
-	case Syntax_SyntaxMutagen:
-		return "Mutagen"
-	case Syntax_SyntaxDocker:
-		return "Docker"
-	default:
-		return "Unknown"
-	}
-}
+func (s Syntax) Description() string { _ = "STUB: not implemented"; return "" }

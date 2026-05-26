@@ -1,23 +1,19 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 
 	"github.com/mutagen-io/mutagen/cmd"
-
-	"github.com/mutagen-io/mutagen/pkg/mutagen"
 )
 
 // legalMain is the entry point for the legal command.
 func legalMain(_ *cobra.Command, _ []string) error {
+	_ = "STUB: not implemented"
 	// Print license information.
-	fmt.Print(mutagen.Licenses)
-
-	// Success.
 	return nil
 }
+
+// Success.
 
 // legalCommand is the legal command.
 var legalCommand = &cobra.Command{

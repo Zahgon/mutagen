@@ -7,13 +7,12 @@
 package forwarding
 
 import (
+	sync "sync"
+
 	url "github.com/mutagen-io/mutagen/pkg/url"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -72,133 +71,50 @@ type Session struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Session) Reset() {
-	*x = Session{}
-	mi := &file_forwarding_session_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Session) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Session) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Session) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Session) ProtoMessage() {}
+func (*Session) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Session) ProtoReflect() protoreflect.Message {
-	mi := &file_forwarding_session_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Session.ProtoReflect.Descriptor instead.
-func (*Session) Descriptor() ([]byte, []int) {
-	return file_forwarding_session_proto_rawDescGZIP(), []int{0}
-}
+func (*Session) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Session) GetIdentifier() string {
-	if x != nil {
-		return x.Identifier
-	}
-	return ""
-}
+func (x *Session) GetIdentifier() string { _ = "STUB: not implemented"; return "" }
 
-func (x *Session) GetVersion() Version {
-	if x != nil {
-		return x.Version
-	}
-	return Version_Invalid
-}
+func (x *Session) GetVersion() Version { _ = "STUB: not implemented"; return *new(Version) }
 
-func (x *Session) GetCreationTime() *timestamppb.Timestamp {
-	if x != nil {
-		return x.CreationTime
-	}
-	return nil
-}
+func (x *Session) GetCreationTime() *timestamppb.Timestamp { _ = "STUB: not implemented"; return nil }
 
-func (x *Session) GetCreatingVersionMajor() uint32 {
-	if x != nil {
-		return x.CreatingVersionMajor
-	}
-	return 0
-}
+func (x *Session) GetCreatingVersionMajor() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Session) GetCreatingVersionMinor() uint32 {
-	if x != nil {
-		return x.CreatingVersionMinor
-	}
-	return 0
-}
+func (x *Session) GetCreatingVersionMinor() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Session) GetCreatingVersionPatch() uint32 {
-	if x != nil {
-		return x.CreatingVersionPatch
-	}
-	return 0
-}
+func (x *Session) GetCreatingVersionPatch() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Session) GetSource() *url.URL {
-	if x != nil {
-		return x.Source
-	}
-	return nil
-}
+func (x *Session) GetSource() *url.URL { _ = "STUB: not implemented"; return nil }
 
-func (x *Session) GetDestination() *url.URL {
-	if x != nil {
-		return x.Destination
-	}
-	return nil
-}
+func (x *Session) GetDestination() *url.URL { _ = "STUB: not implemented"; return nil }
 
-func (x *Session) GetConfiguration() *Configuration {
-	if x != nil {
-		return x.Configuration
-	}
-	return nil
-}
+func (x *Session) GetConfiguration() *Configuration { _ = "STUB: not implemented"; return nil }
 
-func (x *Session) GetConfigurationSource() *Configuration {
-	if x != nil {
-		return x.ConfigurationSource
-	}
-	return nil
-}
+func (x *Session) GetConfigurationSource() *Configuration { _ = "STUB: not implemented"; return nil }
 
 func (x *Session) GetConfigurationDestination() *Configuration {
-	if x != nil {
-		return x.ConfigurationDestination
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *Session) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
+func (x *Session) GetName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *Session) GetLabels() map[string]string {
-	if x != nil {
-		return x.Labels
-	}
-	return nil
-}
+func (x *Session) GetLabels() map[string]string { _ = "STUB: not implemented"; return nil }
 
-func (x *Session) GetPaused() bool {
-	if x != nil {
-		return x.Paused
-	}
-	return false
-}
+func (x *Session) GetPaused() bool { _ = "STUB: not implemented"; return false }
 
 var File_forwarding_session_proto protoreflect.FileDescriptor
 
@@ -233,12 +149,7 @@ var (
 	file_forwarding_session_proto_rawDescData []byte
 )
 
-func file_forwarding_session_proto_rawDescGZIP() []byte {
-	file_forwarding_session_proto_rawDescOnce.Do(func() {
-		file_forwarding_session_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_forwarding_session_proto_rawDesc), len(file_forwarding_session_proto_rawDesc)))
-	})
-	return file_forwarding_session_proto_rawDescData
-}
+func file_forwarding_session_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_forwarding_session_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_forwarding_session_proto_goTypes = []any{
@@ -265,28 +176,5 @@ var file_forwarding_session_proto_depIdxs = []int32{
 	0, // [0:8] is the sub-list for field type_name
 }
 
-func init() { file_forwarding_session_proto_init() }
-func file_forwarding_session_proto_init() {
-	if File_forwarding_session_proto != nil {
-		return
-	}
-	file_forwarding_configuration_proto_init()
-	file_forwarding_version_proto_init()
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_forwarding_session_proto_rawDesc), len(file_forwarding_session_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   2,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_forwarding_session_proto_goTypes,
-		DependencyIndexes: file_forwarding_session_proto_depIdxs,
-		MessageInfos:      file_forwarding_session_proto_msgTypes,
-	}.Build()
-	File_forwarding_session_proto = out.File
-	file_forwarding_session_proto_goTypes = nil
-	file_forwarding_session_proto_depIdxs = nil
-}
+func init()                               { file_forwarding_session_proto_init() }
+func file_forwarding_session_proto_init() { _ = "STUB: not implemented"; return }

@@ -1,12 +1,7 @@
 package selection
 
 import (
-	"errors"
-	"sort"
-	"strings"
-
 	k8slabels "github.com/mutagen-io/mutagen/pkg/selection/internal/third_party/apimachinery/labels"
-	k8svalidation "github.com/mutagen-io/mutagen/pkg/selection/internal/third_party/apimachinery/util/validation"
 )
 
 // LabelSelector is a type that performs matching against a set of labels.
@@ -24,64 +19,51 @@ type labelSelector struct {
 
 // Matches implements Selector.Matches.
 func (s *labelSelector) Matches(labels map[string]string) bool {
-	return s.k8sLabelSelector.Matches(k8slabels.Set(labels))
+	_ = "STUB: not implemented"
+	return false
 }
 
 // ParseLabelSelector performs label selector parsing. The syntax is currently
 // the same as that for Kubernetes.
 func ParseLabelSelector(selector string) (LabelSelector, error) {
+	_ = "STUB: not implemented"
 	// Parse the selector using the Kubernetes label infrastructure.
-	k8sLabelSelector, err := k8slabels.Parse(selector)
-	if err != nil {
-		return nil, err
-	}
-
-	// Wrap up the Kubernetes selector.
-	return &labelSelector{k8sLabelSelector}, nil
+	return *new(LabelSelector), nil
 }
+
+// Wrap up the Kubernetes selector.
 
 // ExtractAndSortLabelKeys extracts a list of keys from the label set and sorts
 // them.
 func ExtractAndSortLabelKeys(labels map[string]string) []string {
+	_ = "STUB: not implemented"
 	// Avoid allocation in the event that there are no labels.
-	if len(labels) == 0 {
-		return nil
-	}
-
-	// Create and populate the key slice.
-	keys := make([]string, 0, len(labels))
-	for key := range labels {
-		keys = append(keys, key)
-	}
-
-	// Sort keys.
-	sort.Strings(keys)
-
-	// Done.
-	return keys
+	return nil
 }
+
+// Create and populate the key slice.
+
+// Sort keys.
+
+// Done.
 
 // EnsureLabelKeyValid verifies that a key conforms to label key requirements.
 // These requirements are currently the same as those for Kubernetes label keys.
 func EnsureLabelKeyValid(key string) error {
+	_ = "STUB: not implemented"
 	// Perform validation.
-	if errs := k8svalidation.IsQualifiedName(key); len(errs) > 0 {
-		return errors.New(strings.Join(errs, ", "))
-	}
-
-	// Success.
 	return nil
 }
+
+// Success.
 
 // EnsureLabelValueValid verifies that a value conforms to label value
 // requirements. These requirements are currently the same as those for
 // Kubernetes label values.
 func EnsureLabelValueValid(value string) error {
+	_ = "STUB: not implemented"
 	// Perform validation.
-	if errs := k8svalidation.IsValidLabelValue(value); len(errs) > 0 {
-		return errors.New(strings.Join(errs, ", "))
-	}
-
-	// Success.
 	return nil
 }
+
+// Success.

@@ -7,5 +7,7 @@ package cmd
 // case of mintty consoles on Windows requiring a relaunch of the current
 // command inside winpty.
 func HandleTerminalCompatibility() {
+	_ = "STUB: not implemented"
 	// No terminal emulation is required on POSIX systems.
+	return
 }

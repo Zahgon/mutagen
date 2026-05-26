@@ -7,6 +7,8 @@
 package synchronization
 
 import (
+	sync "sync"
+
 	behavior "github.com/mutagen-io/mutagen/pkg/filesystem/behavior"
 	compression "github.com/mutagen-io/mutagen/pkg/synchronization/compression"
 	core "github.com/mutagen-io/mutagen/pkg/synchronization/core"
@@ -14,9 +16,6 @@ import (
 	hashing "github.com/mutagen-io/mutagen/pkg/synchronization/hashing"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -98,174 +97,82 @@ type Configuration struct {
 	sizeCache            protoimpl.SizeCache
 }
 
-func (x *Configuration) Reset() {
-	*x = Configuration{}
-	mi := &file_synchronization_configuration_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Configuration) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Configuration) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Configuration) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Configuration) ProtoMessage() {}
+func (*Configuration) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Configuration) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_configuration_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Configuration.ProtoReflect.Descriptor instead.
-func (*Configuration) Descriptor() ([]byte, []int) {
-	return file_synchronization_configuration_proto_rawDescGZIP(), []int{0}
-}
+func (*Configuration) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 func (x *Configuration) GetSynchronizationMode() core.SynchronizationMode {
-	if x != nil {
-		return x.SynchronizationMode
-	}
-	return core.SynchronizationMode(0)
+	_ = "STUB: not implemented"
+	return *new(core.SynchronizationMode)
 }
 
 func (x *Configuration) GetHashingAlgorithm() hashing.Algorithm {
-	if x != nil {
-		return x.HashingAlgorithm
-	}
-	return hashing.Algorithm(0)
+	_ = "STUB: not implemented"
+	return *new(hashing.Algorithm)
 }
 
-func (x *Configuration) GetMaximumEntryCount() uint64 {
-	if x != nil {
-		return x.MaximumEntryCount
-	}
-	return 0
-}
+func (x *Configuration) GetMaximumEntryCount() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Configuration) GetMaximumStagingFileSize() uint64 {
-	if x != nil {
-		return x.MaximumStagingFileSize
-	}
-	return 0
-}
+func (x *Configuration) GetMaximumStagingFileSize() uint64 { _ = "STUB: not implemented"; return 0 }
 
 func (x *Configuration) GetProbeMode() behavior.ProbeMode {
-	if x != nil {
-		return x.ProbeMode
-	}
-	return behavior.ProbeMode(0)
+	_ = "STUB: not implemented"
+	return *new(behavior.ProbeMode)
 }
 
-func (x *Configuration) GetScanMode() ScanMode {
-	if x != nil {
-		return x.ScanMode
-	}
-	return ScanMode_ScanModeDefault
-}
+func (x *Configuration) GetScanMode() ScanMode { _ = "STUB: not implemented"; return *new(ScanMode) }
 
-func (x *Configuration) GetStageMode() StageMode {
-	if x != nil {
-		return x.StageMode
-	}
-	return StageMode_StageModeDefault
-}
+func (x *Configuration) GetStageMode() StageMode { _ = "STUB: not implemented"; return *new(StageMode) }
 
 func (x *Configuration) GetSymbolicLinkMode() core.SymbolicLinkMode {
-	if x != nil {
-		return x.SymbolicLinkMode
-	}
-	return core.SymbolicLinkMode(0)
+	_ = "STUB: not implemented"
+	return *new(core.SymbolicLinkMode)
 }
 
-func (x *Configuration) GetWatchMode() WatchMode {
-	if x != nil {
-		return x.WatchMode
-	}
-	return WatchMode_WatchModeDefault
-}
+func (x *Configuration) GetWatchMode() WatchMode { _ = "STUB: not implemented"; return *new(WatchMode) }
 
-func (x *Configuration) GetWatchPollingInterval() uint32 {
-	if x != nil {
-		return x.WatchPollingInterval
-	}
-	return 0
-}
+func (x *Configuration) GetWatchPollingInterval() uint32 { _ = "STUB: not implemented"; return 0 }
 
 func (x *Configuration) GetIgnoreSyntax() ignore.Syntax {
-	if x != nil {
-		return x.IgnoreSyntax
-	}
-	return ignore.Syntax(0)
+	_ = "STUB: not implemented"
+	return *new(ignore.Syntax)
 }
 
-func (x *Configuration) GetDefaultIgnores() []string {
-	if x != nil {
-		return x.DefaultIgnores
-	}
-	return nil
-}
+func (x *Configuration) GetDefaultIgnores() []string { _ = "STUB: not implemented"; return nil }
 
-func (x *Configuration) GetIgnores() []string {
-	if x != nil {
-		return x.Ignores
-	}
-	return nil
-}
+func (x *Configuration) GetIgnores() []string { _ = "STUB: not implemented"; return nil }
 
 func (x *Configuration) GetIgnoreVCSMode() ignore.IgnoreVCSMode {
-	if x != nil {
-		return x.IgnoreVCSMode
-	}
-	return ignore.IgnoreVCSMode(0)
+	_ = "STUB: not implemented"
+	return *new(ignore.IgnoreVCSMode)
 }
 
 func (x *Configuration) GetPermissionsMode() core.PermissionsMode {
-	if x != nil {
-		return x.PermissionsMode
-	}
-	return core.PermissionsMode(0)
+	_ = "STUB: not implemented"
+	return *new(core.PermissionsMode)
 }
 
-func (x *Configuration) GetDefaultFileMode() uint32 {
-	if x != nil {
-		return x.DefaultFileMode
-	}
-	return 0
-}
+func (x *Configuration) GetDefaultFileMode() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Configuration) GetDefaultDirectoryMode() uint32 {
-	if x != nil {
-		return x.DefaultDirectoryMode
-	}
-	return 0
-}
+func (x *Configuration) GetDefaultDirectoryMode() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Configuration) GetDefaultOwner() string {
-	if x != nil {
-		return x.DefaultOwner
-	}
-	return ""
-}
+func (x *Configuration) GetDefaultOwner() string { _ = "STUB: not implemented"; return "" }
 
-func (x *Configuration) GetDefaultGroup() string {
-	if x != nil {
-		return x.DefaultGroup
-	}
-	return ""
-}
+func (x *Configuration) GetDefaultGroup() string { _ = "STUB: not implemented"; return "" }
 
 func (x *Configuration) GetCompressionAlgorithm() compression.Algorithm {
-	if x != nil {
-		return x.CompressionAlgorithm
-	}
-	return compression.Algorithm(0)
+	_ = "STUB: not implemented"
+	return *new(compression.Algorithm)
 }
 
 var File_synchronization_configuration_proto protoreflect.FileDescriptor
@@ -301,10 +208,8 @@ var (
 )
 
 func file_synchronization_configuration_proto_rawDescGZIP() []byte {
-	file_synchronization_configuration_proto_rawDescOnce.Do(func() {
-		file_synchronization_configuration_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_synchronization_configuration_proto_rawDesc), len(file_synchronization_configuration_proto_rawDesc)))
-	})
-	return file_synchronization_configuration_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_synchronization_configuration_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
@@ -341,29 +246,5 @@ var file_synchronization_configuration_proto_depIdxs = []int32{
 	0,  // [0:11] is the sub-list for field type_name
 }
 
-func init() { file_synchronization_configuration_proto_init() }
-func file_synchronization_configuration_proto_init() {
-	if File_synchronization_configuration_proto != nil {
-		return
-	}
-	file_synchronization_scan_mode_proto_init()
-	file_synchronization_stage_mode_proto_init()
-	file_synchronization_watch_mode_proto_init()
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_synchronization_configuration_proto_rawDesc), len(file_synchronization_configuration_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   1,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_synchronization_configuration_proto_goTypes,
-		DependencyIndexes: file_synchronization_configuration_proto_depIdxs,
-		MessageInfos:      file_synchronization_configuration_proto_msgTypes,
-	}.Build()
-	File_synchronization_configuration_proto = out.File
-	file_synchronization_configuration_proto_goTypes = nil
-	file_synchronization_configuration_proto_depIdxs = nil
-}
+func init()                                          { file_synchronization_configuration_proto_init() }
+func file_synchronization_configuration_proto_init() { _ = "STUB: not implemented"; return }

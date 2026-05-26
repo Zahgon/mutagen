@@ -17,18 +17,18 @@ type hashedWriter struct {
 // existing writer, ensuring that the hash processes all bytes that are
 // successfully written to the associated writer.
 func NewHashedWriter(writer io.Writer, hasher hash.Hash) io.Writer {
-	return &hashedWriter{writer, hasher}
+	_ = "STUB: not implemented"
+	return *new(io.Writer)
 }
 
 // Write implements io.Writer.Write.
 func (w *hashedWriter) Write(data []byte) (int, error) {
+	_ = "STUB: not implemented"
 	// Write to the underlying writer.
-	n, err := w.writer.Write(data)
-
-	// Write the corresponding bytes to the hasher. This write can't fail, so we
-	// can safely assume that all provided bytes are processed.
-	w.hasher.Write(data[:n])
-
-	// Done.
-	return n, err
+	return 0, nil
 }
+
+// Write the corresponding bytes to the hasher. This write can't fail, so we
+// can safely assume that all provided bytes are processed.
+
+// Done.

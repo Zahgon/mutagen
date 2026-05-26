@@ -95,111 +95,71 @@ type messageBuffer struct {
 
 // newMessageBuffer creates a new message buffer. It is guaranteed to have
 // enough capacity to write any single message.
-func newMessageBuffer() *messageBuffer {
-	return &messageBuffer{
-		buffer:         ring.NewBuffer(maximumMessageSize),
-		varint64Buffer: make([]byte, binary.MaxVarintLen64),
-	}
-}
+func newMessageBuffer() *messageBuffer { _ = "STUB: not implemented"; return nil }
 
 // ensureSufficientFreeSpace panics if the buffer doesn't contain at least the
 // specified amount of free space.
-func (b *messageBuffer) ensureSufficientFreeSpace(amount int) {
-	if b.buffer.Free() < amount {
-		panic("buffer not guaranteed to have sufficient free space")
-	}
-}
+func (b *messageBuffer) ensureSufficientFreeSpace(amount int) { _ = "STUB: not implemented"; return }
 
 // writeUvarint is an internal utility function used to write unsigned variable
 // length integers up to 64-bits.
-func (b *messageBuffer) writeUvarint(value uint64) {
-	length := binary.PutUvarint(b.varint64Buffer, value)
-	b.buffer.Write(b.varint64Buffer[:length])
-}
+func (b *messageBuffer) writeUvarint(value uint64) { _ = "STUB: not implemented"; return }
 
 // writeUint16 is an internal utility function used to write unsigned 16-bit
 // integers.
-func (b *messageBuffer) writeUint16(value uint16) {
-	binary.BigEndian.PutUint16(b.varint64Buffer[:2], value)
-	b.buffer.Write(b.varint64Buffer[:2])
-}
+func (b *messageBuffer) writeUint16(value uint16) { _ = "STUB: not implemented"; return }
 
 // WriteTo implements io.WriterTo.WriteTo.
 func (b *messageBuffer) WriteTo(writer io.Writer) (int64, error) {
-	return b.buffer.WriteTo(writer)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // encodeOpenMessage encodes a stream open message to the message buffer. It
 // will panic if the buffer does not have sufficient free space.
-func (b *messageBuffer) encodeOpenMessage(stream, window uint64) {
-	b.ensureSufficientFreeSpace(messageKindStreamOpenMaximumSize)
-	b.buffer.WriteByte(byte(messageKindStreamOpen))
-	b.writeUvarint(stream)
-	b.writeUvarint(window)
-}
+func (b *messageBuffer) encodeOpenMessage(stream, window uint64) { _ = "STUB: not implemented"; return }
 
 // encodeAcceptMessage encodes a stream accept message to the message buffer. It
 // will panic if the buffer does not have sufficient free space.
 func (b *messageBuffer) encodeAcceptMessage(stream, window uint64) {
-	b.ensureSufficientFreeSpace(messageKindStreamAcceptMaximumSize)
-	b.buffer.WriteByte(byte(messageKindStreamAccept))
-	b.writeUvarint(stream)
-	b.writeUvarint(window)
+	_ = "STUB: not implemented"
+	return
 }
 
 // encodeStreamDataMessage encodes a stream data message to the buffer. It will
 // panic if the buffer does not have sufficient free space or if the data block
 // is larger than maximumStreamDataBlockSize.
 func (b *messageBuffer) encodeStreamDataMessage(stream uint64, data []byte) {
-	b.ensureSufficientFreeSpace(messageKindStreamDataMaximumSize)
-	if len(data) > maximumStreamDataBlockSize {
-		panic("data block too large")
-	}
-	b.buffer.WriteByte(byte(messageKindStreamData))
-	b.writeUvarint(stream)
-	b.writeUint16(uint16(len(data)))
-	b.buffer.Write(data)
+	_ = "STUB: not implemented"
+	return
 }
 
 // canEncodeStreamWindowIncrement returns whether or not a call to
 // encodeStreamWindowIncrement is guaranteed to have sufficient free space.
 func (b *messageBuffer) canEncodeStreamWindowIncrement() bool {
-	return b.buffer.Free() >= messageKindStreamWindowIncrementMaximumSize
+	_ = "STUB: not implemented"
+	return false
 }
 
 // encodeStreamWindowIncrement encodes a stream window increment message to the
 // buffer. It will panic if the buffer does not have sufficient free space.
 func (b *messageBuffer) encodeStreamWindowIncrement(stream, amount uint64) {
-	b.ensureSufficientFreeSpace(messageKindStreamWindowIncrementMaximumSize)
-	b.buffer.WriteByte(byte(messageKindStreamWindowIncrement))
-	b.writeUvarint(stream)
-	b.writeUvarint(amount)
+	_ = "STUB: not implemented"
+	return
 }
 
 // canEncodeStreamCloseWrite returns whether or not a call to
 // encodeStreamCloseWrite is guaranteed to have sufficient free space.
-func (b *messageBuffer) canEncodeStreamCloseWrite() bool {
-	return b.buffer.Free() >= messageKindStreamCloseWriteMaximumSize
-}
+func (b *messageBuffer) canEncodeStreamCloseWrite() bool { _ = "STUB: not implemented"; return false }
 
 // encodeStreamCloseWrite encodes a stream half-closure message to the buffer.
 // It will panic if the buffer does not have sufficient free space.
-func (b *messageBuffer) encodeStreamCloseWrite(stream uint64) {
-	b.ensureSufficientFreeSpace(messageKindStreamCloseWriteMaximumSize)
-	b.buffer.WriteByte(byte(messageKindStreamCloseWrite))
-	b.writeUvarint(stream)
-}
+func (b *messageBuffer) encodeStreamCloseWrite(stream uint64) { _ = "STUB: not implemented"; return }
 
 // canEncodeStreamClose returns whether or not a call to encodeStreamClose is
 // guaranteed to have sufficient free space.
-func (b *messageBuffer) canEncodeStreamClose() bool {
-	return b.buffer.Free() >= messageKindStreamCloseMaximumSize
-}
+func (b *messageBuffer) canEncodeStreamClose() bool { _ = "STUB: not implemented"; return false }
 
 // encodeStreamClose encodes a stream closure message to the buffer. It will
 // panic if the buffer does not have sufficient free space.
-func (b *messageBuffer) encodeStreamClose(stream uint64) {
-	b.ensureSufficientFreeSpace(messageKindStreamCloseMaximumSize)
-	b.buffer.WriteByte(byte(messageKindStreamClose))
-	b.writeUvarint(stream)
-}
+func (b *messageBuffer) encodeStreamClose(stream uint64) { _ = "STUB: not implemented"; return }

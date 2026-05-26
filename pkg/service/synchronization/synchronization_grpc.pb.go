@@ -8,9 +8,8 @@ package synchronization
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -55,77 +54,43 @@ type synchronizationClient struct {
 }
 
 func NewSynchronizationClient(cc grpc.ClientConnInterface) SynchronizationClient {
-	return &synchronizationClient{cc}
+	_ = "STUB: not implemented"
+	return *new(SynchronizationClient)
 }
 
 func (c *synchronizationClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateResponse)
-	err := c.cc.Invoke(ctx, Synchronization_Create_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *synchronizationClient) List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListResponse)
-	err := c.cc.Invoke(ctx, Synchronization_List_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *synchronizationClient) Flush(ctx context.Context, in *FlushRequest, opts ...grpc.CallOption) (*FlushResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(FlushResponse)
-	err := c.cc.Invoke(ctx, Synchronization_Flush_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *synchronizationClient) Pause(ctx context.Context, in *PauseRequest, opts ...grpc.CallOption) (*PauseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PauseResponse)
-	err := c.cc.Invoke(ctx, Synchronization_Pause_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *synchronizationClient) Resume(ctx context.Context, in *ResumeRequest, opts ...grpc.CallOption) (*ResumeResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ResumeResponse)
-	err := c.cc.Invoke(ctx, Synchronization_Resume_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *synchronizationClient) Reset(ctx context.Context, in *ResetRequest, opts ...grpc.CallOption) (*ResetResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ResetResponse)
-	err := c.cc.Invoke(ctx, Synchronization_Reset_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *synchronizationClient) Terminate(ctx context.Context, in *TerminateRequest, opts ...grpc.CallOption) (*TerminateResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TerminateResponse)
-	err := c.cc.Invoke(ctx, Synchronization_Terminate_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // SynchronizationServer is the server API for Synchronization service.
@@ -159,28 +124,45 @@ type SynchronizationServer interface {
 type UnimplementedSynchronizationServer struct{}
 
 func (UnimplementedSynchronizationServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Create not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
 func (UnimplementedSynchronizationServer) List(context.Context, *ListRequest) (*ListResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method List not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
 func (UnimplementedSynchronizationServer) Flush(context.Context, *FlushRequest) (*FlushResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Flush not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
 func (UnimplementedSynchronizationServer) Pause(context.Context, *PauseRequest) (*PauseResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Pause not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
 func (UnimplementedSynchronizationServer) Resume(context.Context, *ResumeRequest) (*ResumeResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Resume not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
 func (UnimplementedSynchronizationServer) Reset(context.Context, *ResetRequest) (*ResetResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Reset not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
 func (UnimplementedSynchronizationServer) Terminate(context.Context, *TerminateRequest) (*TerminateResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Terminate not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
-func (UnimplementedSynchronizationServer) mustEmbedUnimplementedSynchronizationServer() {}
-func (UnimplementedSynchronizationServer) testEmbeddedByValue()                         {}
+
+func (UnimplementedSynchronizationServer) mustEmbedUnimplementedSynchronizationServer() {
+	_ = "STUB: not implemented"
+	return
+}
+func (UnimplementedSynchronizationServer) testEmbeddedByValue() { _ = "STUB: not implemented"; return }
 
 // UnsafeSynchronizationServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to SynchronizationServer will
@@ -190,140 +172,47 @@ type UnsafeSynchronizationServer interface {
 }
 
 func RegisterSynchronizationServer(s grpc.ServiceRegistrar, srv SynchronizationServer) {
+	_ = "STUB: not implemented"
 	// If the following call panics, it indicates UnimplementedSynchronizationServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&Synchronization_ServiceDesc, srv)
+	return
 }
 
 func _Synchronization_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SynchronizationServer).Create(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Synchronization_Create_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SynchronizationServer).Create(ctx, req.(*CreateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Synchronization_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SynchronizationServer).List(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Synchronization_List_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SynchronizationServer).List(ctx, req.(*ListRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Synchronization_Flush_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FlushRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SynchronizationServer).Flush(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Synchronization_Flush_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SynchronizationServer).Flush(ctx, req.(*FlushRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Synchronization_Pause_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PauseRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SynchronizationServer).Pause(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Synchronization_Pause_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SynchronizationServer).Pause(ctx, req.(*PauseRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Synchronization_Resume_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ResumeRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SynchronizationServer).Resume(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Synchronization_Resume_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SynchronizationServer).Resume(ctx, req.(*ResumeRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Synchronization_Reset_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ResetRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SynchronizationServer).Reset(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Synchronization_Reset_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SynchronizationServer).Reset(ctx, req.(*ResetRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Synchronization_Terminate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TerminateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SynchronizationServer).Terminate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Synchronization_Terminate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SynchronizationServer).Terminate(ctx, req.(*TerminateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Synchronization_ServiceDesc is the grpc.ServiceDesc for Synchronization service.

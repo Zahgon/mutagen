@@ -1,8 +1,6 @@
 package locking
 
 import (
-	"errors"
-	"fmt"
 	"os"
 )
 
@@ -17,58 +15,48 @@ type Locker struct {
 // NewLocker attempts to create a lock with the file at the specified path,
 // creating the file if necessary. The lock is returned in an unlocked state.
 func NewLocker(path string, permissions os.FileMode) (*Locker, error) {
-	mode := os.O_RDWR | os.O_CREATE | os.O_APPEND
-	if file, err := os.OpenFile(path, mode, permissions); err != nil {
-		return nil, fmt.Errorf("unable to open lock file: %w", err)
-	} else {
-		return &Locker{file: file}, nil
-	}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Held returns whether or not the lock is currently held.
 func (l *Locker) Held() bool {
-	return l.held
+	_ = "STUB: not implemented"
+
+	// Read implements io.Reader.Read on the underlying file, but errors if the lock
+	// is not currently held.
+	return false
 }
 
-// Read implements io.Reader.Read on the underlying file, but errors if the lock
-// is not currently held.
 func (l *Locker) Read(buffer []byte) (int, error) {
+	_ = "STUB: not implemented"
 	// Verify that the lock is held.
-	if !l.held {
-		return 0, errors.New("lock not held")
-	}
-
-	// Perform the read.
-	return l.file.Read(buffer)
+	return 0, nil
 }
+
+// Perform the read.
 
 // Write implements io.Writer.Write on the underlying file, but errors if the
 // lock is not currently held.
 func (l *Locker) Write(buffer []byte) (int, error) {
+	_ = "STUB: not implemented"
 	// Verify that the lock is held.
-	if !l.held {
-		return 0, errors.New("lock not held")
-	}
-
-	// Perform the write.
-	return l.file.Write(buffer)
+	return 0, nil
 }
+
+// Perform the write.
 
 // Truncate implements file truncation for the underlying file, but errors if
 // the lock is not currently held.
 func (l *Locker) Truncate(size int64) error {
+	_ = "STUB: not implemented"
 	// Verify that the lock is held.
-	if !l.held {
-		return errors.New("lock not held")
-	}
-
-	// Perform the truncation.
-	return l.file.Truncate(size)
+	return nil
 }
+
+// Perform the truncation.
 
 // Close closes the file underlying the locker. This will release any lock held
 // on the file and disable future locking. On POSIX platforms, this also
 // releases other locks held on the same file.
-func (l *Locker) Close() error {
-	return l.file.Close()
-}
+func (l *Locker) Close() error { _ = "STUB: not implemented"; return nil }

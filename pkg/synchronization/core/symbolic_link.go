@@ -1,11 +1,5 @@
 package core
 
-import (
-	"errors"
-	"runtime"
-	"strings"
-)
-
 const (
 	// maximumPortableSymbolicLinkTargetLength is the maximum symbolic link
 	// target length that can be synchronized in a portable fashion. It is
@@ -32,74 +26,48 @@ const (
 // It lists some of the possible Windows path formats accepted by
 // CreateSymbolicLinkW.
 func normalizeSymbolicLinkAndEnsurePortable(path, target string) (string, error) {
+	_ = "STUB: not implemented"
 	// If the target is empty, it's invalid on most (all?) platforms.
-	if target == "" {
-		return "", errors.New("target empty")
-	}
-
-	// If the target is longer than the maximum allowed symbolic link target
-	// length, then it can't be propagated.
-	if len(target) > maximumPortableSymbolicLinkTargetLength {
-		return "", errors.New("target too long")
-	}
-
-	// Ensure that the target path doesn't contain a colon. On POSIX, colons are
-	// allowed to occur in filenames (and hence paths) (they aren't allowed in
-	// $PATH because ':' is used as the path separator). On Windows, colons are
-	// not allowed in filenames, but they are allowed in paths, where they have
-	// very different meanings. They can appear in absolute paths (i.e. those of
-	// the form "C:\...") or working directory-relative paths (i.e. those of the
-	// form "C:File.txt" (which maps to "<working directory>\File.txt")). If we
-	// find a colon in a target path on POSIX, we can't reliably propagate it,
-	// and if we find a colon in a target path on Windows, it's a type of target
-	// path that we can't propagate.
-	if strings.Index(target, ":") != -1 {
-		return "", errors.New("colon in target (absolute or unsupported path)")
-	}
-
-	// If we're on a Windows system, convert all backslashes to forward slashes.
-	// Windows only supports using backslashes in symbolic link targets, so Go
-	// performs this conversion when creating them. If we're on a POSIX system,
-	// backslashes are allowed in filenames (and hence paths), and they don't
-	// act as a path separator. That being said, we won't be able to round-trip
-	// them to a Windows system, so we have to avoid their presence.
-	if runtime.GOOS == "windows" {
-		target = strings.ReplaceAll(target, "\\", "/")
-	} else if strings.Index(target, "\\") != -1 {
-		return "", errors.New("backslash in target")
-	}
-
-	// Watch for an absolute path specification. This may be either an absolute
-	// POSIX path (one beginning with "/"), an extended-length Windows path
-	// (which would be prefixed with \\?\), a "root relative" Windows path (i.e.
-	// one of the form "\x" (which maps to "C:\x")), some other UNC Windows path
-	// (which would be prefixed with "\\"). None of these can be propagated.
-	if target[0] == '/' {
-		return "", errors.New("target is absolute")
-	}
-
-	// Compute the depth of the symbolic link inside the synchronization root
-	// and iterate through the target components, ensuring that the target never
-	// references a location outside of the synchronization root. Note that we
-	// don't add 1 to our calculation of pathDepth because the act of
-	// dereferencing the symbolic link removes one element of path depth.
-	pathDepth := strings.Count(path, "/")
-	for _, component := range strings.Split(target, "/") {
-		// Update the depth.
-		if component == "." {
-			// No change to depth.
-		} else if component == ".." {
-			pathDepth--
-		} else {
-			pathDepth++
-		}
-
-		// Verify that we haven't escaped the synchronization root.
-		if pathDepth < 0 {
-			return "", errors.New("target references location outside synchronization root")
-		}
-	}
-
-	// Success.
-	return target, nil
+	return "", nil
 }
+
+// If the target is longer than the maximum allowed symbolic link target
+// length, then it can't be propagated.
+
+// Ensure that the target path doesn't contain a colon. On POSIX, colons are
+// allowed to occur in filenames (and hence paths) (they aren't allowed in
+// $PATH because ':' is used as the path separator). On Windows, colons are
+// not allowed in filenames, but they are allowed in paths, where they have
+// very different meanings. They can appear in absolute paths (i.e. those of
+// the form "C:\...") or working directory-relative paths (i.e. those of the
+// form "C:File.txt" (which maps to "<working directory>\File.txt")). If we
+// find a colon in a target path on POSIX, we can't reliably propagate it,
+// and if we find a colon in a target path on Windows, it's a type of target
+// path that we can't propagate.
+
+// If we're on a Windows system, convert all backslashes to forward slashes.
+// Windows only supports using backslashes in symbolic link targets, so Go
+// performs this conversion when creating them. If we're on a POSIX system,
+// backslashes are allowed in filenames (and hence paths), and they don't
+// act as a path separator. That being said, we won't be able to round-trip
+// them to a Windows system, so we have to avoid their presence.
+
+// Watch for an absolute path specification. This may be either an absolute
+// POSIX path (one beginning with "/"), an extended-length Windows path
+// (which would be prefixed with \\?\), a "root relative" Windows path (i.e.
+// one of the form "\x" (which maps to "C:\x")), some other UNC Windows path
+// (which would be prefixed with "\\"). None of these can be propagated.
+
+// Compute the depth of the symbolic link inside the synchronization root
+// and iterate through the target components, ensuring that the target never
+// references a location outside of the synchronization root. Note that we
+// don't add 1 to our calculation of pathDepth because the act of
+// dereferencing the symbolic link removes one element of path depth.
+
+// Update the depth.
+
+// No change to depth.
+
+// Verify that we haven't escaped the synchronization root.
+
+// Success.

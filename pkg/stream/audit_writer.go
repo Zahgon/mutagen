@@ -21,15 +21,9 @@ type auditWriter struct {
 // written byte counts. If auditor is nil, then this function will return writer
 // unmodified.
 func NewAuditWriter(writer io.Writer, auditor Auditor) io.Writer {
-	if auditor == nil {
-		return writer
-	}
-	return &auditWriter{writer, auditor}
+	_ = "STUB: not implemented"
+	return *new(io.Writer)
 }
 
 // Write implements io.Writer.Write.
-func (w *auditWriter) Write(buffer []byte) (int, error) {
-	result, err := w.writer.Write(buffer)
-	w.auditor(uint64(result))
-	return result, err
-}
+func (w *auditWriter) Write(buffer []byte) (int, error) { _ = "STUB: not implemented"; return 0, nil }

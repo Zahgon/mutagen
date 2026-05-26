@@ -4,14 +4,10 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/mutagen-io/mutagen/cmd"
-
-	"github.com/mutagen-io/mutagen/pkg/daemon"
 )
 
 // registerMain is the entry point for the register command.
-func registerMain(_ *cobra.Command, _ []string) error {
-	return daemon.Register()
-}
+func registerMain(_ *cobra.Command, _ []string) error { _ = "STUB: not implemented"; return nil }
 
 // registerCommand is the register command.
 var registerCommand = &cobra.Command{

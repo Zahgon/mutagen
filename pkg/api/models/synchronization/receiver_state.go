@@ -26,18 +26,9 @@ type ReceiverState struct {
 // representation from an internal Protocol Buffers representation. The receiver
 // state must be valid.
 func newReceiverStateFromInternalReceiverState(state *rsync.ReceiverState) *ReceiverState {
+	_ = "STUB: not implemented"
 	// If the state is nil, then return a nil state.
-	if state == nil {
-		return nil
-	}
-
-	// Perform conversion.
-	return &ReceiverState{
-		Path:              state.Path,
-		ReceivedSize:      state.ReceivedSize,
-		ExpectedSize:      state.ExpectedSize,
-		ReceivedFiles:     state.ReceivedFiles,
-		ExpectedFiles:     state.ExpectedFiles,
-		TotalReceivedSize: state.TotalReceivedSize,
-	}
+	return nil
 }
+
+// Perform conversion.

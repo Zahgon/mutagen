@@ -1,13 +1,9 @@
 package remote
 
 import (
-	"context"
-	"errors"
-	"fmt"
 	"io"
 	"net"
 
-	"github.com/mutagen-io/mutagen/pkg/encoding"
 	"github.com/mutagen-io/mutagen/pkg/forwarding"
 	"github.com/mutagen-io/mutagen/pkg/logging"
 	"github.com/mutagen-io/mutagen/pkg/multiplexing"
@@ -42,86 +38,35 @@ func NewEndpoint(
 	address string,
 	source bool,
 ) (forwarding.Endpoint, error) {
+	_ = "STUB: not implemented"
 	// Adapt the stream to serve as a multiplexer carrier. This will also give
 	// us the buffering functionality we'll need for initialization.
-	carrier := multiplexing.NewCarrierFromStream(stream)
-
-	// Defer closure of the carrier in the event that initialization isn't
-	// successful. Otherwise, we'll rely on closure of the multiplexer to close
-	// the carrier.
-	var initializationSuccessful bool
-	defer func() {
-		if !initializationSuccessful {
-			carrier.Close()
-		}
-	}()
-
-	// Create and send the initialization request.
-	request := &InitializeForwardingRequest{
-		Version:       version,
-		Configuration: configuration,
-		Protocol:      protocol,
-		Address:       address,
-		Listener:      source,
-	}
-	if err := encoding.EncodeProtobuf(carrier, request); err != nil {
-		return nil, fmt.Errorf("unable to send initialization request: %w", err)
-	}
-
-	// Receive the initialization response, ensure that it's valid, and check
-	// for initialization errors.
-	response := &InitializeForwardingResponse{}
-	if err := encoding.DecodeProtobuf(carrier, response); err != nil {
-		return nil, fmt.Errorf("unable to receive initialization response: %w", err)
-	} else if err = response.ensureValid(); err != nil {
-		return nil, fmt.Errorf("invalid initialization response received: %w", err)
-	} else if response.Error != "" {
-		return nil, fmt.Errorf("remote initialization failure: %w", errors.New(response.Error))
-	}
-
-	// Mark initialization as successful.
-	initializationSuccessful = true
-
-	// Multiplex the carrier.
-	multiplexer := multiplexing.Multiplex(carrier, false, nil)
-
-	// Create a channel to monitor for transport errors and a Goroutine to
-	// populate it.
-	transportErrors := make(chan error, 1)
-	go func() {
-		<-multiplexer.Closed()
-		if err := multiplexer.InternalError(); err != nil {
-			transportErrors <- err
-		} else {
-			transportErrors <- multiplexing.ErrMultiplexerClosed
-		}
-	}()
-
-	// Success.
-	return &client{
-		logger:          logger,
-		transportErrors: transportErrors,
-		multiplexer:     multiplexer,
-		listener:        source,
-	}, nil
+	return *new(forwarding.Endpoint), nil
 }
+
+// Defer closure of the carrier in the event that initialization isn't
+// successful. Otherwise, we'll rely on closure of the multiplexer to close
+// the carrier.
+
+// Create and send the initialization request.
+
+// Receive the initialization response, ensure that it's valid, and check
+// for initialization errors.
+
+// Mark initialization as successful.
+
+// Multiplex the carrier.
+
+// Create a channel to monitor for transport errors and a Goroutine to
+// populate it.
+
+// Success.
 
 // TransportErrors implements forwarding.Endpoint.TransportErrors.
-func (c *client) TransportErrors() <-chan error {
-	return c.transportErrors
-}
+func (c *client) TransportErrors() <-chan error { _ = "STUB: not implemented"; return nil }
 
 // Open implements forwarding.Endpoint.Open.
-func (c *client) Open() (net.Conn, error) {
-	if c.listener {
-		return c.multiplexer.Accept()
-	} else {
-		stream, err := c.multiplexer.OpenStream(context.Background())
-		return stream, err
-	}
-}
+func (c *client) Open() (net.Conn, error) { _ = "STUB: not implemented"; return *new(net.Conn), nil }
 
 // Shutdown implements forwarding.Endpoint.Shutdown.
-func (c *client) Shutdown() error {
-	return c.multiplexer.Close()
-}
+func (c *client) Shutdown() error { _ = "STUB: not implemented"; return nil }

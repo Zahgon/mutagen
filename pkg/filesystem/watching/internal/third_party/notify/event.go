@@ -39,7 +39,6 @@ package notify
 
 import (
 	"fmt"
-	"strings"
 )
 
 // Event represents the type of filesystem action.
@@ -67,17 +66,7 @@ const (
 const internal = recursive | omit
 
 // String implements fmt.Stringer interface.
-func (e Event) String() string {
-	var s []string
-	for _, strmap := range []map[Event]string{estr, osestr} {
-		for ev, str := range strmap {
-			if e&ev == ev {
-				s = append(s, str)
-			}
-		}
-	}
-	return strings.Join(s, "|")
-}
+func (e Event) String() string { _ = "STUB: not implemented"; return "" }
 
 // EventInfo describes an event reported by the underlying filesystem notification
 // subsystem.
@@ -152,9 +141,7 @@ var _ fmt.Stringer = (*event)(nil)
 var _ isDirer = (*event)(nil)
 
 // String implements fmt.Stringer interface.
-func (e *event) String() string {
-	return e.Event().String() + `: "` + e.Path() + `"`
-}
+func (e *event) String() string { _ = "STUB: not implemented"; return "" }
 
 var estr = map[Event]string{
 	Create: "notify.Create",

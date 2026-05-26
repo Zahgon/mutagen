@@ -6,14 +6,7 @@ package daemon
 // https://developer.apple.com/library/content/technotes/tn2083/_index.html#//apple_ref/doc/uid/DTS10003794-CH1-SUBSECTION44
 
 import (
-	"bytes"
-	"errors"
-	"fmt"
-	"os"
 	"os/exec"
-	"path/filepath"
-
-	"github.com/mutagen-io/mutagen/pkg/filesystem"
 )
 
 // RegistrationSupported indicates whether or not daemon registration is
@@ -65,103 +58,49 @@ const (
 
 // Register performs automatic daemon startup registration.
 func Register() error {
+	_ = "STUB: not implemented"
 	// If we're already registered, don't do anything.
-	if registered, err := registered(); err != nil {
-		return fmt.Errorf("unable to determine registration status: %w", err)
-	} else if registered {
-		return nil
-	}
-
-	// Acquire the daemon lock to ensure the daemon isn't running. We switch the
-	// start and stop mechanism depending on whether or not we're registered, so
-	// we need to make sure we don't try to stop a daemon started using a
-	// different mechanism.
-	lock, err := AcquireLock()
-	if err != nil {
-		return errors.New("unable to alter registration while daemon is running")
-	}
-	defer lock.Release()
-
-	// Compute the path to the user's home directory.
-	homeDirectory, err := os.UserHomeDir()
-	if err != nil {
-		return fmt.Errorf("unable to compute path to home directory: %w", err)
-	}
-
-	// Ensure the user's Library directory exists.
-	targetPath := filepath.Join(homeDirectory, libraryDirectoryName)
-	if err := os.MkdirAll(targetPath, libraryDirectoryPermissions); err != nil {
-		return fmt.Errorf("unable to create Library directory: %w", err)
-	}
-
-	// Ensure the LaunchAgents directory exists.
-	targetPath = filepath.Join(targetPath, launchAgentsDirectoryName)
-	if err := os.MkdirAll(targetPath, launchAgentsDirectoryPermissions); err != nil {
-		return fmt.Errorf("unable to create LaunchAgents directory: %w", err)
-	}
-
-	// Compute the path to the current executable.
-	executablePath, err := os.Executable()
-	if err != nil {
-		return fmt.Errorf("unable to determine executable path: %w", err)
-	}
-
-	// Format a launchd plist.
-	plist := fmt.Sprintf(launchdPlistTemplate, executablePath)
-
-	// Attempt to write the launchd plist.
-	targetPath = filepath.Join(targetPath, launchdPlistName)
-	if err := filesystem.WriteFileAtomic(targetPath, []byte(plist), launchdPlistPermissions); err != nil {
-		return fmt.Errorf("unable to write launchd agent plist: %w", err)
-	}
-
-	// Success.
 	return nil
 }
+
+// Acquire the daemon lock to ensure the daemon isn't running. We switch the
+// start and stop mechanism depending on whether or not we're registered, so
+// we need to make sure we don't try to stop a daemon started using a
+// different mechanism.
+
+// Compute the path to the user's home directory.
+
+// Ensure the user's Library directory exists.
+
+// Ensure the LaunchAgents directory exists.
+
+// Compute the path to the current executable.
+
+// Format a launchd plist.
+
+// Attempt to write the launchd plist.
+
+// Success.
 
 // Unregister performs automatic daemon startup de-registration.
 func Unregister() error {
+	_ = "STUB: not implemented"
 	// If we're not registered, don't do anything.
-	if registered, err := registered(); err != nil {
-		return fmt.Errorf("unable to determine registration status: %w", err)
-	} else if !registered {
-		return nil
-	}
-
-	// Acquire the daemon lock to ensure the daemon isn't running. We switch the
-	// start and stop mechanism depending on whether or not we're registered, so
-	// we need to make sure we don't try to stop a daemon started using a
-	// different mechanism.
-	lock, err := AcquireLock()
-	if err != nil {
-		return errors.New("unable to alter registration while daemon is running")
-	}
-	defer lock.Release()
-
-	// Compute the path to the user's home directory.
-	homeDirectory, err := os.UserHomeDir()
-	if err != nil {
-		return fmt.Errorf("unable to compute path to home directory: %w", err)
-	}
-
-	// Compute the launchd plist path.
-	targetPath := filepath.Join(
-		homeDirectory,
-		libraryDirectoryName,
-		launchAgentsDirectoryName,
-		launchdPlistName,
-	)
-
-	// Attempt to remove the launchd plist.
-	if err := os.Remove(targetPath); err != nil {
-		if !os.IsNotExist(err) {
-			return fmt.Errorf("unable to remove launchd agent plist: %w", err)
-		}
-	}
-
-	// Success.
 	return nil
 }
+
+// Acquire the daemon lock to ensure the daemon isn't running. We switch the
+// start and stop mechanism depending on whether or not we're registered, so
+// we need to make sure we don't try to stop a daemon started using a
+// different mechanism.
+
+// Compute the path to the user's home directory.
+
+// Compute the launchd plist path.
+
+// Attempt to remove the launchd plist.
+
+// Success.
 
 // launchctlSpuriousErrorFragment is a fragment of text that appears in spurious
 // launchctl load/unload command errors when the daemon run command exits due to
@@ -174,116 +113,54 @@ const launchctlSpuriousErrorFragment = "failed: 5: Input/output error"
 // out error text if it doesn't contain launchctlSpuriousErrorFragment. The
 // standard error stream for the command must not be set.
 func runLaunchctlIgnoringSpuriousErrors(command *exec.Cmd) error {
-	err := command.Run()
-	if err != nil {
-		if exitErr, ok := err.(*exec.ExitError); ok {
-			if bytes.Contains(exitErr.Stderr, []byte(launchctlSpuriousErrorFragment)) {
-				return nil
-			}
-		}
-	}
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // registered determines whether or not automatic daemon startup is currently
 // registered.
 func registered() (bool, error) {
+	_ = "STUB: not implemented"
 	// Compute the path to the user's home directory.
-	homeDirectory, err := os.UserHomeDir()
-	if err != nil {
-		return false, fmt.Errorf("unable to compute path to home directory: %w", err)
-	}
-
-	// Compute the launchd plist path.
-	targetPath := filepath.Join(
-		homeDirectory,
-		libraryDirectoryName,
-		launchAgentsDirectoryName,
-		launchdPlistName,
-	)
-
-	// Check if it exists and is what's expected.
-	if info, err := os.Lstat(targetPath); err != nil {
-		if os.IsNotExist(err) {
-			return false, nil
-		}
-		return false, fmt.Errorf("unable to query launchd agent plist: %w", err)
-	} else if !info.Mode().IsRegular() {
-		return false, errors.New("unexpected contents at launchd agent plist path")
-	}
-
-	// Success.
-	return true, nil
+	return false, nil
 }
+
+// Compute the launchd plist path.
+
+// Check if it exists and is what's expected.
+
+// Success.
 
 // RegisteredStart potentially handles daemon start operations if the daemon is
 // registered for automatic start with the system. It returns false if the start
 // operation was not handled and should be handled by the normal start command.
 func RegisteredStart() (bool, error) {
+	_ = "STUB: not implemented"
 	// Check if we're registered. If not, we don't handle the start request.
-	if registered, err := registered(); err != nil {
-		return false, fmt.Errorf("unable to determine daemon registration status: %w", err)
-	} else if !registered {
-		return false, nil
-	}
-
-	// Compute the path to the user's home directory.
-	homeDirectory, err := os.UserHomeDir()
-	if err != nil {
-		return false, fmt.Errorf("unable to compute path to home directory: %w", err)
-	}
-
-	// Compute the launchd plist path.
-	targetPath := filepath.Join(
-		homeDirectory,
-		libraryDirectoryName,
-		launchAgentsDirectoryName,
-		launchdPlistName,
-	)
-
-	// Attempt to load the daemon.
-	load := exec.Command("launchctl", "load", targetPath)
-	load.Stdout = os.Stdout
-	if err := runLaunchctlIgnoringSpuriousErrors(load); err != nil {
-		return false, fmt.Errorf("unable to load launchd plist: %w", err)
-	}
-
-	// Success.
-	return true, nil
+	return false, nil
 }
+
+// Compute the path to the user's home directory.
+
+// Compute the launchd plist path.
+
+// Attempt to load the daemon.
+
+// Success.
 
 // RegisteredStop potentially handles stop start operations if the daemon is
 // registered for automatic start with the system. It returns false if the stop
 // operation was not handled and should be handled by the normal stop command.
 func RegisteredStop() (bool, error) {
+	_ = "STUB: not implemented"
 	// Check if we're registered. If not, we don't handle the stop request.
-	if registered, err := registered(); err != nil {
-		return false, fmt.Errorf("unable to determine daemon registration status: %w", err)
-	} else if !registered {
-		return false, nil
-	}
-
-	// Compute the path to the user's home directory.
-	homeDirectory, err := os.UserHomeDir()
-	if err != nil {
-		return false, fmt.Errorf("unable to compute path to home directory: %w", err)
-	}
-
-	// Compute the launchd plist path.
-	targetPath := filepath.Join(
-		homeDirectory,
-		libraryDirectoryName,
-		launchAgentsDirectoryName,
-		launchdPlistName,
-	)
-
-	// Attempt to unload the daemon.
-	unload := exec.Command("launchctl", "unload", targetPath)
-	unload.Stdout = os.Stdout
-	if err := runLaunchctlIgnoringSpuriousErrors(unload); err != nil {
-		return false, fmt.Errorf("unable to unload launchd plist: %w", err)
-	}
-
-	// Success.
-	return true, nil
+	return false, nil
 }
+
+// Compute the path to the user's home directory.
+
+// Compute the launchd plist path.
+
+// Attempt to unload the daemon.
+
+// Success.

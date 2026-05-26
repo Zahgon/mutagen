@@ -17,45 +17,15 @@
 
 package linux
 
-import (
-	"bytes"
-	"errors"
-	"fmt"
-	"strconv"
-	"strings"
-
-	"golang.org/x/sys/unix"
-)
-
 // Version returns the major and minor components of the Linux kernel version.
 func Version() (uint64, uint64, error) {
+	_ = "STUB: not implemented"
 	// Grab system metadata using uname.
-	var metadata unix.Utsname
-	if err := unix.Uname(&metadata); err != nil {
-		return 0, 0, fmt.Errorf("unable to retrieve system metadata: %w", err)
-	}
-
-	// Extract the kernel version.
-	length := bytes.IndexByte(metadata.Release[:], 0)
-	if length == -1 {
-		return 0, 0, errors.New("invalid system metadata (missing terminator)")
-	}
-	version := string(metadata.Release[:length])
-
-	// Parse the kernel version.
-	components := strings.SplitN(version, ".", 3)
-	if len(components) != 3 {
-		return 0, 0, errors.New("unexpected system version format")
-	}
-	major, err := strconv.ParseUint(components[0], 10, 64)
-	if err != nil {
-		return 0, 0, fmt.Errorf("unable to parse major version component: %w", err)
-	}
-	minor, err := strconv.ParseUint(components[1], 10, 64)
-	if err != nil {
-		return 0, 0, fmt.Errorf("unable to parse minor version component: %w", err)
-	}
-
-	// Success.
-	return major, minor, nil
+	return 0, 0, nil
 }
+
+// Extract the kernel version.
+
+// Parse the kernel version.
+
+// Success.

@@ -6,15 +6,15 @@ import (
 
 // forwardMain is the entry point for the forward command.
 func forwardMain(command *cobra.Command, _ []string) error {
+	_ = "STUB: not implemented"
 	// If no commands were given, then print help information and bail. We don't
 	// have to worry about warning about arguments being present here (which
 	// would be incorrect usage) because arguments can't even reach this point
 	// (they will be mistaken for subcommands and a error will be displayed).
-	command.Help()
-
-	// Success.
 	return nil
 }
+
+// Success.
 
 // ForwardCommand is the forward command.
 var ForwardCommand = &cobra.Command{

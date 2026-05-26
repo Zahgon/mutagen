@@ -20,37 +20,29 @@ package zstd
 import (
 	"io"
 
-	"github.com/klauspost/compress/zstd"
-
 	"github.com/mutagen-io/mutagen/pkg/stream"
 )
 
 // NewDecompressor creates a new Zstandard decompressor that reads from the
 // specified stream with a default configuration.
 func NewDecompressor(compressed io.Reader) io.ReadCloser {
+	_ = "STUB: not implemented"
 	// Create the decompressor. We check for errors, but we don't include them
 	// as part of the interface because they can only occur with an invalid
 	// decompressor configuration (which can't occur when we only use defaults).
-	decompressor, err := zstd.NewReader(compressed)
-	if err != nil {
-		panic("Zstandard decompressor construction failed")
-	}
-
-	// Adapt the decompressor to the expected interface.
-	return decompressor.IOReadCloser()
+	return *new(io.ReadCloser)
 }
+
+// Adapt the decompressor to the expected interface.
 
 // NewCompressor creates a new Zstandard compressor that writes to the specified
 // stream with a default configuration.
 func NewCompressor(compressed io.Writer) stream.WriteFlushCloser {
+	_ = "STUB: not implemented"
 	// Create the compressor. We check for errors, but we don't include them as
 	// part of the interface because they can only occur with an invalid
 	// compressor configuration (which can't occur when we only use defaults).
-	compressor, err := zstd.NewWriter(compressed)
-	if err != nil {
-		panic("Zstandard compressor construction failed")
-	}
-
-	// Success.
-	return compressor
+	return *new(stream.WriteFlushCloser)
 }
+
+// Success.

@@ -1,7 +1,6 @@
 package compression
 
 import (
-	"fmt"
 	"io"
 
 	"github.com/mutagen-io/mutagen/pkg/stream"
@@ -9,47 +8,21 @@ import (
 
 // IsDefault indicates whether or not the algorithm is
 // Algorithm_AlgorithmDefault.
-func (a Algorithm) IsDefault() bool {
-	return a == Algorithm_AlgorithmDefault
-}
+func (a Algorithm) IsDefault() bool { _ = "STUB: not implemented"; return false }
 
 // MarshalText implements encoding.TextMarshaler.MarshalText.
-func (a Algorithm) MarshalText() ([]byte, error) {
-	var result string
-	switch a {
-	case Algorithm_AlgorithmDefault:
-	case Algorithm_AlgorithmNone:
-		result = "none"
-	case Algorithm_AlgorithmDeflate:
-		result = "deflate"
-	case Algorithm_AlgorithmZstandard:
-		result = "zstandard"
-	default:
-		result = "unknown"
-	}
-	return []byte(result), nil
-}
+func (a Algorithm) MarshalText() ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // UnmarshalText implements encoding.TextUnmarshaler.UnmarshalText.
 func (a *Algorithm) UnmarshalText(textBytes []byte) error {
+	_ = "STUB: not implemented"
 	// Convert the bytes to a string.
-	text := string(textBytes)
-
-	// Convert to a compression algorithm.
-	switch text {
-	case "none":
-		*a = Algorithm_AlgorithmNone
-	case "deflate":
-		*a = Algorithm_AlgorithmDeflate
-	case "zstandard":
-		*a = Algorithm_AlgorithmZstandard
-	default:
-		return fmt.Errorf("unknown compression algorithm specification: %s", text)
-	}
-
-	// Success.
 	return nil
 }
+
+// Convert to a compression algorithm.
+
+// Success.
 
 // AlgorithmSupportStatus encodes support status for a compression algorithm.
 type AlgorithmSupportStatus uint8
@@ -69,33 +42,12 @@ const (
 
 // SupportStatus returns the support status for a particular algorithm.
 func (a Algorithm) SupportStatus() AlgorithmSupportStatus {
-	switch a {
-	case Algorithm_AlgorithmNone:
-		return AlgorithmSupportStatusSupported
-	case Algorithm_AlgorithmDeflate:
-		return AlgorithmSupportStatusSupported
-	case Algorithm_AlgorithmZstandard:
-		return zstandardSupportStatus()
-	default:
-		return AlgorithmSupportStatusUnsupported
-	}
+	_ = "STUB: not implemented"
+	return *new(AlgorithmSupportStatus)
 }
 
 // Description returns a human-readable description of a compression algorithm.
-func (a Algorithm) Description() string {
-	switch a {
-	case Algorithm_AlgorithmDefault:
-		return "Default"
-	case Algorithm_AlgorithmNone:
-		return "None"
-	case Algorithm_AlgorithmDeflate:
-		return "DEFLATE"
-	case Algorithm_AlgorithmZstandard:
-		return "Zstandard"
-	default:
-		return "Unknown"
-	}
-}
+func (a Algorithm) Description() string { _ = "STUB: not implemented"; return "" }
 
 // Compress creates a compressor that writes compressed output to the specified
 // stream using the compression algorithm. If invoked on a default or invalid
@@ -104,16 +56,8 @@ func (a Algorithm) Description() string {
 // the compressed stream itself. The compressor should be flushed and/or closed
 // before the underlying stream.
 func (a Algorithm) Compress(compressed io.Writer) stream.WriteFlushCloser {
-	switch a {
-	case Algorithm_AlgorithmNone:
-		return compressNone(compressed)
-	case Algorithm_AlgorithmDeflate:
-		return compressDeflate(compressed)
-	case Algorithm_AlgorithmZstandard:
-		return compressZstandard(compressed)
-	default:
-		panic("default or unknown compression algorithm")
-	}
+	_ = "STUB: not implemented"
+	return *new(stream.WriteFlushCloser)
 }
 
 // Decompress creates a decompressor that reads compressed input from the
@@ -123,14 +67,6 @@ func (a Algorithm) Compress(compressed io.Writer) stream.WriteFlushCloser {
 // the compressed stream itself. The decompressor should be closed after the
 // underlying stream.
 func (a Algorithm) Decompress(compressed io.Reader) io.ReadCloser {
-	switch a {
-	case Algorithm_AlgorithmNone:
-		return decompressNone(compressed)
-	case Algorithm_AlgorithmDeflate:
-		return decompressDeflate(compressed)
-	case Algorithm_AlgorithmZstandard:
-		return decompressZstandard(compressed)
-	default:
-		panic("default or unknown compression algorithm")
-	}
+	_ = "STUB: not implemented"
+	return *new(io.ReadCloser)
 }

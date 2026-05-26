@@ -7,11 +7,10 @@
 package forwarding
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -54,32 +53,27 @@ var (
 	}
 )
 
-func (x Status) Enum() *Status {
-	p := new(Status)
-	*p = x
-	return p
-}
+func (x Status) Enum() *Status { _ = "STUB: not implemented"; return nil }
 
-func (x Status) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x Status) String() string { _ = "STUB: not implemented"; return "" }
 
 func (Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_forwarding_state_proto_enumTypes[0].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (Status) Type() protoreflect.EnumType {
-	return &file_forwarding_state_proto_enumTypes[0]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x Status) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use Status.Descriptor instead.
-func (Status) EnumDescriptor() ([]byte, []int) {
-	return file_forwarding_state_proto_rawDescGZIP(), []int{0}
-}
+func (Status) EnumDescriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 // EndpointState encodes the current state of a forwarding endpoint. It is
 // mutable within the context of the daemon, so it should be accessed and
@@ -94,42 +88,21 @@ type EndpointState struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *EndpointState) Reset() {
-	*x = EndpointState{}
-	mi := &file_forwarding_state_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *EndpointState) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *EndpointState) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *EndpointState) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*EndpointState) ProtoMessage() {}
+func (*EndpointState) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *EndpointState) ProtoReflect() protoreflect.Message {
-	mi := &file_forwarding_state_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use EndpointState.ProtoReflect.Descriptor instead.
-func (*EndpointState) Descriptor() ([]byte, []int) {
-	return file_forwarding_state_proto_rawDescGZIP(), []int{0}
-}
+func (*EndpointState) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *EndpointState) GetConnected() bool {
-	if x != nil {
-		return x.Connected
-	}
-	return false
-}
+func (x *EndpointState) GetConnected() bool { _ = "STUB: not implemented"; return false }
 
 // State encodes the current state of a forwarding session. It is mutable within
 // the context of the daemon, so it should be accessed and modified in a
@@ -165,98 +138,37 @@ type State struct {
 	sizeCache        protoimpl.SizeCache
 }
 
-func (x *State) Reset() {
-	*x = State{}
-	mi := &file_forwarding_state_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *State) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *State) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *State) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*State) ProtoMessage() {}
+func (*State) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *State) ProtoReflect() protoreflect.Message {
-	mi := &file_forwarding_state_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use State.ProtoReflect.Descriptor instead.
-func (*State) Descriptor() ([]byte, []int) {
-	return file_forwarding_state_proto_rawDescGZIP(), []int{1}
-}
+func (*State) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *State) GetSession() *Session {
-	if x != nil {
-		return x.Session
-	}
-	return nil
-}
+func (x *State) GetSession() *Session { _ = "STUB: not implemented"; return nil }
 
-func (x *State) GetStatus() Status {
-	if x != nil {
-		return x.Status
-	}
-	return Status_Disconnected
-}
+func (x *State) GetStatus() Status { _ = "STUB: not implemented"; return *new(Status) }
 
-func (x *State) GetLastError() string {
-	if x != nil {
-		return x.LastError
-	}
-	return ""
-}
+func (x *State) GetLastError() string { _ = "STUB: not implemented"; return "" }
 
-func (x *State) GetOpenConnections() uint64 {
-	if x != nil {
-		return x.OpenConnections
-	}
-	return 0
-}
+func (x *State) GetOpenConnections() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *State) GetTotalConnections() uint64 {
-	if x != nil {
-		return x.TotalConnections
-	}
-	return 0
-}
+func (x *State) GetTotalConnections() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *State) GetTotalOutboundData() uint64 {
-	if x != nil {
-		return x.TotalOutboundData
-	}
-	return 0
-}
+func (x *State) GetTotalOutboundData() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *State) GetTotalInboundData() uint64 {
-	if x != nil {
-		return x.TotalInboundData
-	}
-	return 0
-}
+func (x *State) GetTotalInboundData() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *State) GetSourceState() *EndpointState {
-	if x != nil {
-		return x.SourceState
-	}
-	return nil
-}
+func (x *State) GetSourceState() *EndpointState { _ = "STUB: not implemented"; return nil }
 
-func (x *State) GetDestinationState() *EndpointState {
-	if x != nil {
-		return x.DestinationState
-	}
-	return nil
-}
+func (x *State) GetDestinationState() *EndpointState { _ = "STUB: not implemented"; return nil }
 
 var File_forwarding_state_proto protoreflect.FileDescriptor
 
@@ -287,12 +199,7 @@ var (
 	file_forwarding_state_proto_rawDescData []byte
 )
 
-func file_forwarding_state_proto_rawDescGZIP() []byte {
-	file_forwarding_state_proto_rawDescOnce.Do(func() {
-		file_forwarding_state_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_forwarding_state_proto_rawDesc), len(file_forwarding_state_proto_rawDesc)))
-	})
-	return file_forwarding_state_proto_rawDescData
-}
+func file_forwarding_state_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_forwarding_state_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_forwarding_state_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
@@ -314,28 +221,5 @@ var file_forwarding_state_proto_depIdxs = []int32{
 	0, // [0:4] is the sub-list for field type_name
 }
 
-func init() { file_forwarding_state_proto_init() }
-func file_forwarding_state_proto_init() {
-	if File_forwarding_state_proto != nil {
-		return
-	}
-	file_forwarding_session_proto_init()
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_forwarding_state_proto_rawDesc), len(file_forwarding_state_proto_rawDesc)),
-			NumEnums:      1,
-			NumMessages:   2,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_forwarding_state_proto_goTypes,
-		DependencyIndexes: file_forwarding_state_proto_depIdxs,
-		EnumInfos:         file_forwarding_state_proto_enumTypes,
-		MessageInfos:      file_forwarding_state_proto_msgTypes,
-	}.Build()
-	File_forwarding_state_proto = out.File
-	file_forwarding_state_proto_goTypes = nil
-	file_forwarding_state_proto_depIdxs = nil
-}
+func init()                             { file_forwarding_state_proto_init() }
+func file_forwarding_state_proto_init() { _ = "STUB: not implemented"; return }

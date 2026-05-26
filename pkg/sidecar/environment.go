@@ -1,7 +1,6 @@
 package sidecar
 
 import (
-	"os"
 	"sync"
 )
 
@@ -13,9 +12,4 @@ var checkEnvironmentOnce sync.Once
 
 // EnvironmentIsSidecar returns true if the current operating environment is a
 // Mutagen sidecar container.
-func EnvironmentIsSidecar() bool {
-	checkEnvironmentOnce.Do(func() {
-		environmentIsSidecar = os.Getenv("MUTAGEN_SIDECAR") == "1"
-	})
-	return environmentIsSidecar
-}
+func EnvironmentIsSidecar() bool { _ = "STUB: not implemented"; return false }

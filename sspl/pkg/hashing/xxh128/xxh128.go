@@ -30,21 +30,15 @@ type xxh128Hash struct {
 }
 
 // New returns a new XXH128 hash.
-func New() hash.Hash {
-	return &xxh128Hash{xxh3.New()}
-}
+func New() hash.Hash { _ = "STUB: not implemented"; return *new(hash.Hash) }
 
 // Sum implements hash.Hash.Sum.
 func (h *xxh128Hash) Sum(b []byte) []byte {
+	_ = "STUB: not implemented"
 	// Compute the sum and associated bytes.
-	sum128 := h.Sum128()
-	sum128Bytes := sum128.Bytes()
-
-	// If b is nil, then take the fast way out.
-	if b == nil {
-		return sum128Bytes[:]
-	}
-
-	// Otherwise append the bytes to b.
-	return append(b, sum128Bytes[:]...)
+	return nil
 }
+
+// If b is nil, then take the fast way out.
+
+// Otherwise append the bytes to b.

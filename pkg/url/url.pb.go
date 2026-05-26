@@ -7,11 +7,10 @@
 package url
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -43,32 +42,27 @@ var (
 	}
 )
 
-func (x Kind) Enum() *Kind {
-	p := new(Kind)
-	*p = x
-	return p
-}
+func (x Kind) Enum() *Kind { _ = "STUB: not implemented"; return nil }
 
-func (x Kind) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x Kind) String() string { _ = "STUB: not implemented"; return "" }
 
 func (Kind) Descriptor() protoreflect.EnumDescriptor {
-	return file_url_url_proto_enumTypes[0].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (Kind) Type() protoreflect.EnumType {
-	return &file_url_url_proto_enumTypes[0]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x Kind) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use Kind.Descriptor instead.
-func (Kind) EnumDescriptor() ([]byte, []int) {
-	return file_url_url_proto_rawDescGZIP(), []int{0}
-}
+func (Kind) EnumDescriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 // Protocol indicates a location type.
 type Protocol int32
@@ -96,32 +90,27 @@ var (
 	}
 )
 
-func (x Protocol) Enum() *Protocol {
-	p := new(Protocol)
-	*p = x
-	return p
-}
+func (x Protocol) Enum() *Protocol { _ = "STUB: not implemented"; return nil }
 
-func (x Protocol) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x Protocol) String() string { _ = "STUB: not implemented"; return "" }
 
 func (Protocol) Descriptor() protoreflect.EnumDescriptor {
-	return file_url_url_proto_enumTypes[1].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (Protocol) Type() protoreflect.EnumType {
-	return &file_url_url_proto_enumTypes[1]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x Protocol) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use Protocol.Descriptor instead.
-func (Protocol) EnumDescriptor() ([]byte, []int) {
-	return file_url_url_proto_rawDescGZIP(), []int{1}
-}
+func (Protocol) EnumDescriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 // URL represents a pointer to a resource. It should be considered immutable.
 type URL struct {
@@ -153,91 +142,35 @@ type URL struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *URL) Reset() {
-	*x = URL{}
-	mi := &file_url_url_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *URL) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *URL) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *URL) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*URL) ProtoMessage() {}
+func (*URL) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *URL) ProtoReflect() protoreflect.Message {
-	mi := &file_url_url_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use URL.ProtoReflect.Descriptor instead.
-func (*URL) Descriptor() ([]byte, []int) {
-	return file_url_url_proto_rawDescGZIP(), []int{0}
-}
+func (*URL) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *URL) GetKind() Kind {
-	if x != nil {
-		return x.Kind
-	}
-	return Kind_Synchronization
-}
+func (x *URL) GetKind() Kind { _ = "STUB: not implemented"; return *new(Kind) }
 
-func (x *URL) GetProtocol() Protocol {
-	if x != nil {
-		return x.Protocol
-	}
-	return Protocol_Local
-}
+func (x *URL) GetProtocol() Protocol { _ = "STUB: not implemented"; return *new(Protocol) }
 
-func (x *URL) GetUser() string {
-	if x != nil {
-		return x.User
-	}
-	return ""
-}
+func (x *URL) GetUser() string { _ = "STUB: not implemented"; return "" }
 
-func (x *URL) GetHost() string {
-	if x != nil {
-		return x.Host
-	}
-	return ""
-}
+func (x *URL) GetHost() string { _ = "STUB: not implemented"; return "" }
 
-func (x *URL) GetPort() uint32 {
-	if x != nil {
-		return x.Port
-	}
-	return 0
-}
+func (x *URL) GetPort() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *URL) GetPath() string {
-	if x != nil {
-		return x.Path
-	}
-	return ""
-}
+func (x *URL) GetPath() string { _ = "STUB: not implemented"; return "" }
 
-func (x *URL) GetEnvironment() map[string]string {
-	if x != nil {
-		return x.Environment
-	}
-	return nil
-}
+func (x *URL) GetEnvironment() map[string]string { _ = "STUB: not implemented"; return nil }
 
-func (x *URL) GetParameters() map[string]string {
-	if x != nil {
-		return x.Parameters
-	}
-	return nil
-}
+func (x *URL) GetParameters() map[string]string { _ = "STUB: not implemented"; return nil }
 
 var File_url_url_proto protoreflect.FileDescriptor
 
@@ -276,12 +209,7 @@ var (
 	file_url_url_proto_rawDescData []byte
 )
 
-func file_url_url_proto_rawDescGZIP() []byte {
-	file_url_url_proto_rawDescOnce.Do(func() {
-		file_url_url_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_url_url_proto_rawDesc), len(file_url_url_proto_rawDesc)))
-	})
-	return file_url_url_proto_rawDescData
-}
+func file_url_url_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_url_url_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_url_url_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
@@ -304,27 +232,5 @@ var file_url_url_proto_depIdxs = []int32{
 	0, // [0:4] is the sub-list for field type_name
 }
 
-func init() { file_url_url_proto_init() }
-func file_url_url_proto_init() {
-	if File_url_url_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_url_url_proto_rawDesc), len(file_url_url_proto_rawDesc)),
-			NumEnums:      2,
-			NumMessages:   3,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_url_url_proto_goTypes,
-		DependencyIndexes: file_url_url_proto_depIdxs,
-		EnumInfos:         file_url_url_proto_enumTypes,
-		MessageInfos:      file_url_url_proto_msgTypes,
-	}.Build()
-	File_url_url_proto = out.File
-	file_url_url_proto_goTypes = nil
-	file_url_url_proto_depIdxs = nil
-}
+func init()                    { file_url_url_proto_init() }
+func file_url_url_proto_init() { _ = "STUB: not implemented"; return }

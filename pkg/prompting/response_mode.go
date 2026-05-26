@@ -1,9 +1,5 @@
 package prompting
 
-import (
-	"strings"
-)
-
 // ResponseMode encodes how a prompt response should be displayed and validated.
 type ResponseMode uint8
 
@@ -28,17 +24,13 @@ var echoedPromptSuffixes = []string{
 // determineResponseMode attempts to determine the appropriate response mode for
 // a prompt based on the prompt text.
 func determineResponseMode(prompt string) ResponseMode {
+	_ = "STUB: not implemented"
 	// Check if this is an echoed prompt.
-	for _, suffix := range echoedPromptSuffixes {
-		if strings.HasSuffix(prompt, suffix) {
-			return ResponseModeEcho
-		}
-	}
-
-	// TODO: Are there any non-binary prompts from OpenSSH with responses that
-	// should be echoed? If so, we need to create a white-listed registry of
-	// regular expressions to match them.
-
-	// Otherwise assume this is a secret prompt.
-	return ResponseModeSecret
+	return *new(ResponseMode)
 }
+
+// TODO: Are there any non-binary prompts from OpenSSH with responses that
+// should be echoed? If so, we need to create a white-listed registry of
+// regular expressions to match them.
+
+// Otherwise assume this is a secret prompt.

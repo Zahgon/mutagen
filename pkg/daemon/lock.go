@@ -1,8 +1,6 @@
 package daemon
 
 import (
-	"fmt"
-
 	"github.com/mutagen-io/mutagen/pkg/filesystem/locking"
 )
 
@@ -15,40 +13,22 @@ type Lock struct {
 
 // AcquireLock attempts to acquire the global daemon lock.
 func AcquireLock() (*Lock, error) {
+	_ = "STUB: not implemented"
 	// Compute the lock path.
-	lockPath, err := subpath(lockName)
-	if err != nil {
-		return nil, fmt.Errorf("unable to compute daemon lock path: %w", err)
-	}
-
-	// Create the locker and attempt to acquire the lock.
-	locker, err := locking.NewLocker(lockPath, 0600)
-	if err != nil {
-		return nil, fmt.Errorf("unable to create daemon file locker: %w", err)
-	} else if err = locker.Lock(false); err != nil {
-		locker.Close()
-		return nil, err
-	}
-
-	// Create the lock.
-	return &Lock{
-		locker: locker,
-	}, nil
+	return nil, nil
 }
+
+// Create the locker and attempt to acquire the lock.
+
+// Create the lock.
 
 // Release releases the daemon lock.
 func (l *Lock) Release() error {
+	_ = "STUB: not implemented"
 	// Release the lock.
-	if err := l.locker.Unlock(); err != nil {
-		l.locker.Close()
-		return err
-	}
-
-	// Close the locker.
-	if err := l.locker.Close(); err != nil {
-		return fmt.Errorf("unable to close locker: %w", err)
-	}
-
-	// Success.
 	return nil
 }
+
+// Close the locker.
+
+// Success.

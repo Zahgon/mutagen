@@ -1,8 +1,6 @@
 package agent
 
 import (
-	"errors"
-	"fmt"
 	"io"
 )
 
@@ -29,57 +27,40 @@ var clientMagicNumber = magicNumberBytes{0x87, 0x27, 0x05}
 // sendMagicNumber sends the Mutagen magic byte sequence to the specified
 // writer.
 func sendMagicNumber(writer io.Writer, magicNumber magicNumberBytes) error {
-	_, err := writer.Write(magicNumber[:])
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // receiveAndCompareMagicNumber reads a Mutagen magic byte sequence from the
 // specified reader and verifies that it matches what's expected.
 func receiveAndCompareMagicNumber(reader io.Reader, expected magicNumberBytes) (bool, error) {
+	_ = "STUB: not implemented"
 	// Read the bytes.
-	var received magicNumberBytes
-	if _, err := io.ReadFull(reader, received[:]); err != nil {
-		return false, err
-	}
-
-	// Compare the bytes.
-	return received == expected, nil
+	return false, nil
 }
+
+// Compare the bytes.
 
 // ClientHandshake performs a client-side handshake on the stream.
 func ClientHandshake(stream io.ReadWriter) error {
+	_ = "STUB: not implemented"
 	// Receive the server's magic number.
-	if magicOk, err := receiveAndCompareMagicNumber(stream, serverMagicNumber); err != nil {
-		return fmt.Errorf("unable to receive server magic number: %w", err)
-	} else if !magicOk {
-		return errors.New("server magic number incorrect")
-	}
-
-	// Send our magic number to the server.
-	if err := sendMagicNumber(stream, clientMagicNumber); err != nil {
-		return fmt.Errorf("unable to send client magic number: %w", err)
-	}
-
-	// Success.
 	return nil
 }
+
+// Send our magic number to the server.
+
+// Success.
 
 // ServerHandshake performs a server-side handshake on the stream.
 func ServerHandshake(stream io.ReadWriter) error {
+	_ = "STUB: not implemented"
 	// Send our magic number to the client.
-	if err := sendMagicNumber(stream, serverMagicNumber); err != nil {
-		return fmt.Errorf("unable to send server magic number: %w", err)
-	}
-
-	// Receive the client's magic number. We treat a mismatch of the magic
-	// number as a transport error as well, because it indicates that we're not
-	// actually talking to a Mutagen client.
-	if magicOk, err := receiveAndCompareMagicNumber(stream, clientMagicNumber); err != nil {
-		return fmt.Errorf("unable to receive client magic number: %w", err)
-	} else if !magicOk {
-		return errors.New("client magic number incorrect")
-	}
-
-	// Success.
 	return nil
 }
+
+// Receive the client's magic number. We treat a mismatch of the magic
+// number as a transport error as well, because it indicates that we're not
+// actually talking to a Mutagen client.
+
+// Success.

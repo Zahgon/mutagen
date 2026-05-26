@@ -12,12 +12,7 @@ var (
 )
 
 // min returns the lesser of a or b.
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
+func min(a, b int) int { _ = "STUB: not implemented"; return 0 }
 
 // Buffer is a fixed-size ring buffer for storing bytes. Its behavior is
 // designed to match that of bytes.Buffer as closely as possible. The zero value
@@ -53,84 +48,60 @@ type Buffer struct {
 
 // NewBuffer creates a new ring buffer with the specified size. If size is less
 // than or equal to 0, then a buffer with zero capacity is created.
-func NewBuffer(size int) *Buffer {
-	if size <= 0 {
-		return &Buffer{}
-	}
-	return &Buffer{
-		storage: make([]byte, size),
-		size:    size,
-	}
-}
+func NewBuffer(size int) *Buffer { _ = "STUB: not implemented"; return nil }
 
 // Size returns the size of the buffer.
 func (b *Buffer) Size() int {
-	return b.size
+	_ = "STUB: not implemented"
+
+	// Used returns how many bytes currently reside in the buffer.
+	return 0
 }
 
-// Used returns how many bytes currently reside in the buffer.
 func (b *Buffer) Used() int {
-	return b.used
+	_ = "STUB: not implemented"
+
+	// Free returns the unused buffer capacity.
+	return 0
 }
 
-// Free returns the unused buffer capacity.
-func (b *Buffer) Free() int {
-	return b.size - b.used
-}
+func (b *Buffer) Free() int { _ = "STUB: not implemented"; return 0 }
 
 // Reset clears all data within the buffer.
-func (b *Buffer) Reset() {
-	b.start = 0
-	b.used = 0
-}
+func (b *Buffer) Reset() { _ = "STUB: not implemented"; return }
 
 // Write implements io.Writer.Write.
 func (b *Buffer) Write(data []byte) (int, error) {
+	_ = "STUB: not implemented"
 	// Loop until we've consumed the data buffer or run out of storage.
-	var result int
-	for len(data) > 0 && b.used != b.size {
-		// Compute the first available contiguous free storage segment.
-		freeStart := (b.start + b.used) % b.size
-		free := b.storage[freeStart:min(freeStart+(b.size-b.used), b.size)]
-
-		// Copy data into storage.
-		copied := copy(free, data)
-
-		// Update indices and tracking.
-		result += copied
-		data = data[copied:]
-		b.used += copied
-	}
-
-	// If we couldn't fully consume the source buffer due to a lack of storage,
-	// then we need to return an error.
-	if len(data) > 0 && b.used == b.size {
-		return result, ErrBufferFull
-	}
-
-	// Success.
-	return result, nil
+	return 0, nil
 }
+
+// Compute the first available contiguous free storage segment.
+
+// Copy data into storage.
+
+// Update indices and tracking.
+
+// If we couldn't fully consume the source buffer due to a lack of storage,
+// then we need to return an error.
+
+// Success.
 
 // WriteByte implements io.ByteWriter.WriteByte.
 func (b *Buffer) WriteByte(value byte) error {
+	_ = "STUB: not implemented"
 	// If there's no space available, then we can't write the byte.
-	if b.used == b.size {
-		return ErrBufferFull
-	}
-
-	// Compute the start of the first available free storage segment.
-	freeStart := (b.start + b.used) % b.size
-
-	// Store the byte.
-	b.storage[freeStart] = value
-
-	// Update tracking.
-	b.used += 1
-
-	// Success.
 	return nil
 }
+
+// Compute the start of the first available free storage segment.
+
+// Store the byte.
+
+// Update tracking.
+
+// Success.
 
 // ReadNFrom is similar to using io.ReaderFrom.ReadFrom with io.LimitedReader,
 // but it is designed to support a limited-capacity buffer, which can't reliably
@@ -145,132 +116,78 @@ func (b *Buffer) WriteByte(value byte) error {
 // will return io.EOF if encountered, unless it occurs simultaneously with
 // request completion.
 func (b *Buffer) ReadNFrom(reader io.Reader, n int) (int, error) {
+	_ = "STUB: not implemented"
 	// Loop until we've filled completed the read, run out of storage, or
 	// encountered a read error.
-	var read, result int
-	var err error
-	for n > 0 && b.used != b.size && err == nil {
-		// Compute the first available contiguous free storage segment.
-		freeStart := (b.start + b.used) % b.size
-		free := b.storage[freeStart:min(freeStart+(b.size-b.used), b.size)]
-
-		// If the storage segment is larger than we need, then truncate it.
-		if len(free) > n {
-			free = free[:n]
-		}
-
-		// Perform the read.
-		read, err = reader.Read(free)
-
-		// Update indices and tracking.
-		result += read
-		b.used += read
-		n -= read
-	}
-
-	// If we couldn't complete the read due to a lack of storage, then we need
-	// to return an error. However, if a read error occurred simultaneously with
-	// running out of storage, then we don't overwrite it.
-	if n > 0 && b.used == b.size && err == nil {
-		err = ErrBufferFull
-	}
-
-	// If we encountered io.EOF simultaneously with completing the read, then we
-	// can clear the error.
-	if err == io.EOF && n == 0 {
-		err = nil
-	}
-
-	// Done.
-	return result, err
+	return 0, nil
 }
+
+// Compute the first available contiguous free storage segment.
+
+// If the storage segment is larger than we need, then truncate it.
+
+// Perform the read.
+
+// Update indices and tracking.
+
+// If we couldn't complete the read due to a lack of storage, then we need
+// to return an error. However, if a read error occurred simultaneously with
+// running out of storage, then we don't overwrite it.
+
+// If we encountered io.EOF simultaneously with completing the read, then we
+// can clear the error.
+
+// Done.
 
 // Read implements io.Reader.Read.
 func (b *Buffer) Read(buffer []byte) (int, error) {
+	_ = "STUB: not implemented"
 	// If the destination buffer is zero-length, then we return with no error,
 	// even if we have no data available. Otherwise, if we don't have any data
 	// available, then return EOF.
-	if len(buffer) == 0 {
-		return 0, nil
-	} else if b.used == 0 {
-		return 0, io.EOF
-	}
-
-	// Loop until we've filled the destination buffer or drained storage.
-	var result int
-	for len(buffer) > 0 && b.used > 0 {
-		// Compute the first available contiguous data segment.
-		data := b.storage[b.start:min(b.start+b.used, b.size)]
-
-		// Copy the data.
-		copied := copy(buffer, data)
-
-		// Update indices and tracking.
-		result += copied
-		buffer = buffer[copied:]
-		b.start += copied
-		b.start %= b.size
-		b.used -= copied
-	}
-
-	// Reset to an optimal layout if possible.
-	if b.used == 0 {
-		b.start = 0
-	}
-
-	// Success.
-	return result, nil
+	return 0, nil
 }
+
+// Loop until we've filled the destination buffer or drained storage.
+
+// Compute the first available contiguous data segment.
+
+// Copy the data.
+
+// Update indices and tracking.
+
+// Reset to an optimal layout if possible.
+
+// Success.
 
 // ReadByte implements io.ByteReader.ReadByte.
 func (b *Buffer) ReadByte() (byte, error) {
+	_ = "STUB: not implemented"
 	// If we don't have any data available, then return EOF.
-	if b.used == 0 {
-		return 0, io.EOF
-	}
-
-	// Extract the first byte of data.
-	result := b.storage[b.start]
-
-	// Update indices and tracking.
-	b.start += 1
-	b.start %= b.size
-	b.used -= 1
-
-	// Reset to an optimal layout if possible.
-	if b.used == 0 {
-		b.start = 0
-	}
-
-	// Success.
-	return result, nil
+	return 0, nil
 }
+
+// Extract the first byte of data.
+
+// Update indices and tracking.
+
+// Reset to an optimal layout if possible.
+
+// Success.
 
 // WriteTo implements io.WriterTo.WriteTo.
 func (b *Buffer) WriteTo(writer io.Writer) (int64, error) {
+	_ = "STUB: not implemented"
 	// Loop until we've drained the storage buffer or encountered a write error.
-	var written int
-	var result int64
-	var err error
-	for b.used > 0 && err == nil {
-		// Compute the first available contiguous data segment.
-		data := b.storage[b.start:min(b.start+b.used, b.size)]
-
-		// Write the data.
-		written, err = writer.Write(data)
-
-		// Update indices and tracking.
-		result += int64(written)
-		b.start += written
-		b.start %= b.size
-		b.used -= written
-	}
-
-	// Reset to an optimal layout if possible.
-	if b.used == 0 {
-		b.start = 0
-	}
-
-	// Done.
-	return result, err
+	return 0, nil
 }
+
+// Compute the first available contiguous data segment.
+
+// Write the data.
+
+// Update indices and tracking.
+
+// Reset to an optimal layout if possible.
+
+// Done.

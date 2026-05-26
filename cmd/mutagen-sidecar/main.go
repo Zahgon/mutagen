@@ -2,27 +2,22 @@ package main
 
 import (
 	"os"
-	"os/signal"
 
 	"github.com/spf13/cobra"
-
-	"github.com/mutagen-io/mutagen/cmd"
 
 	"github.com/mutagen-io/mutagen/pkg/mutagen"
 )
 
 // rootMain is the entry point for the root command.
 func rootMain(_ *cobra.Command, _ []string) error {
+	_ = "STUB: not implemented"
 	// Set up signal handling.
-	signalTermination := make(chan os.Signal, 1)
-	signal.Notify(signalTermination, cmd.TerminationSignals...)
-
-	// Wait for termination.
-	<-signalTermination
-
-	// Success.
 	return nil
 }
+
+// Wait for termination.
+
+// Success.
 
 // rootCommand is the root command.
 var rootCommand = &cobra.Command{

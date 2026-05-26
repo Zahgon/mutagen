@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 
 	"github.com/mutagen-io/mutagen/cmd"
@@ -10,37 +8,18 @@ import (
 
 // generateMain is the entry point for the generate command.
 func generateMain(_ *cobra.Command, _ []string) error {
+	_ = "STUB: not implemented"
 	// Generate a Bash completion script, if requested.
-	if generateConfiguration.bashCompletionScript != "" {
-		if err := rootCommand.GenBashCompletionFile(generateConfiguration.bashCompletionScript); err != nil {
-			return fmt.Errorf("unable to generate Bash completion script: %w", err)
-		}
-	}
-
-	// Generate a fish completion script, if requested.
-	if generateConfiguration.fishCompletionScript != "" {
-		if err := rootCommand.GenFishCompletionFile(generateConfiguration.fishCompletionScript, true); err != nil {
-			return fmt.Errorf("unable to generate fish completion script: %w", err)
-		}
-	}
-
-	// Generate a PowerShell completion script, if requested.
-	if generateConfiguration.powerShellCompletionScript != "" {
-		if err := rootCommand.GenPowerShellCompletionFile(generateConfiguration.powerShellCompletionScript); err != nil {
-			return fmt.Errorf("unable to generate PowerShell completion script: %w", err)
-		}
-	}
-
-	// Generate a Zsh completion script, if requested.
-	if generateConfiguration.zshCompletionScript != "" {
-		if err := rootCommand.GenZshCompletionFile(generateConfiguration.zshCompletionScript); err != nil {
-			return fmt.Errorf("unable to generate Zsh completion script: %w", err)
-		}
-	}
-
-	// Success.
 	return nil
 }
+
+// Generate a fish completion script, if requested.
+
+// Generate a PowerShell completion script, if requested.
+
+// Generate a Zsh completion script, if requested.
+
+// Success.
 
 // generateCommand is the generate command.
 var generateCommand = &cobra.Command{

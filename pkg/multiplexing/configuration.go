@@ -33,31 +33,9 @@ type Configuration struct {
 }
 
 // DefaultConfiguration returns the default multiplexer configuration.
-func DefaultConfiguration() *Configuration {
-	return &Configuration{
-		StreamReceiveWindow:             (1 << 16) - 1, // 65535 bytes
-		WriteBufferCount:                5,
-		AcceptBacklog:                   10,
-		HeartbeatTransmitInterval:       5 * time.Second,
-		MaximumHeartbeatReceiveInterval: 10 * time.Second,
-	}
-}
+func DefaultConfiguration() *Configuration { _ = "STUB: not implemented"; return nil }
+
+// 65535 bytes
 
 // normalize normalizes out-of-range configuration values.
-func (c *Configuration) normalize() {
-	if c.StreamReceiveWindow < 0 {
-		c.StreamReceiveWindow = 0
-	}
-	if c.WriteBufferCount <= 0 {
-		c.WriteBufferCount = 1
-	}
-	if c.AcceptBacklog <= 0 {
-		c.AcceptBacklog = 1
-	}
-	if c.HeartbeatTransmitInterval < 0 {
-		c.HeartbeatTransmitInterval = 0
-	}
-	if c.MaximumHeartbeatReceiveInterval < 0 {
-		c.MaximumHeartbeatReceiveInterval = 0
-	}
-}
+func (c *Configuration) normalize() { _ = "STUB: not implemented"; return }

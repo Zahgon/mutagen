@@ -1,23 +1,19 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 
 	"github.com/mutagen-io/mutagen/cmd"
-
-	"github.com/mutagen-io/mutagen/pkg/mutagen"
 )
 
 // versionMain is the entry point for the version command.
 func versionMain(_ *cobra.Command, _ []string) error {
+	_ = "STUB: not implemented"
 	// Print version information.
-	fmt.Println(mutagen.Version)
-
-	// Success.
 	return nil
 }
+
+// Success.
 
 // versionCommand is the version command.
 var versionCommand = &cobra.Command{

@@ -10,15 +10,18 @@ import (
 
 // zstandardSupportStatus returns Zstandard compression support status.
 func zstandardSupportStatus() AlgorithmSupportStatus {
-	return AlgorithmSupportStatusUnsupported
+	_ = "STUB: not implemented"
+	return *new(AlgorithmSupportStatus)
 }
 
 // compressZstandard implements compression for Zstandard streams.
 func compressZstandard(compressed io.Writer) stream.WriteFlushCloser {
-	panic("Zstandard compression not supported")
+	_ = "STUB: not implemented"
+	return *new(stream.WriteFlushCloser)
 }
 
 // decompressZstandard implements decompression for Zstandard streams.
 func decompressZstandard(compressed io.Reader) io.ReadCloser {
-	panic("Zstandard decompression not supported")
+	_ = "STUB: not implemented"
+	return *new(io.ReadCloser)
 }

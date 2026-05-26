@@ -7,11 +7,10 @@
 package daemon
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -27,35 +26,19 @@ type VersionRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *VersionRequest) Reset() {
-	*x = VersionRequest{}
-	mi := &file_service_daemon_daemon_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *VersionRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *VersionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *VersionRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*VersionRequest) ProtoMessage() {}
+func (*VersionRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *VersionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_daemon_daemon_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use VersionRequest.ProtoReflect.Descriptor instead.
-func (*VersionRequest) Descriptor() ([]byte, []int) {
-	return file_service_daemon_daemon_proto_rawDescGZIP(), []int{0}
-}
+func (*VersionRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 type VersionResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -69,63 +52,27 @@ type VersionResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *VersionResponse) Reset() {
-	*x = VersionResponse{}
-	mi := &file_service_daemon_daemon_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *VersionResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *VersionResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *VersionResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*VersionResponse) ProtoMessage() {}
+func (*VersionResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *VersionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_daemon_daemon_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use VersionResponse.ProtoReflect.Descriptor instead.
-func (*VersionResponse) Descriptor() ([]byte, []int) {
-	return file_service_daemon_daemon_proto_rawDescGZIP(), []int{1}
-}
+func (*VersionResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *VersionResponse) GetMajor() uint64 {
-	if x != nil {
-		return x.Major
-	}
-	return 0
-}
+func (x *VersionResponse) GetMajor() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *VersionResponse) GetMinor() uint64 {
-	if x != nil {
-		return x.Minor
-	}
-	return 0
-}
+func (x *VersionResponse) GetMinor() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *VersionResponse) GetPatch() uint64 {
-	if x != nil {
-		return x.Patch
-	}
-	return 0
-}
+func (x *VersionResponse) GetPatch() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *VersionResponse) GetTag() string {
-	if x != nil {
-		return x.Tag
-	}
-	return ""
-}
+func (x *VersionResponse) GetTag() string { _ = "STUB: not implemented"; return "" }
 
 type TerminateRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -133,35 +80,19 @@ type TerminateRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TerminateRequest) Reset() {
-	*x = TerminateRequest{}
-	mi := &file_service_daemon_daemon_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *TerminateRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TerminateRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TerminateRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TerminateRequest) ProtoMessage() {}
+func (*TerminateRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TerminateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_daemon_daemon_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TerminateRequest.ProtoReflect.Descriptor instead.
-func (*TerminateRequest) Descriptor() ([]byte, []int) {
-	return file_service_daemon_daemon_proto_rawDescGZIP(), []int{2}
-}
+func (*TerminateRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 type TerminateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -169,35 +100,19 @@ type TerminateResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TerminateResponse) Reset() {
-	*x = TerminateResponse{}
-	mi := &file_service_daemon_daemon_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *TerminateResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TerminateResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TerminateResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TerminateResponse) ProtoMessage() {}
+func (*TerminateResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TerminateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_daemon_daemon_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TerminateResponse.ProtoReflect.Descriptor instead.
-func (*TerminateResponse) Descriptor() ([]byte, []int) {
-	return file_service_daemon_daemon_proto_rawDescGZIP(), []int{3}
-}
+func (*TerminateResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 var File_service_daemon_daemon_proto protoreflect.FileDescriptor
 
@@ -221,12 +136,7 @@ var (
 	file_service_daemon_daemon_proto_rawDescData []byte
 )
 
-func file_service_daemon_daemon_proto_rawDescGZIP() []byte {
-	file_service_daemon_daemon_proto_rawDescOnce.Do(func() {
-		file_service_daemon_daemon_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_service_daemon_daemon_proto_rawDesc), len(file_service_daemon_daemon_proto_rawDesc)))
-	})
-	return file_service_daemon_daemon_proto_rawDescData
-}
+func file_service_daemon_daemon_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_service_daemon_daemon_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_service_daemon_daemon_proto_goTypes = []any{
@@ -247,26 +157,5 @@ var file_service_daemon_daemon_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_service_daemon_daemon_proto_init() }
-func file_service_daemon_daemon_proto_init() {
-	if File_service_daemon_daemon_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_service_daemon_daemon_proto_rawDesc), len(file_service_daemon_daemon_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   4,
-			NumExtensions: 0,
-			NumServices:   1,
-		},
-		GoTypes:           file_service_daemon_daemon_proto_goTypes,
-		DependencyIndexes: file_service_daemon_daemon_proto_depIdxs,
-		MessageInfos:      file_service_daemon_daemon_proto_msgTypes,
-	}.Build()
-	File_service_daemon_daemon_proto = out.File
-	file_service_daemon_daemon_proto_goTypes = nil
-	file_service_daemon_daemon_proto_depIdxs = nil
-}
+func init()                                  { file_service_daemon_daemon_proto_init() }
+func file_service_daemon_daemon_proto_init() { _ = "STUB: not implemented"; return }

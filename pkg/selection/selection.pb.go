@@ -7,11 +7,10 @@
 package selection
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -38,56 +37,25 @@ type Selection struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Selection) Reset() {
-	*x = Selection{}
-	mi := &file_selection_selection_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Selection) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Selection) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Selection) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Selection) ProtoMessage() {}
+func (*Selection) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Selection) ProtoReflect() protoreflect.Message {
-	mi := &file_selection_selection_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Selection.ProtoReflect.Descriptor instead.
-func (*Selection) Descriptor() ([]byte, []int) {
-	return file_selection_selection_proto_rawDescGZIP(), []int{0}
-}
+func (*Selection) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Selection) GetAll() bool {
-	if x != nil {
-		return x.All
-	}
-	return false
-}
+func (x *Selection) GetAll() bool { _ = "STUB: not implemented"; return false }
 
-func (x *Selection) GetSpecifications() []string {
-	if x != nil {
-		return x.Specifications
-	}
-	return nil
-}
+func (x *Selection) GetSpecifications() []string { _ = "STUB: not implemented"; return nil }
 
-func (x *Selection) GetLabelSelector() string {
-	if x != nil {
-		return x.LabelSelector
-	}
-	return ""
-}
+func (x *Selection) GetLabelSelector() string { _ = "STUB: not implemented"; return "" }
 
 var File_selection_selection_proto protoreflect.FileDescriptor
 
@@ -104,12 +72,7 @@ var (
 	file_selection_selection_proto_rawDescData []byte
 )
 
-func file_selection_selection_proto_rawDescGZIP() []byte {
-	file_selection_selection_proto_rawDescOnce.Do(func() {
-		file_selection_selection_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_selection_selection_proto_rawDesc), len(file_selection_selection_proto_rawDesc)))
-	})
-	return file_selection_selection_proto_rawDescData
-}
+func file_selection_selection_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_selection_selection_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_selection_selection_proto_goTypes = []any{
@@ -123,26 +86,5 @@ var file_selection_selection_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_selection_selection_proto_init() }
-func file_selection_selection_proto_init() {
-	if File_selection_selection_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_selection_selection_proto_rawDesc), len(file_selection_selection_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   1,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_selection_selection_proto_goTypes,
-		DependencyIndexes: file_selection_selection_proto_depIdxs,
-		MessageInfos:      file_selection_selection_proto_msgTypes,
-	}.Build()
-	File_selection_selection_proto = out.File
-	file_selection_selection_proto_goTypes = nil
-	file_selection_selection_proto_depIdxs = nil
-}
+func init()                                { file_selection_selection_proto_init() }
+func file_selection_selection_proto_init() { _ = "STUB: not implemented"; return }

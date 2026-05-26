@@ -1,9 +1,5 @@
 package ignore
 
-import (
-	"github.com/mutagen-io/mutagen/pkg/synchronization/core/fastpath"
-)
-
 // vcsDirectoryNames maps directory names to a boolean indicating whether or not
 // they represent a VCS directory.
 var vcsDirectoryNames = map[string]bool{
@@ -22,16 +18,12 @@ type vcsIgnorer struct {
 
 // Ignore implements Ignorer.Ignore.
 func (i *vcsIgnorer) Ignore(path string, directory bool) (IgnoreStatus, bool) {
+	_ = "STUB: not implemented"
 	// Watch for and ignore any VCS directories.
-	if directory && vcsDirectoryNames[fastpath.Base(path)] {
-		return IgnoreStatusIgnored, false
-	}
-
-	// Dispatch all other requests to the underlying ignorer.
-	return i.ignorer.Ignore(path, directory)
+	return *new(IgnoreStatus), false
 }
+
+// Dispatch all other requests to the underlying ignorer.
 
 // IgnoreVCS wraps an ignorer, modifying it to ignore VCS directories.
-func IgnoreVCS(ignorer Ignorer) Ignorer {
-	return &vcsIgnorer{ignorer}
-}
+func IgnoreVCS(ignorer Ignorer) Ignorer { _ = "STUB: not implemented"; return *new(Ignorer) }

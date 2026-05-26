@@ -2,25 +2,11 @@ package main
 
 import (
 	"archive/tar"
-	"errors"
-	"fmt"
-	"io"
-	"log"
 	"os"
-	"os/exec"
-	"path/filepath"
-	"runtime"
-	"strings"
-	"time"
-
-	"github.com/spf13/pflag"
 
 	"github.com/klauspost/compress/gzip"
 
 	"github.com/mutagen-io/mutagen/cmd"
-
-	"github.com/mutagen-io/mutagen/pkg/agent"
-	"github.com/mutagen-io/mutagen/pkg/mutagen"
 )
 
 const (
@@ -72,104 +58,75 @@ type Target struct {
 }
 
 // String generates a human-readable representation of the target.
-func (t Target) String() string {
-	return fmt.Sprintf("%s/%s", t.GOOS, t.GOARCH)
-}
+func (t Target) String() string { _ = "STUB: not implemented"; return "" }
 
 // Name generates a representation of the target that is suitable for paths and
 // file names.
-func (t Target) Name() string {
-	return fmt.Sprintf("%s_%s", t.GOOS, t.GOARCH)
-}
+func (t Target) Name() string { _ = "STUB: not implemented"; return "" }
 
 // ExecutableName formats executable names for the target.
 func (t Target) ExecutableName(base string) string {
+	_ = "STUB: not implemented"
 	// If we're on Windows, append a ".exe" extension.
-	if t.GOOS == "windows" {
-		return fmt.Sprintf("%s.exe", base)
-	}
-
-	// Otherwise return the base name unmodified.
-	return base
+	return ""
 }
+
+// Otherwise return the base name unmodified.
 
 // appendGoEnv modifies an environment specification to make the Go toolchain
 // generate output for the target. It assumes that the resulting environment
 // will be used with os/exec.Cmd and thus doesn't avoid duplicate variables.
 func (t Target) appendGoEnv(environment []string) []string {
+	_ = "STUB: not implemented"
 	// Override GOOS/GOARCH.
-	environment = append(environment, fmt.Sprintf("GOOS=%s", t.GOOS))
-	environment = append(environment, fmt.Sprintf("GOARCH=%s", t.GOARCH))
-
-	// If we're building a macOS binary on macOS, then we enable cgo because
-	// we'll need it to access the FSEvents API. We have to enable it explicitly
-	// because Go won't enable it when cross compiling between different Darwin
-	// architectures. We also need to tell the C compiler and external linker to
-	// support older versions of macOS. These flags will tell the C compiler to
-	// generate code compatible with the target version of macOS and tell the
-	// external linker what value to embed for the LC_VERSION_MIN_MACOSX flag in
-	// the resulting Mach-O binaries. Go's internal linker automatically
-	// defaults to a relatively liberal (old) value for this flag, but since
-	// we're using an external linker, it defaults to the current SDK version.
-	//
-	// For all other platforms, we disable cgo. This is essential for our Linux
-	// CI setup, because we build agent executables during testing that we then
-	// run inside Docker containers for our integration tests. These containers
-	// typically run Alpine Linux, and if the agent binary is linked to C
-	// libraries that only exist on the build system, then they won't work
-	// inside the container. We can't disable cgo on a global basis though,
-	// because it's needed for race condition testing. Another reason that it's
-	// good to disable cgo when building agent binaries during testing is that
-	// the release agent binaries will also have cgo disabled (except on macOS),
-	// and we'll want to faithfully recreate that.
-	if t.GOOS == "darwin" && runtime.GOOS == "darwin" {
-		environment = append(environment, "CGO_ENABLED=1")
-		environment = append(environment, fmt.Sprintf("CGO_CFLAGS=-mmacosx-version-min=%s", minimumMacOSVersion))
-		environment = append(environment, fmt.Sprintf("CGO_LDFLAGS=-mmacosx-version-min=%s", minimumMacOSVersion))
-	} else {
-		environment = append(environment, "CGO_ENABLED=0")
-	}
-
-	// Set up ARM target support. See notes for definition of minimumARMSupport.
-	// We don't need to unset any existing GOARM variables since they simply
-	// won't be used if we're not targeting (non-64-bit) ARM systems.
-	if t.GOARCH == "arm" {
-		environment = append(environment, fmt.Sprintf("GOARM=%s", minimumARMSupport))
-	}
-
-	// Done.
-	return environment
+	return nil
 }
+
+// If we're building a macOS binary on macOS, then we enable cgo because
+// we'll need it to access the FSEvents API. We have to enable it explicitly
+// because Go won't enable it when cross compiling between different Darwin
+// architectures. We also need to tell the C compiler and external linker to
+// support older versions of macOS. These flags will tell the C compiler to
+// generate code compatible with the target version of macOS and tell the
+// external linker what value to embed for the LC_VERSION_MIN_MACOSX flag in
+// the resulting Mach-O binaries. Go's internal linker automatically
+// defaults to a relatively liberal (old) value for this flag, but since
+// we're using an external linker, it defaults to the current SDK version.
+//
+// For all other platforms, we disable cgo. This is essential for our Linux
+// CI setup, because we build agent executables during testing that we then
+// run inside Docker containers for our integration tests. These containers
+// typically run Alpine Linux, and if the agent binary is linked to C
+// libraries that only exist on the build system, then they won't work
+// inside the container. We can't disable cgo on a global basis though,
+// because it's needed for race condition testing. Another reason that it's
+// good to disable cgo when building agent binaries during testing is that
+// the release agent binaries will also have cgo disabled (except on macOS),
+// and we'll want to faithfully recreate that.
+
+// Set up ARM target support. See notes for definition of minimumARMSupport.
+// We don't need to unset any existing GOARM variables since they simply
+// won't be used if we're not targeting (non-64-bit) ARM systems.
+
+// Done.
 
 // IsCrossTarget determines whether or not the target represents a
 // cross-compilation target (i.e. not the native target for the current Go
 // toolchain).
-func (t Target) IsCrossTarget() bool {
-	return t.GOOS != runtime.GOOS || t.GOARCH != runtime.GOARCH
-}
+func (t Target) IsCrossTarget() bool { _ = "STUB: not implemented"; return false }
 
 // IncludeAgentInSlimBuildModes indicates whether or not the target should have
 // an agent binary included in the agent bundle in slim and release-slim modes.
-func (t Target) IncludeAgentInSlimBuildModes() bool {
-	return !t.IsCrossTarget() ||
-		(t.GOOS == "darwin") ||
-		(t.GOOS == "windows" && t.GOARCH == "amd64") ||
-		(t.GOOS == "linux" && (t.GOARCH == "amd64" || t.GOARCH == "arm64")) ||
-		(t.GOOS == "freebsd" && t.GOARCH == "amd64")
-}
+func (t Target) IncludeAgentInSlimBuildModes() bool { _ = "STUB: not implemented"; return false }
 
 // BuildBundleInReleaseSlimMode indicates whether or not the target should have
 // a release bundle built in release-slim mode.
-func (t Target) BuildBundleInReleaseSlimMode() bool {
-	return !t.IsCrossTarget() ||
-		(t.GOOS == "darwin") ||
-		(t.GOOS == "windows" && t.GOARCH == "amd64") ||
-		(t.GOOS == "linux" && t.GOARCH == "amd64")
-}
+func (t Target) BuildBundleInReleaseSlimMode() bool { _ = "STUB: not implemented"; return false }
 
 // Build executes a module-aware build of the specified package URL, storing the
 // output of the build at the specified path.
 func (t Target) Build(url, output string, enableSSPLEnhancements, disableDebug bool) error {
+	_ = "STUB: not implemented"
 	// Compute the build command. If we don't need debugging, then we use the -s
 	// and -w linker flags to omit the symbol table and debugging information.
 	// This shaves off about 25% of the binary size and only disables debugging
@@ -177,39 +134,16 @@ func (t Target) Build(url, output string, enableSSPLEnhancements, disableDebug b
 	// https://blog.filippo.io/shrink-your-go-binaries-with-this-one-weird-trick
 	// In this case, we also trim the code paths stored in the executable, as
 	// there's no use in having the full paths available.
-	arguments := []string{"build", "-o", output}
-	var tags []string
-	if url == cliPackage {
-		tags = append(tags, "mutagencli")
-	}
-	if url == agentPackage {
-		tags = append(tags, "mutagenagent")
-	}
-	if enableSSPLEnhancements {
-		tags = append(tags, "mutagensspl")
-	}
-	if len(tags) > 0 {
-		arguments = append(arguments, "-tags", strings.Join(tags, ","))
-	}
-	if disableDebug {
-		arguments = append(arguments, "-ldflags=-s -w", "-trimpath")
-	}
-	arguments = append(arguments, url)
-
-	// Create the build command.
-	builder := exec.Command("go", arguments...)
-
-	// Set the environment.
-	builder.Env = t.appendGoEnv(builder.Environ())
-
-	// Forward input, output, and error streams.
-	builder.Stdin = os.Stdin
-	builder.Stdout = os.Stdout
-	builder.Stderr = os.Stderr
-
-	// Run the build.
-	return builder.Run()
+	return nil
 }
+
+// Create the build command.
+
+// Set the environment.
+
+// Forward input, output, and error streams.
+
+// Run the build.
 
 // targets encodes which combinations of GOOS and GOARCH we want to use for
 // building agent and CLI binaries. We don't build every target at the moment,
@@ -343,6 +277,7 @@ var targets = []Target{
 // specified signing identity. It performs code signing in a manner suitable for
 // later submission to Apple for notarization.
 func macOSCodeSign(path, identity string) error {
+	_ = "STUB: not implemented"
 	// Create the code signing command.
 	//
 	// We include the --force flag because the Go toolchain won't touch binaries
@@ -358,23 +293,12 @@ func macOSCodeSign(path, identity string) error {
 	// The --options runtime and --timestamp flags are required to enable the
 	// hardened runtime (which doesn't affect Mutagen binaries) and to use a
 	// secure signing timestamp, both of which are required for notarization.
-	codesign := exec.Command("codesign",
-		"--sign", identity,
-		"--force",
-		"--options", "runtime",
-		"--timestamp",
-		"--verbose",
-		path,
-	)
-
-	// Forward input, output, and error streams.
-	codesign.Stdin = os.Stdin
-	codesign.Stdout = os.Stdout
-	codesign.Stderr = os.Stderr
-
-	// Run code signing.
-	return codesign.Run()
+	return nil
 }
+
+// Forward input, output, and error streams.
+
+// Run code signing.
 
 // archiveBuilderCopyBufferSize determines the size of the copy buffer used when
 // generating archive files.
@@ -391,123 +315,58 @@ type ArchiveBuilder struct {
 }
 
 func NewArchiveBuilder(bundlePath string) (*ArchiveBuilder, error) {
+	_ = "STUB: not implemented"
 	// Open the underlying file.
-	file, err := os.Create(bundlePath)
-	if err != nil {
-		return nil, fmt.Errorf("unable to create target file: %w", err)
-	}
-
-	// Create the compressor.
-	compressor, err := gzip.NewWriterLevel(file, gzip.BestCompression)
-	if err != nil {
-		file.Close()
-		return nil, fmt.Errorf("unable to create compressor: %w", err)
-	}
-
-	// Success.
-	return &ArchiveBuilder{
-		file:       file,
-		compressor: compressor,
-		archiver:   tar.NewWriter(compressor),
-		copyBuffer: make([]byte, archiveBuilderCopyBufferSize),
-	}, nil
+	return nil, nil
 }
+
+// Create the compressor.
+
+// Success.
 
 func (b *ArchiveBuilder) Close() error {
+	_ = "STUB: not implemented"
 	// Close in the necessary order to trigger flushes.
-	if err := b.archiver.Close(); err != nil {
-		b.compressor.Close()
-		b.file.Close()
-		return fmt.Errorf("unable to close archiver: %w", err)
-	} else if err := b.compressor.Close(); err != nil {
-		b.file.Close()
-		return fmt.Errorf("unable to close compressor: %w", err)
-	} else if err := b.file.Close(); err != nil {
-		return fmt.Errorf("unable to close file: %w", err)
-	}
-
-	// Success.
 	return nil
 }
+
+// Success.
 
 func (b *ArchiveBuilder) Add(name, path string, mode int64) error {
+	_ = "STUB: not implemented"
 	// If the name is empty, use the base name.
-	if name == "" {
-		name = filepath.Base(path)
-	}
-
-	// Open the file and ensure its cleanup.
-	file, err := os.Open(path)
-	if err != nil {
-		return fmt.Errorf("unable to open file: %w", err)
-	}
-	defer file.Close()
-
-	// Compute its size.
-	stat, err := file.Stat()
-	if err != nil {
-		return fmt.Errorf("unable to determine file size: %w", err)
-	}
-	size := stat.Size()
-
-	// Write the header for the entry.
-	header := &tar.Header{
-		Name:    name,
-		Mode:    mode,
-		Size:    size,
-		ModTime: time.Now(),
-	}
-	if err := b.archiver.WriteHeader(header); err != nil {
-		return fmt.Errorf("unable to write archive header: %w", err)
-	}
-
-	// Copy the file contents.
-	if _, err := io.CopyBuffer(b.archiver, file, b.copyBuffer); err != nil {
-		return fmt.Errorf("unable to write archive entry: %w", err)
-	}
-
-	// Success.
 	return nil
 }
+
+// Open the file and ensure its cleanup.
+
+// Compute its size.
+
+// Write the header for the entry.
+
+// Copy the file contents.
+
+// Success.
 
 // copyFile copies the contents at sourcePath to a newly created file at
 // destinationPath that inherits the permissions of sourcePath.
 func copyFile(sourcePath, destinationPath string) error {
+	_ = "STUB: not implemented"
 	// Open the source file and defer its closure.
-	source, err := os.Open(sourcePath)
-	if err != nil {
-		return fmt.Errorf("unable to open source file: %w", err)
-	}
-	defer source.Close()
-
-	// Grab source file metadata.
-	metadata, err := source.Stat()
-	if err != nil {
-		return fmt.Errorf("unable to query source file metadata: %w", err)
-	}
-
-	// Remove the destination.
-	os.Remove(destinationPath)
-
-	// Create the destination file and defer its closure. We open with exclusive
-	// creation flags to ensure that we're the ones creating the file so that
-	// its permissions are set correctly.
-	destination, err := os.OpenFile(destinationPath, os.O_WRONLY|os.O_CREATE|os.O_EXCL, metadata.Mode()&os.ModePerm)
-	if err != nil {
-		return fmt.Errorf("unable to create destination file: %w", err)
-	}
-	defer destination.Close()
-
-	// Copy contents.
-	if count, err := io.Copy(destination, source); err != nil {
-		return fmt.Errorf("unable to copy data: %w", err)
-	} else if count != metadata.Size() {
-		return errors.New("copied size does not match expected")
-	}
-
-	// Success.
 	return nil
 }
+
+// Grab source file metadata.
+
+// Remove the destination.
+
+// Create the destination file and defer its closure. We open with exclusive
+// creation flags to ensure that we're the ones creating the file so that
+// its permissions are set correctly.
+
+// Copy contents.
+
+// Success.
 
 var usage = `usage: build [-h|--help] [-m|--mode=<mode>] [--sspl]
        [--macos-codesign-identity=<identity>]
@@ -532,204 +391,55 @@ this script is operated in a non-interactive mode.
 
 // build is the primary entry point.
 func build() error {
+	_ = "STUB: not implemented"
 	// Parse command line arguments.
-	flagSet := pflag.NewFlagSet("build", pflag.ContinueOnError)
-	flagSet.SetOutput(io.Discard)
-	var mode, macosCodesignIdentity string
-	var enableSSPLEnhancements bool
-	flagSet.StringVarP(&mode, "mode", "m", "slim", "specify the build mode")
-	flagSet.StringVar(&macosCodesignIdentity, "macos-codesign-identity", "", "specify the macOS code signing identity")
-	flagSet.BoolVar(&enableSSPLEnhancements, "sspl", false, "enable SSPL-licensed enhancements")
-	if err := flagSet.Parse(os.Args[1:]); err != nil {
-		if err == pflag.ErrHelp {
-			fmt.Fprint(os.Stdout, usage)
-			return nil
-		} else {
-			return fmt.Errorf("unable to parse command line: %w", err)
-		}
-	}
-	if !(mode == "local" || mode == "slim" || mode == "release" || mode == "release-slim") {
-		return fmt.Errorf("invalid build mode: %s", mode)
-	}
-
-	// The only platform really suited to cross-compiling for every other
-	// platform at the moment is macOS. This is because FSEvents is used for
-	// file monitoring and that is a C-based API, not accessible purely via
-	// system calls. All of the other platforms can operate with pure Go
-	// compilation.
-	if runtime.GOOS != "darwin" {
-		if mode == "release" {
-			return errors.New("macOS is required for release builds")
-		} else if mode == "slim" || mode == "release-slim" {
-			cmd.Warning("macOS agents will be built without cgo support")
-		}
-	}
-
-	// If a macOS code signing identity has been specified, then make sure we're
-	// in a mode where that makes sense.
-	if macosCodesignIdentity != "" && runtime.GOOS != "darwin" {
-		return errors.New("macOS is required for macOS code signing")
-	}
-
-	// Compute the path to the Mutagen source directory.
-	mutagenSourcePath, err := mutagen.SourceTreePath()
-	if err != nil {
-		return fmt.Errorf("unable to compute Mutagen source tree path: %w", err)
-	}
-
-	// Verify that we're running inside the Mutagen source directory, otherwise
-	// we can't rely on Go modules working.
-	workingDirectory, err := os.Getwd()
-	if err != nil {
-		return fmt.Errorf("unable to compute working directory: %w", err)
-	}
-	workingDirectoryRelativePath, err := filepath.Rel(mutagenSourcePath, workingDirectory)
-	if err != nil {
-		return fmt.Errorf("unable to determine working directory relative path: %w", err)
-	}
-	if strings.Contains(workingDirectoryRelativePath, "..") {
-		return errors.New("build script run outside Mutagen source tree")
-	}
-
-	// Compute the path to the build directory and ensure that it exists.
-	buildPath := filepath.Join(mutagenSourcePath, mutagen.BuildDirectoryName)
-	if err := os.MkdirAll(buildPath, 0700); err != nil {
-		return fmt.Errorf("unable to create build directory: %w", err)
-	}
-
-	// Create the necessary build directory hierarchy.
-	agentBuildSubdirectoryPath := filepath.Join(buildPath, agentBuildSubdirectoryName)
-	cliBuildSubdirectoryPath := filepath.Join(buildPath, cliBuildSubdirectoryName)
-	releaseBuildSubdirectoryPath := filepath.Join(buildPath, releaseBuildSubdirectoryName)
-	if err := os.MkdirAll(agentBuildSubdirectoryPath, 0700); err != nil {
-		return fmt.Errorf("unable to create agent build subdirectory: %w", err)
-	}
-	if err := os.MkdirAll(cliBuildSubdirectoryPath, 0700); err != nil {
-		return fmt.Errorf("unable to create CLI build subdirectory: %w", err)
-	}
-	if mode == "release" || mode == "release-slim" {
-		if err := os.MkdirAll(releaseBuildSubdirectoryPath, 0700); err != nil {
-			return fmt.Errorf("unable to create release build subdirectory: %w", err)
-		}
-	}
-
-	// Compute the local target.
-	localTarget := Target{runtime.GOOS, runtime.GOARCH}
-
-	// Compute agent targets.
-	var agentTargets []Target
-	for _, target := range targets {
-		if mode == "local" && target.IsCrossTarget() {
-			continue
-		} else if (mode == "slim" || mode == "release-slim") && !target.IncludeAgentInSlimBuildModes() {
-			continue
-		}
-		agentTargets = append(agentTargets, target)
-	}
-
-	// Compute CLI targets.
-	var cliTargets []Target
-	for _, target := range targets {
-		if (mode == "local" || mode == "slim") && target.IsCrossTarget() {
-			continue
-		} else if mode == "release-slim" && !target.BuildBundleInReleaseSlimMode() {
-			continue
-		}
-		cliTargets = append(cliTargets, target)
-	}
-
-	// Determine whether or not to disable debugging information in binaries.
-	// Doing so saves significant space, but is only suited to release builds.
-	disableDebug := mode == "release" || mode == "release-slim"
-
-	// Build agent binaries.
-	log.Println("Building agent binaries...")
-	for _, target := range agentTargets {
-		log.Println("Building agent for", target)
-		agentBuildPath := filepath.Join(agentBuildSubdirectoryPath, target.Name())
-		if err := target.Build(agentPackage, agentBuildPath, enableSSPLEnhancements, disableDebug); err != nil {
-			return fmt.Errorf("unable to build agent: %w", err)
-		}
-		if macosCodesignIdentity != "" && target.GOOS == "darwin" {
-			if err := macOSCodeSign(agentBuildPath, macosCodesignIdentity); err != nil {
-				return fmt.Errorf("unable to code sign agent for macOS: %w", err)
-			}
-		}
-	}
-
-	// Build CLI binaries.
-	log.Println("Building CLI binaries...")
-	for _, target := range cliTargets {
-		log.Println("Building CLI for", target)
-		cliBuildPath := filepath.Join(cliBuildSubdirectoryPath, target.Name())
-		if err := target.Build(cliPackage, cliBuildPath, enableSSPLEnhancements, disableDebug); err != nil {
-			return fmt.Errorf("unable to build CLI: %w", err)
-		}
-		if macosCodesignIdentity != "" && target.GOOS == "darwin" {
-			if err := macOSCodeSign(cliBuildPath, macosCodesignIdentity); err != nil {
-				return fmt.Errorf("unable to code sign CLI for macOS: %w", err)
-			}
-		}
-	}
-
-	// Build the agent bundle.
-	log.Println("Building agent bundle...")
-	agentBundlePath := filepath.Join(buildPath, agent.BundleName)
-	agentBundleBuilder, err := NewArchiveBuilder(agentBundlePath)
-	if err != nil {
-		return fmt.Errorf("unable to create agent bundle archive builder: %w", err)
-	}
-	for _, target := range agentTargets {
-		agentBuildPath := filepath.Join(agentBuildSubdirectoryPath, target.Name())
-		if err := agentBundleBuilder.Add(target.Name(), agentBuildPath, 0755); err != nil {
-			agentBundleBuilder.Close()
-			return fmt.Errorf("unable to add agent to bundle: %w", err)
-		}
-	}
-	if err := agentBundleBuilder.Close(); err != nil {
-		return fmt.Errorf("unable to finalize agent bundle: %w", err)
-	}
-
-	// Build release bundles if necessary.
-	if mode == "release" || mode == "release-slim" {
-		log.Println("Building release bundles...")
-		for _, target := range cliTargets {
-			// Update status.
-			log.Println("Building release bundle for", target)
-
-			// Compute paths.
-			cliBuildPath := filepath.Join(cliBuildSubdirectoryPath, target.Name())
-			releaseBundlePath := filepath.Join(
-				releaseBuildSubdirectoryPath,
-				fmt.Sprintf("mutagen_%s_v%s.tar.gz", target.Name(), mutagen.Version),
-			)
-
-			// Build the release bundle.
-			if releaseBundle, err := NewArchiveBuilder(releaseBundlePath); err != nil {
-				return fmt.Errorf("unable to create release bundle: %w", err)
-			} else if err = releaseBundle.Add(target.ExecutableName(cliBaseName), cliBuildPath, 0755); err != nil {
-				releaseBundle.Close()
-				return fmt.Errorf("unable to add CLI to release bundle: %w", err)
-			} else if err = releaseBundle.Add("", agentBundlePath, 0644); err != nil {
-				releaseBundle.Close()
-				return fmt.Errorf("unable to add agent bundle to release bundle: %w", err)
-			} else if err = releaseBundle.Close(); err != nil {
-				return fmt.Errorf("unable to finalize release bundle: %w", err)
-			}
-		}
-	}
-
-	// Relocate the CLI binary for the current platform.
-	log.Println("Copying binary for testing")
-	localCLIBuildPath := filepath.Join(cliBuildSubdirectoryPath, localTarget.Name())
-	localCLIRelocationPath := filepath.Join(buildPath, localTarget.ExecutableName(cliBaseName))
-	if err := copyFile(localCLIBuildPath, localCLIRelocationPath); err != nil {
-		return fmt.Errorf("unable to copy current platform CLI: %w", err)
-	}
-
-	// Success.
 	return nil
 }
+
+// The only platform really suited to cross-compiling for every other
+// platform at the moment is macOS. This is because FSEvents is used for
+// file monitoring and that is a C-based API, not accessible purely via
+// system calls. All of the other platforms can operate with pure Go
+// compilation.
+
+// If a macOS code signing identity has been specified, then make sure we're
+// in a mode where that makes sense.
+
+// Compute the path to the Mutagen source directory.
+
+// Verify that we're running inside the Mutagen source directory, otherwise
+// we can't rely on Go modules working.
+
+// Compute the path to the build directory and ensure that it exists.
+
+// Create the necessary build directory hierarchy.
+
+// Compute the local target.
+
+// Compute agent targets.
+
+// Compute CLI targets.
+
+// Determine whether or not to disable debugging information in binaries.
+// Doing so saves significant space, but is only suited to release builds.
+
+// Build agent binaries.
+
+// Build CLI binaries.
+
+// Build the agent bundle.
+
+// Build release bundles if necessary.
+
+// Update status.
+
+// Compute paths.
+
+// Build the release bundle.
+
+// Relocate the CLI binary for the current platform.
+
+// Success.
 
 func main() {
 	if err := build(); err != nil {

@@ -1,7 +1,6 @@
 package stream
 
 import (
-	"bytes"
 	"errors"
 )
 
@@ -17,12 +16,7 @@ var ErrMaximumBufferSizeExceeded = errors.New("maximum buffer size exceed")
 
 // trimCarriageReturn trims any single trailing carriage return from the end of
 // a byte slice.
-func trimCarriageReturn(buffer []byte) []byte {
-	if len(buffer) > 0 && buffer[len(buffer)-1] == '\r' {
-		return buffer[:len(buffer)-1]
-	}
-	return buffer
-}
+func trimCarriageReturn(buffer []byte) []byte { _ = "STUB: not implemented"; return nil }
 
 // LineProcessor is an io.Writer that splits its input stream into lines and
 // writes those lines to a callback function. Line splits are performed on any
@@ -42,56 +36,35 @@ type LineProcessor struct {
 
 // Write implements io.Writer.Write.
 func (p *LineProcessor) Write(data []byte) (int, error) {
+	_ = "STUB: not implemented"
 	// Ensure that storing the data won't exceed buffer size limits.
 	// TODO: We could truncate data here if any capacity remains. A partial
 	// fragment could (in theory) contain a newline that would allow the buffer
 	// to be cleared out, though it's hard to imagine such an optimization is
 	// critical given the relatively large default maximum buffer size and the
 	// typical line size of most newline-delimited data.
-	if p.MaximumBufferSize == 0 && len(p.buffer)+len(data) > defaultLineProcessorMaximumBufferSize {
-		return 0, ErrMaximumBufferSizeExceeded
-	} else if p.MaximumBufferSize > 0 && len(p.buffer)+len(data) > p.MaximumBufferSize {
-		return 0, ErrMaximumBufferSizeExceeded
-	}
-
-	// Append the data to our internal buffer.
-	p.buffer = append(p.buffer, data...)
-
-	// Process all lines in the buffer and track the number of processed bytes.
-	var processed int
-	remaining := p.buffer
-	for {
-		// Find the index of the next newline character.
-		index := bytes.IndexByte(remaining, '\n')
-		if index == -1 {
-			break
-		}
-
-		// Process the line.
-		p.Callback(string(trimCarriageReturn(remaining[:index])))
-
-		// Update the number of bytes that we've processed.
-		processed += index + 1
-
-		// Update the remaining slice.
-		remaining = remaining[index+1:]
-	}
-
-	// If we managed to process bytes, then truncate our internal buffer.
-	if processed > 0 {
-		// Compute the number of leftover bytes.
-		leftover := len(p.buffer) - processed
-
-		// If there are leftover bytes, then shift them to the front of the
-		// buffer.
-		if leftover > 0 {
-			copy(p.buffer[:leftover], p.buffer[processed:])
-		}
-
-		// Truncate the buffer.
-		p.buffer = p.buffer[:leftover]
-	}
-
-	// Done.
-	return len(data), nil
+	return 0, nil
 }
+
+// Append the data to our internal buffer.
+
+// Process all lines in the buffer and track the number of processed bytes.
+
+// Find the index of the next newline character.
+
+// Process the line.
+
+// Update the number of bytes that we've processed.
+
+// Update the remaining slice.
+
+// If we managed to process bytes, then truncate our internal buffer.
+
+// Compute the number of leftover bytes.
+
+// If there are leftover bytes, then shift them to the front of the
+// buffer.
+
+// Truncate the buffer.
+
+// Done.

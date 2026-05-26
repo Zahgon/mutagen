@@ -1,11 +1,5 @@
 package filesystem
 
-import (
-	"errors"
-	"fmt"
-	"strconv"
-)
-
 const (
 	// ModePermissionsMask is a bit mask that isolates portable permission bits.
 	ModePermissionsMask = Mode(0777)
@@ -35,36 +29,23 @@ const (
 // string to begin with a 0 (or several 0s). The provided string must not be
 // empty.
 func parseMode(value string, mask Mode) (Mode, error) {
-	if m, err := strconv.ParseUint(value, 8, 32); err != nil {
-		return 0, fmt.Errorf("unable to parse numeric value: %w", err)
-	} else if mode := Mode(m); mode&mask != mode {
-		return 0, errors.New("mode contains disallowed bits")
-	} else {
-		return mode, nil
-	}
+	_ = "STUB: not implemented"
+	return *new(Mode), nil
 }
 
 // MarshalText implements encoding.TextMarshaler.MarshalText.
-func (m Mode) MarshalText() ([]byte, error) {
-	result := "0" + strconv.FormatUint(uint64(m), 8)
-	return []byte(result), nil
-}
+func (m Mode) MarshalText() ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // UnmarshalText implements encoding.TextUnmarshaler.UnmarshalText. It requires
 // that the specified mode bits lie within ModePermissionsMask, otherwise an
 // error is returned. If an error is returned, the mode is unmodified.
 func (m *Mode) UnmarshalText(textBytes []byte) error {
+	_ = "STUB: not implemented"
 	// Convert the bytes to a string.
-	text := string(textBytes)
-
-	// Perform parsing. We only allow the mode itself to be modified if parsing
-	// is successful.
-	if result, err := parseMode(text, ModePermissionsMask); err != nil {
-		return err
-	} else {
-		*m = result
-	}
-
-	// Success.
 	return nil
 }
+
+// Perform parsing. We only allow the mode itself to be modified if parsing
+// is successful.
+
+// Success.

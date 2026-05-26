@@ -40,23 +40,14 @@ const usage = `scan_bench [-h|--help] [-p|--profile] [-d|--digest=(` + digestFla
 // get to the core package's testAcceleratedCacheIsSubset without having access
 // to the members of IgnoreCacheKey.
 func ignoreCachesIntersectionEqual(first, second ignore.IgnoreCache) bool {
+	_ = "STUB: not implemented"
 	// Check matches from first in second.
-	for key, firstValue := range first {
-		if secondValue, ok := second[key]; ok && secondValue != firstValue {
-			return false
-		}
-	}
-
-	// Check matches from second in first.
-	for key, secondValue := range second {
-		if firstValue, ok := first[key]; ok && firstValue != secondValue {
-			return false
-		}
-	}
-
-	// Success.
-	return true
+	return false
 }
+
+// Check matches from second in first.
+
+// Success.
 
 func main() {
 	// Parse command line arguments.

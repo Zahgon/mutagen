@@ -1,9 +1,5 @@
 package ssh
 
-import (
-	"github.com/mutagen-io/mutagen/pkg/platform"
-)
-
 // commandSearchPaths specifies locations on Windows where we might find ssh.exe
 // and scp.exe binaries.
 var commandSearchPaths = []string{
@@ -17,11 +13,7 @@ var commandSearchPaths = []string{
 }
 
 // sshCommandPathForPlatform will search for a suitable ssh command on Windows.
-func sshCommandPathForPlatform() (string, error) {
-	return platform.FindCommand("ssh", commandSearchPaths)
-}
+func sshCommandPathForPlatform() (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 // scpCommandPathForPlatform will search for a suitable scp command on Windows.
-func scpCommandPathForPlatform() (string, error) {
-	return platform.FindCommand("scp", commandSearchPaths)
-}
+func scpCommandPathForPlatform() (string, error) { _ = "STUB: not implemented"; return "", nil }

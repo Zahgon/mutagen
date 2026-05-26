@@ -2,9 +2,7 @@ package filesystem
 
 import (
 	"errors"
-	"fmt"
 	"io"
-	"strings"
 )
 
 // ErrUnsupportedOpenType indicates that the filesystem entry at the specified
@@ -14,33 +12,15 @@ var ErrUnsupportedOpenType = errors.New("unsupported open type")
 // OpenDirectory is a convenience wrapper around Open that requires the result
 // to be a directory.
 func OpenDirectory(path string, allowSymbolicLinkLeaf bool) (*Directory, *Metadata, error) {
-	if d, metadata, err := Open(path, allowSymbolicLinkLeaf); err != nil {
-		return nil, nil, err
-	} else if (metadata.Mode & ModeTypeMask) != ModeTypeDirectory {
-		d.Close()
-		return nil, nil, errors.New("path is not a directory")
-	} else if directory, ok := d.(*Directory); !ok {
-		d.Close()
-		panic("invalid directory object returned from open operation")
-	} else {
-		return directory, metadata, nil
-	}
+	_ = "STUB: not implemented"
+	return nil, nil, nil
 }
 
 // OpenFile is a convenience wrapper around Open that requires the result to be
 // a file.
 func OpenFile(path string, allowSymbolicLinkLeaf bool) (io.ReadSeekCloser, *Metadata, error) {
-	if f, metadata, err := Open(path, allowSymbolicLinkLeaf); err != nil {
-		return nil, nil, err
-	} else if (metadata.Mode & ModeTypeMask) != ModeTypeFile {
-		f.Close()
-		return nil, nil, errors.New("path is not a file")
-	} else if file, ok := f.(io.ReadSeekCloser); !ok {
-		f.Close()
-		panic("invalid file object returned from open operation")
-	} else {
-		return file, metadata, nil
-	}
+	_ = "STUB: not implemented"
+	return *new(io.ReadSeekCloser), nil, nil
 }
 
 // Opener is a utility type that wraps a provided root path and provides file
@@ -68,9 +48,7 @@ type Opener struct {
 }
 
 // NewOpener creates a new Opener for the specified root path.
-func NewOpener(root string) *Opener {
-	return &Opener{root: root}
-}
+func NewOpener(root string) *Opener { _ = "STUB: not implemented"; return nil }
 
 // OpenFile opens the file at the specified path (relative to the root). On all
 // platforms, the path must be provided using a forward slash as the path
@@ -79,106 +57,54 @@ func NewOpener(root string) *Opener {
 // non-directory parent components are encountered, or if the target does not
 // represent a file, this method will fail.
 func (o *Opener) OpenFile(path string) (io.ReadSeekCloser, *Metadata, error) {
+	_ = "STUB: not implemented"
 	// Handle the special case of a root path. We enforce that it must be a
 	// file.
-	if path == "" {
-		// Verify that the root path hasn't already been opened as a directory.
-		// This is primarily just a cheap sanity check. On POSIX systems, the
-		// directory we hold open for the root could have been unlinked and
-		// replaced with a file, and it's better to catch that here before
-		// future Opener operations open files that aren't visible on the
-		// filesystem or are somewhere else on the filesystem.
-		if o.rootDirectory != nil {
-			return nil, nil, errors.New("root already opened as directory")
-		}
-
-		// Attempt to open the file.
-		if file, metadata, err := OpenFile(o.root, false); err != nil {
-			return nil, nil, fmt.Errorf("unable to open root file: %w", err)
-		} else {
-			return file, metadata, nil
-		}
-	}
-
-	// Split the path and extract the parent components and leaf name.
-	components := strings.Split(path, "/")
-	parentComponents := components[:len(components)-1]
-	leafName := components[len(components)-1]
-
-	// If it's not already open, open the root directory.
-	if o.rootDirectory == nil {
-		if directory, _, err := OpenDirectory(o.root, false); err != nil {
-			return nil, nil, fmt.Errorf("unable to open root directory: %w", err)
-		} else {
-			o.rootDirectory = directory
-		}
-	}
-
-	// Identify the starting parent directory.
-	parent := o.rootDirectory
-
-	// Walk down parent components and open them.
-	for c, component := range parentComponents {
-		// See if we can satisfy the component requirement using our stacks. If
-		// not, then truncate the stacks beyond this point.
-		if c < len(o.openParentNames) {
-			if o.openParentNames[c] == component {
-				parent = o.openParentDirectories[c]
-				continue
-			} else {
-				for i := c; i < len(o.openParentNames); i++ {
-					// Attempt to close the directory.
-					if err := o.openParentDirectories[i].Close(); err != nil {
-						return nil, nil, fmt.Errorf("unable to close previous parent directory: %w", err)
-					}
-
-					// We nil-out successfully closed directories for two
-					// reasons: first, to allow garbage collection, and second,
-					// to work as sentinel values for the Close method.
-					o.openParentNames[i] = ""
-					o.openParentDirectories[i] = nil
-				}
-				o.openParentNames = o.openParentNames[:c]
-				o.openParentDirectories = o.openParentDirectories[:c]
-			}
-		}
-
-		// Open the directory ourselves and add it to the parent stacks.
-		if directory, err := parent.OpenDirectory(component); err != nil {
-			return nil, nil, fmt.Errorf("unable to open parent directory: %w", err)
-		} else {
-			parent = directory
-			o.openParentNames = append(o.openParentNames, component)
-			o.openParentDirectories = append(o.openParentDirectories, directory)
-		}
-	}
-
-	// Open the leaf name within its parent directory.
-	return parent.OpenFile(leafName)
+	return *new(io.ReadSeekCloser), nil, nil
 }
+
+// Verify that the root path hasn't already been opened as a directory.
+// This is primarily just a cheap sanity check. On POSIX systems, the
+// directory we hold open for the root could have been unlinked and
+// replaced with a file, and it's better to catch that here before
+// future Opener operations open files that aren't visible on the
+// filesystem or are somewhere else on the filesystem.
+
+// Attempt to open the file.
+
+// Split the path and extract the parent components and leaf name.
+
+// If it's not already open, open the root directory.
+
+// Identify the starting parent directory.
+
+// Walk down parent components and open them.
+
+// See if we can satisfy the component requirement using our stacks. If
+// not, then truncate the stacks beyond this point.
+
+// Attempt to close the directory.
+
+// We nil-out successfully closed directories for two
+// reasons: first, to allow garbage collection, and second,
+// to work as sentinel values for the Close method.
+
+// Open the directory ourselves and add it to the parent stacks.
+
+// Open the leaf name within its parent directory.
 
 // Close closes any open resources held by the opener. It should only be called
 // once. Even on error, there is no benefit in calling it twice.
 func (o *Opener) Close() error {
+	_ = "STUB: not implemented"
 	// Track the first error to arise, if any.
-	var firstErr error
-
-	// Close the root directory, if open.
-	if o.rootDirectory != nil {
-		firstErr = o.rootDirectory.Close()
-	}
-
-	// Close open directories. If any are nil (which can happen on error
-	// conditions in open when truncation doesn't complete successfully), then
-	// just skip them.
-	for _, directory := range o.openParentDirectories {
-		if directory == nil {
-			continue
-		} else if err := directory.Close(); err != nil && firstErr == nil {
-			firstErr = err
-		}
-	}
-
-	// Done.
-	return firstErr
+	return nil
 }
+
+// Close the root directory, if open.
+
+// Close open directories. If any are nil (which can happen on error
+// conditions in open when truncation doesn't complete successfully), then
+// just skip them.
+
+// Done.

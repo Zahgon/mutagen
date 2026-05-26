@@ -4,10 +4,6 @@ package watching
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"path/filepath"
-	"strings"
 	"sync"
 	"time"
 
@@ -58,174 +54,114 @@ type recursiveWatcher struct {
 // NewRecursiveWatcher creates a new FSEvents-based recursive watcher using the
 // specified target path.
 func NewRecursiveWatcher(target string) (RecursiveWatcher, error) {
+	_ = "STUB: not implemented"
 	// Enforce that the watch target path is absolute. This is necessary because
 	// FSEvents will return event paths as absolute paths rooted at the system
 	// root (at least with the per-host streams that we're using), and thus
 	// we'll need to know the full path to the watch target to make event paths
 	// target-relative.
-	if !filepath.IsAbs(target) {
-		return nil, errors.New("watch target path must be absolute")
-	}
-
-	// Fully evaluate any symbolic links in the target. This is necessary
-	// because FSEvents will also fully evaluate symbolic links in the watch
-	// path provided to it and use that fully evaluated path in any event paths.
-	// Thus, if we want to make event paths target-relative, we'll need to know
-	// the real target path. Note that, since we know the input path here is
-	// absolute, we also know that the output path will be absolute. Also note
-	// that calling filepath.EvalSymlinks has the side-effect of enforcing that
-	// the target exists.
-	if t, err := filepath.EvalSymlinks(target); err != nil {
-		return nil, fmt.Errorf("unable to resolve symbolic links for watch target: %w", err)
-	} else {
-		target = t
-	}
-
-	// RACE: There are two race windows with native watching which effectively
-	// start here and are worth mentioning:
-	//
-	// The first is the race window between our symbolic link resolution above
-	// and the symbolic link resolution performed by FSEvents on our resolved
-	// path when starting its watch. In theory, a component of our resolved path
-	// could be replaced by a symbolic link, which would then be further
-	// resolved by FSEvents to point elsewhere. In practice, this window is
-	// exceptionally small, and a disagreement between our resolution and
-	// FSEvents' resolution would manifest as event paths with an unexpected
-	// prefix and thus result in an error below.
-	//
-	// The second race window, which is essentially indefinite and somewhat more
-	// philosophical/theoretical, is due to the fact that the unresolved
-	// original path provided to this function could diverge in target from
-	// what's actually being watched. This is a general problem with watching
-	// and not something Mutagen-specific. Fortunately in our case, this
-	// divergence essentially never occurs, and even if it does occur, and even
-	// if we're relying on native watching to perform fast accurate re-scans, we
-	// still have just-in-time checks during transitioning to make sure any
-	// changes that we're applying were decided upon based on what's actually on
-	// disk at the target location.
-
-	// Create and start the underlying event stream.
-	watch := &fsevents.EventStream{
-		Events:  make(chan []fsevents.Event, fseventsChannelCapacity),
-		Paths:   []string{target},
-		Latency: fseventsLatency,
-		Flags:   fseventsFlags,
-	}
-	if err := watch.Start(); err != nil {
-		return nil, fmt.Errorf("unable to start FSEvents stream: %w", err)
-	}
-
-	// Create a context to regulate the watcher's run loop.
-	ctx, cancel := context.WithCancel(context.Background())
-
-	// Create the watcher.
-	watcher := &recursiveWatcher{
-		watch:  watch,
-		events: make(chan string),
-		errors: make(chan error, 1),
-		cancel: cancel,
-	}
-
-	// Track run loop termination.
-	watcher.done.Add(1)
-
-	// Start the run loop.
-	go func() {
-		watcher.errors <- watcher.run(ctx, target)
-		watcher.done.Done()
-	}()
-
-	// Success.
-	return watcher, nil
+	return *new(RecursiveWatcher), nil
 }
+
+// Fully evaluate any symbolic links in the target. This is necessary
+// because FSEvents will also fully evaluate symbolic links in the watch
+// path provided to it and use that fully evaluated path in any event paths.
+// Thus, if we want to make event paths target-relative, we'll need to know
+// the real target path. Note that, since we know the input path here is
+// absolute, we also know that the output path will be absolute. Also note
+// that calling filepath.EvalSymlinks has the side-effect of enforcing that
+// the target exists.
+
+// RACE: There are two race windows with native watching which effectively
+// start here and are worth mentioning:
+//
+// The first is the race window between our symbolic link resolution above
+// and the symbolic link resolution performed by FSEvents on our resolved
+// path when starting its watch. In theory, a component of our resolved path
+// could be replaced by a symbolic link, which would then be further
+// resolved by FSEvents to point elsewhere. In practice, this window is
+// exceptionally small, and a disagreement between our resolution and
+// FSEvents' resolution would manifest as event paths with an unexpected
+// prefix and thus result in an error below.
+//
+// The second race window, which is essentially indefinite and somewhat more
+// philosophical/theoretical, is due to the fact that the unresolved
+// original path provided to this function could diverge in target from
+// what's actually being watched. This is a general problem with watching
+// and not something Mutagen-specific. Fortunately in our case, this
+// divergence essentially never occurs, and even if it does occur, and even
+// if we're relying on native watching to perform fast accurate re-scans, we
+// still have just-in-time checks during transitioning to make sure any
+// changes that we're applying were decided upon based on what's actually on
+// disk at the target location.
+
+// Create and start the underlying event stream.
+
+// Create a context to regulate the watcher's run loop.
+
+// Create the watcher.
+
+// Track run loop termination.
+
+// Start the run loop.
+
+// Success.
 
 // run implements the event processing run loop for recursiveWatcher.
 func (w *recursiveWatcher) run(ctx context.Context, target string) error {
+	_ = "STUB: not implemented"
 	// Compute the prefix that we'll need to trim from event paths to make them
 	// target-relative (if they aren't the target itself). Since we called
 	// filepath.EvalSymlinks above, which calls filepath.Clean, we know that
 	// target will be without a trailing slash (unless it's the system root
 	// path).
-	var eventPathTrimPrefix string
-	if target == "/" {
-		eventPathTrimPrefix = "/"
-	} else {
-		eventPathTrimPrefix = target + "/"
-	}
-
-	// Perform event forwarding until cancellation or failure.
-	for {
-		select {
-		case <-ctx.Done():
-			return ErrWatchTerminated
-		case eventSet, ok := <-w.watch.Events:
-			// Watch for unexpected event channel closures.
-			if !ok {
-				return errors.New("internal events channel closed unexpectedly")
-			}
-
-			// Process the event set.
-			for _, event := range eventSet {
-				// Watch for events that would invalidate our watch. The only
-				// case that we can ignore is the fsevents.RootChanged
-				// (kFSEventStreamEventFlagRootChanged) flag, because FSEvents
-				// watches will continue to function across the deletion and
-				// recreation of the watch root (or its parent directories). The
-				// only case where this doesn't work is when a parent component
-				// of the resolved watch target is replaced with a symbolic
-				// link, but this is a subset of the second race condition
-				// described above (target divergence) and something that we
-				// can't do much about in general.
-				if event.Flags&fsevents.MustScanSubDirs != 0 {
-					return ErrWatchInternalOverflow
-				} else if event.Flags&fsevents.Mount != 0 {
-					return errors.New("volume mounted under watch root")
-				} else if event.Flags&fsevents.Unmount != 0 {
-					return errors.New("volume unmounted under watch root")
-				}
-
-				// Convert the event path to be target-relative.
-				path := event.Path
-				if path == target {
-					path = ""
-				} else if strings.HasPrefix(path, eventPathTrimPrefix) {
-					path = path[len(eventPathTrimPrefix):]
-				} else {
-					return errors.New("event path is not watch target and does not have expected prefix")
-				}
-
-				// Transmit the path.
-				select {
-				case w.events <- path:
-				case <-ctx.Done():
-					return ErrWatchTerminated
-				}
-			}
-		}
-	}
+	return nil
 }
+
+// Perform event forwarding until cancellation or failure.
+
+// Watch for unexpected event channel closures.
+
+// Process the event set.
+
+// Watch for events that would invalidate our watch. The only
+// case that we can ignore is the fsevents.RootChanged
+// (kFSEventStreamEventFlagRootChanged) flag, because FSEvents
+// watches will continue to function across the deletion and
+// recreation of the watch root (or its parent directories). The
+// only case where this doesn't work is when a parent component
+// of the resolved watch target is replaced with a symbolic
+// link, but this is a subset of the second race condition
+// described above (target divergence) and something that we
+// can't do much about in general.
+
+// Convert the event path to be target-relative.
+
+// Transmit the path.
 
 // Events implements RecursiveWatcher.Events.
 func (w *recursiveWatcher) Events() <-chan string {
-	return w.events
-}
+	_ = "STUB: not implemented"
 
-// Errors implements RecursiveWatcher.Errors.
-func (w *recursiveWatcher) Errors() <-chan error {
-	return w.errors
-}
-
-// Terminate implements RecursiveWatcher.Terminate.
-func (w *recursiveWatcher) Terminate() error {
-	// Signal termination.
-	w.cancel()
-
-	// Wait for the run loop to exit.
-	w.done.Wait()
-
-	// Terminate the underlying event stream.
-	w.watch.Stop()
-
-	// Success.
+	// Errors implements RecursiveWatcher.Errors.
 	return nil
 }
+
+func (w *recursiveWatcher) Errors() <-chan error {
+	_ = "STUB: not implemented"
+
+	// Terminate implements RecursiveWatcher.Terminate.
+	return nil
+}
+
+func (w *recursiveWatcher) Terminate() error {
+	_ = "STUB: not implemented"
+	// Signal termination.
+	return nil
+}
+
+// Wait for the run loop to exit.
+
+// Terminate the underlying event stream.
+
+// Success.

@@ -13,11 +13,7 @@ type Marker struct {
 }
 
 // Mark idempotently marks the marker.
-func (m *Marker) Mark() {
-	m.storage.Store(true)
-}
+func (m *Marker) Mark() { _ = "STUB: not implemented"; return }
 
 // Marked returns whether or not the marker is marked.
-func (m *Marker) Marked() bool {
-	return m.storage.Load()
-}
+func (m *Marker) Marked() bool { _ = "STUB: not implemented"; return false }

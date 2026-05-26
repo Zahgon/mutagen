@@ -40,9 +40,7 @@
 package locking
 
 import (
-	"errors"
 	"syscall"
-	"unsafe"
 
 	"golang.org/x/sys/windows"
 )
@@ -66,24 +64,8 @@ func callLockFileEx(
 	lockHigh uint32,
 	overlapped *syscall.Overlapped,
 ) (err error) {
-	r1, _, e1 := syscall.Syscall6(
-		lockFileEx.Addr(),
-		6,
-		uintptr(handle),
-		uintptr(flags),
-		uintptr(reserved),
-		uintptr(lockLow),
-		uintptr(lockHigh),
-		uintptr(unsafe.Pointer(overlapped)),
-	)
-	if r1 == 0 {
-		if e1 != 0 {
-			err = error(e1)
-		} else {
-			err = syscall.EINVAL
-		}
-	}
-	return
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func callunlockFileEx(
@@ -93,72 +75,38 @@ func callunlockFileEx(
 	lockHigh uint32,
 	overlapped *syscall.Overlapped,
 ) (err error) {
-	r1, _, e1 := syscall.Syscall6(
-		unlockFileEx.Addr(),
-		5,
-		uintptr(handle),
-		uintptr(reserved),
-		uintptr(lockLow),
-		uintptr(lockHigh),
-		uintptr(unsafe.Pointer(overlapped)),
-		0,
-	)
-	if r1 == 0 {
-		if e1 != 0 {
-			err = error(e1)
-		} else {
-			err = syscall.EINVAL
-		}
-	}
-	return
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Lock attempts to acquire the file lock.
 func (l *Locker) Lock(block bool) error {
+	_ = "STUB: not implemented"
 	// Verify that we don't already hold the lock.
-	if l.held {
-		return errors.New("lock already held")
-	}
-
-	// Create an overlapped structure to manage overlapped I/O.
-	var ol syscall.Overlapped
-
-	// Set up the lock and blocking flags.
-	flags := uint32(LOCKFILE_EXCLUSIVE_LOCK)
-	if !block {
-		flags |= LOCKFILE_FAIL_IMMEDIATELY
-	}
-
-	// Attempt to perform locking.
-	err := callLockFileEx(syscall.Handle(l.file.Fd()), flags, 0, 1, 0, &ol)
-
-	// Check for success and update the internal state.
-	if err == nil {
-		l.held = true
-	}
-
-	// Done.
-	return err
+	return nil
 }
+
+// Create an overlapped structure to manage overlapped I/O.
+
+// Set up the lock and blocking flags.
+
+// Attempt to perform locking.
+
+// Check for success and update the internal state.
+
+// Done.
 
 // Unlock releases the file lock.
 func (l *Locker) Unlock() error {
+	_ = "STUB: not implemented"
 	// Verify that we hold the lock.
-	if !l.held {
-		return errors.New("lock not held")
-	}
-
-	// Create an overlapped structure to manage overlapped I/O.
-	var ol syscall.Overlapped
-
-	// Attempt to perform unlocking.
-	err := callunlockFileEx(syscall.Handle(l.file.Fd()), 0, 1, 0, &ol)
-
-	// Check for success and update the internal state.
-	if err == nil {
-		l.held = false
-	}
-
-	// Done.
-	return err
+	return nil
 }
+
+// Create an overlapped structure to manage overlapped I/O.
+
+// Attempt to perform unlocking.
+
+// Check for success and update the internal state.
+
+// Done.

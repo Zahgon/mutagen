@@ -1,13 +1,9 @@
 package local
 
 import (
-	"errors"
-	"fmt"
 	"net"
-	"os"
 	"sync"
 
-	"github.com/mutagen-io/mutagen/pkg/filesystem"
 	"github.com/mutagen-io/mutagen/pkg/forwarding"
 	"github.com/mutagen-io/mutagen/pkg/logging"
 )
@@ -75,168 +71,86 @@ func NewListenerEndpoint(
 	address string,
 	lazy bool,
 ) (forwarding.Endpoint, error) {
+	_ = "STUB: not implemented"
 	// If lazy listener initialization has been globally disabled, then override
 	// the requested mode.
-	if DisableLazyListenerInitialization {
-		lazy = false
-	}
-
-	// Create the endpoint.
-	endpoint := &listenerEndpoint{
-		logger:        logger,
-		version:       version,
-		configuration: configuration,
-		protocol:      protocol,
-		address:       address,
-		lazy:          lazy,
-	}
-
-	// Perform initialization if required.
-	if !lazy {
-		endpoint.initializeOnce.Do(func() { endpoint.initialize(false) })
-		if endpoint.initializeError != nil {
-			return nil, endpoint.initializeError
-		}
-	}
-
-	// Done.
-	return endpoint, nil
+	return *new(forwarding.Endpoint), nil
 }
+
+// Create the endpoint.
+
+// Perform initialization if required.
+
+// Done.
 
 // initialize performs initialization for the endpoint. It will set either the
 // listener member or listenError member. It should be invoked using the
 // initializeOnce member.
 func (e *listenerEndpoint) initialize(shutdown bool) {
+	_ = "STUB: not implemented"
 	// If we're called on shutdown, then we act as a no-op.
-	if shutdown {
-		e.initializeError = errors.New("endpoint shutdown")
-		return
-	}
-
-	// If we're dealing with a Windows named pipe target, then perform listening
-	// using the platform-specific listening function.
-	if e.protocol == "npipe" {
-		e.listener, e.initializeError = listenWindowsNamedPipe(e.address)
-		return
-	}
-
-	// Otherwise attempt to create a listener using the generic method.
-	listener, err := net.Listen(e.protocol, e.address)
-	if err != nil {
-		// If we're not targeting a Unix domain socket or the error isn't due to
-		// a conflicting socket, then abort.
-		if e.protocol != "unix" || !isConflictingSocket(err) {
-			e.initializeError = err
-			return
-		}
-
-		// Compute the effective socket overwrite mode.
-		socketOverwriteMode := e.configuration.SocketOverwriteMode
-		if socketOverwriteMode.IsDefault() {
-			socketOverwriteMode = e.version.DefaultSocketOverwriteMode()
-		}
-
-		// Check if a socket overwrite has been requested. If not, then abort.
-		if !socketOverwriteMode.AttemptOverwrite() {
-			e.initializeError = err
-			return
-		}
-
-		// Attempt to remove the conflicting socket.
-		e.logger.Debug("Encountered conflicting socket, attempting removal")
-		if err := os.Remove(e.address); err != nil {
-			e.initializeError = fmt.Errorf("unable to remove conflicting socket: %w", err)
-			return
-		}
-
-		// Retry listening.
-		listener, err = net.Listen(e.protocol, e.address)
-		if err != nil {
-			e.initializeError = fmt.Errorf("unable to create listener after conflicting socket removal: %w", err)
-			return
-		}
-	}
-
-	// If we're dealing with a Unix domain socket, then set ownership and
-	// permissions.
-	if e.protocol == "unix" {
-		// Compute the effective socket owner specification.
-		socketOwnerSpecification := e.configuration.SocketOwner
-		if socketOwnerSpecification == "" {
-			socketOwnerSpecification = e.version.DefaultSocketOwnerSpecification()
-		}
-
-		// Compute the effective socket group specification.
-		socketGroupSpecification := e.configuration.SocketGroup
-		if socketGroupSpecification == "" {
-			socketGroupSpecification = e.version.DefaultSocketGroupSpecification()
-		}
-
-		// Compute the effective ownership specification.
-		socketOwnership, err := filesystem.NewOwnershipSpecification(
-			socketOwnerSpecification,
-			socketGroupSpecification,
-		)
-		if err != nil {
-			listener.Close()
-			e.initializeError = fmt.Errorf("unable to create socket ownership specification: %w", err)
-			return
-		}
-
-		// Compute the effective socket permission mode.
-		socketPermissionMode := filesystem.Mode(e.configuration.SocketPermissionMode)
-		if socketPermissionMode == 0 {
-			socketPermissionMode = e.version.DefaultSocketPermissionMode()
-		}
-
-		// Set ownership and permissions.
-		if err := filesystem.SetPermissionsByPath(e.address, socketOwnership, socketPermissionMode); err != nil {
-			listener.Close()
-			e.initializeError = fmt.Errorf("unable to set socket permissions: %w", err)
-			return
-		}
-	}
-
-	// Success.
-	e.listener = listener
+	return
 }
+
+// If we're dealing with a Windows named pipe target, then perform listening
+// using the platform-specific listening function.
+
+// Otherwise attempt to create a listener using the generic method.
+
+// If we're not targeting a Unix domain socket or the error isn't due to
+// a conflicting socket, then abort.
+
+// Compute the effective socket overwrite mode.
+
+// Check if a socket overwrite has been requested. If not, then abort.
+
+// Attempt to remove the conflicting socket.
+
+// Retry listening.
+
+// If we're dealing with a Unix domain socket, then set ownership and
+// permissions.
+
+// Compute the effective socket owner specification.
+
+// Compute the effective socket group specification.
+
+// Compute the effective ownership specification.
+
+// Compute the effective socket permission mode.
+
+// Set ownership and permissions.
+
+// Success.
 
 // TransportErrors implements forwarding.Endpoint.TransportErrors.
 func (e *listenerEndpoint) TransportErrors() <-chan error {
+	_ = "STUB: not implemented"
+
+	// Open implements forwarding.Endpoint.Open.
 	return nil
 }
 
-// Open implements forwarding.Endpoint.Open.
 func (e *listenerEndpoint) Open() (net.Conn, error) {
+	_ = "STUB: not implemented"
 	// For lazily initialized endpoints, we need to ensure that the listener has
 	// been established.
-	if e.lazy {
-		e.initializeOnce.Do(func() { e.initialize(false) })
-		if e.initializeError != nil {
-			return nil, fmt.Errorf("lazy listen error: %w", e.initializeError)
-		}
-	}
-
-	// Accept a connection.
-	return e.listener.Accept()
+	return *new(net.Conn), nil
 }
+
+// Accept a connection.
 
 // Shutdown implements forwarding.Endpoint.Shutdown.
 func (e *listenerEndpoint) Shutdown() error {
+	_ = "STUB: not implemented"
 	// For lazily initialized endpoints, it's possible that initialization
 	// hasn't occurred yet. In these cases, attempt a "shutdown" initialization
 	// to prevent any future initialization. If we succeed, or lazy
 	// initialization had previously failed, then the listener will be nil and
 	// there's nothing else we need to do.
-	if e.lazy {
-		e.initializeOnce.Do(func() { e.initialize(true) })
-		if e.listener == nil {
-			return nil
-		}
-	}
-
-	// In all other cases (including those where lazy initialization has
-	// succeeded) we know that a listener has been established, so we need to
-	// close it.
-	return e.listener.Close()
+	return nil
 }
+
+// In all other cases (including those where lazy initialization has
+// succeeded) we know that a listener has been established, so we need to
+// close it.

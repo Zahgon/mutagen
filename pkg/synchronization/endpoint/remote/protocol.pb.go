@@ -7,14 +7,13 @@
 package remote
 
 import (
+	sync "sync"
+
 	synchronization "github.com/mutagen-io/mutagen/pkg/synchronization"
 	core "github.com/mutagen-io/mutagen/pkg/synchronization/core"
 	rsync "github.com/mutagen-io/mutagen/pkg/synchronization/rsync"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -43,70 +42,41 @@ type InitializeSynchronizationRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *InitializeSynchronizationRequest) Reset() {
-	*x = InitializeSynchronizationRequest{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *InitializeSynchronizationRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *InitializeSynchronizationRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *InitializeSynchronizationRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*InitializeSynchronizationRequest) ProtoMessage() {}
+func (*InitializeSynchronizationRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *InitializeSynchronizationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use InitializeSynchronizationRequest.ProtoReflect.Descriptor instead.
 func (*InitializeSynchronizationRequest) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (x *InitializeSynchronizationRequest) GetSession() string {
-	if x != nil {
-		return x.Session
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
 func (x *InitializeSynchronizationRequest) GetVersion() synchronization.Version {
-	if x != nil {
-		return x.Version
-	}
-	return synchronization.Version(0)
+	_ = "STUB: not implemented"
+	return *new(synchronization.Version)
 }
 
 func (x *InitializeSynchronizationRequest) GetConfiguration() *synchronization.Configuration {
-	if x != nil {
-		return x.Configuration
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *InitializeSynchronizationRequest) GetRoot() string {
-	if x != nil {
-		return x.Root
-	}
-	return ""
-}
+func (x *InitializeSynchronizationRequest) GetRoot() string { _ = "STUB: not implemented"; return "" }
 
-func (x *InitializeSynchronizationRequest) GetAlpha() bool {
-	if x != nil {
-		return x.Alpha
-	}
-	return false
-}
+func (x *InitializeSynchronizationRequest) GetAlpha() bool { _ = "STUB: not implemented"; return false }
 
 // InitializeSynchronizationResponse encodes initialization results.
 type InitializeSynchronizationResponse struct {
@@ -117,42 +87,24 @@ type InitializeSynchronizationResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *InitializeSynchronizationResponse) Reset() {
-	*x = InitializeSynchronizationResponse{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *InitializeSynchronizationResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *InitializeSynchronizationResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *InitializeSynchronizationResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*InitializeSynchronizationResponse) ProtoMessage() {}
+func (*InitializeSynchronizationResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *InitializeSynchronizationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use InitializeSynchronizationResponse.ProtoReflect.Descriptor instead.
 func (*InitializeSynchronizationResponse) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{1}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *InitializeSynchronizationResponse) GetError() string {
-	if x != nil {
-		return x.Error
-	}
-	return ""
-}
+func (x *InitializeSynchronizationResponse) GetError() string { _ = "STUB: not implemented"; return "" }
 
 // PollRequest encodes a request for one-shot polling.
 type PollRequest struct {
@@ -161,35 +113,19 @@ type PollRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *PollRequest) Reset() {
-	*x = PollRequest{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *PollRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *PollRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *PollRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*PollRequest) ProtoMessage() {}
+func (*PollRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *PollRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use PollRequest.ProtoReflect.Descriptor instead.
-func (*PollRequest) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{2}
-}
+func (*PollRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 // PollCompletionRequest is paired with PollRequest and indicates a request for
 // early polling completion or an acknowledgement of completion.
@@ -199,34 +135,21 @@ type PollCompletionRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *PollCompletionRequest) Reset() {
-	*x = PollCompletionRequest{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *PollCompletionRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *PollCompletionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *PollCompletionRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*PollCompletionRequest) ProtoMessage() {}
+func (*PollCompletionRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *PollCompletionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use PollCompletionRequest.ProtoReflect.Descriptor instead.
 func (*PollCompletionRequest) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{3}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // PollResponse indicates polling completion.
@@ -238,42 +161,21 @@ type PollResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *PollResponse) Reset() {
-	*x = PollResponse{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[4]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *PollResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *PollResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *PollResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*PollResponse) ProtoMessage() {}
+func (*PollResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *PollResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[4]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use PollResponse.ProtoReflect.Descriptor instead.
-func (*PollResponse) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{4}
-}
+func (*PollResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *PollResponse) GetError() string {
-	if x != nil {
-		return x.Error
-	}
-	return ""
-}
+func (x *PollResponse) GetError() string { _ = "STUB: not implemented"; return "" }
 
 // ScanRequest encodes a request for a scan.
 type ScanRequest struct {
@@ -288,49 +190,26 @@ type ScanRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ScanRequest) Reset() {
-	*x = ScanRequest{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *ScanRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ScanRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ScanRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ScanRequest) ProtoMessage() {}
+func (*ScanRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ScanRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ScanRequest.ProtoReflect.Descriptor instead.
-func (*ScanRequest) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{5}
-}
+func (*ScanRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 func (x *ScanRequest) GetBaselineSnapshotSignature() *rsync.Signature {
-	if x != nil {
-		return x.BaselineSnapshotSignature
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *ScanRequest) GetFull() bool {
-	if x != nil {
-		return x.Full
-	}
-	return false
-}
+func (x *ScanRequest) GetFull() bool { _ = "STUB: not implemented"; return false }
 
 // ScanCompletionRequest is paired with a ScanRequest and indicates a request
 // for scan cancellation or an acknowledgement of completion.
@@ -340,34 +219,21 @@ type ScanCompletionRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ScanCompletionRequest) Reset() {
-	*x = ScanCompletionRequest{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *ScanCompletionRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ScanCompletionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ScanCompletionRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ScanCompletionRequest) ProtoMessage() {}
+func (*ScanCompletionRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ScanCompletionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ScanCompletionRequest.ProtoReflect.Descriptor instead.
 func (*ScanCompletionRequest) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{6}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ScanResponse encodes the results of a scan.
@@ -384,56 +250,25 @@ type ScanResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ScanResponse) Reset() {
-	*x = ScanResponse{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[7]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *ScanResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ScanResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ScanResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ScanResponse) ProtoMessage() {}
+func (*ScanResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ScanResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[7]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ScanResponse.ProtoReflect.Descriptor instead.
-func (*ScanResponse) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{7}
-}
+func (*ScanResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *ScanResponse) GetSnapshotDelta() []*rsync.Operation {
-	if x != nil {
-		return x.SnapshotDelta
-	}
-	return nil
-}
+func (x *ScanResponse) GetSnapshotDelta() []*rsync.Operation { _ = "STUB: not implemented"; return nil }
 
-func (x *ScanResponse) GetError() string {
-	if x != nil {
-		return x.Error
-	}
-	return ""
-}
+func (x *ScanResponse) GetError() string { _ = "STUB: not implemented"; return "" }
 
-func (x *ScanResponse) GetTryAgain() bool {
-	if x != nil {
-		return x.TryAgain
-	}
-	return false
-}
+func (x *ScanResponse) GetTryAgain() bool { _ = "STUB: not implemented"; return false }
 
 // StageRequest encodes a request for staging.
 type StageRequest struct {
@@ -447,49 +282,23 @@ type StageRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *StageRequest) Reset() {
-	*x = StageRequest{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[8]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *StageRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *StageRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *StageRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*StageRequest) ProtoMessage() {}
+func (*StageRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *StageRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[8]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use StageRequest.ProtoReflect.Descriptor instead.
-func (*StageRequest) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{8}
-}
+func (*StageRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *StageRequest) GetPaths() []string {
-	if x != nil {
-		return x.Paths
-	}
-	return nil
-}
+func (x *StageRequest) GetPaths() []string { _ = "STUB: not implemented"; return nil }
 
-func (x *StageRequest) GetDigests() [][]byte {
-	if x != nil {
-		return x.Digests
-	}
-	return nil
-}
+func (x *StageRequest) GetDigests() [][]byte { _ = "STUB: not implemented"; return nil }
 
 // StageResponse encodes the results of staging initialization.
 type StageResponse struct {
@@ -508,56 +317,25 @@ type StageResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *StageResponse) Reset() {
-	*x = StageResponse{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[9]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *StageResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *StageResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *StageResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*StageResponse) ProtoMessage() {}
+func (*StageResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *StageResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[9]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use StageResponse.ProtoReflect.Descriptor instead.
-func (*StageResponse) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{9}
-}
+func (*StageResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *StageResponse) GetPaths() []string {
-	if x != nil {
-		return x.Paths
-	}
-	return nil
-}
+func (x *StageResponse) GetPaths() []string { _ = "STUB: not implemented"; return nil }
 
-func (x *StageResponse) GetSignatures() []*rsync.Signature {
-	if x != nil {
-		return x.Signatures
-	}
-	return nil
-}
+func (x *StageResponse) GetSignatures() []*rsync.Signature { _ = "STUB: not implemented"; return nil }
 
-func (x *StageResponse) GetError() string {
-	if x != nil {
-		return x.Error
-	}
-	return ""
-}
+func (x *StageResponse) GetError() string { _ = "STUB: not implemented"; return "" }
 
 // SupplyRequest indicates a request for supplying files.
 type SupplyRequest struct {
@@ -570,49 +348,23 @@ type SupplyRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *SupplyRequest) Reset() {
-	*x = SupplyRequest{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[10]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *SupplyRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SupplyRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SupplyRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SupplyRequest) ProtoMessage() {}
+func (*SupplyRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SupplyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[10]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SupplyRequest.ProtoReflect.Descriptor instead.
-func (*SupplyRequest) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{10}
-}
+func (*SupplyRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *SupplyRequest) GetPaths() []string {
-	if x != nil {
-		return x.Paths
-	}
-	return nil
-}
+func (x *SupplyRequest) GetPaths() []string { _ = "STUB: not implemented"; return nil }
 
-func (x *SupplyRequest) GetSignatures() []*rsync.Signature {
-	if x != nil {
-		return x.Signatures
-	}
-	return nil
-}
+func (x *SupplyRequest) GetSignatures() []*rsync.Signature { _ = "STUB: not implemented"; return nil }
 
 // TransitionRequest encodes a request for transition application.
 type TransitionRequest struct {
@@ -623,42 +375,21 @@ type TransitionRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TransitionRequest) Reset() {
-	*x = TransitionRequest{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[11]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *TransitionRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TransitionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TransitionRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TransitionRequest) ProtoMessage() {}
+func (*TransitionRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TransitionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[11]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TransitionRequest.ProtoReflect.Descriptor instead.
-func (*TransitionRequest) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{11}
-}
+func (*TransitionRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *TransitionRequest) GetTransitions() []*core.Change {
-	if x != nil {
-		return x.Transitions
-	}
-	return nil
-}
+func (x *TransitionRequest) GetTransitions() []*core.Change { _ = "STUB: not implemented"; return nil }
 
 // TransitionCompletionRequest is paired with a TransitionRequest and indicates
 // a request for transition cancellation or an acknowledgement of completion.
@@ -668,34 +399,21 @@ type TransitionCompletionRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TransitionCompletionRequest) Reset() {
-	*x = TransitionCompletionRequest{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[12]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *TransitionCompletionRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TransitionCompletionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TransitionCompletionRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TransitionCompletionRequest) ProtoMessage() {}
+func (*TransitionCompletionRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TransitionCompletionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[12]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TransitionCompletionRequest.ProtoReflect.Descriptor instead.
 func (*TransitionCompletionRequest) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{12}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // TransitionResponse encodes the results of transitioning.
@@ -724,63 +442,27 @@ type TransitionResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TransitionResponse) Reset() {
-	*x = TransitionResponse{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[13]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *TransitionResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TransitionResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TransitionResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TransitionResponse) ProtoMessage() {}
+func (*TransitionResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TransitionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[13]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TransitionResponse.ProtoReflect.Descriptor instead.
-func (*TransitionResponse) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{13}
-}
+func (*TransitionResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *TransitionResponse) GetResults() []*core.Archive {
-	if x != nil {
-		return x.Results
-	}
-	return nil
-}
+func (x *TransitionResponse) GetResults() []*core.Archive { _ = "STUB: not implemented"; return nil }
 
-func (x *TransitionResponse) GetProblems() []*core.Problem {
-	if x != nil {
-		return x.Problems
-	}
-	return nil
-}
+func (x *TransitionResponse) GetProblems() []*core.Problem { _ = "STUB: not implemented"; return nil }
 
-func (x *TransitionResponse) GetStagerMissingFiles() bool {
-	if x != nil {
-		return x.StagerMissingFiles
-	}
-	return false
-}
+func (x *TransitionResponse) GetStagerMissingFiles() bool { _ = "STUB: not implemented"; return false }
 
-func (x *TransitionResponse) GetError() string {
-	if x != nil {
-		return x.Error
-	}
-	return ""
-}
+func (x *TransitionResponse) GetError() string { _ = "STUB: not implemented"; return "" }
 
 // EndpointRequest is a sum type that can transmit any type of endpoint request.
 // Only the sent request will be non-nil. We intentionally avoid using Protocol
@@ -802,70 +484,29 @@ type EndpointRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *EndpointRequest) Reset() {
-	*x = EndpointRequest{}
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[14]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *EndpointRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *EndpointRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *EndpointRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*EndpointRequest) ProtoMessage() {}
+func (*EndpointRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *EndpointRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_endpoint_remote_protocol_proto_msgTypes[14]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use EndpointRequest.ProtoReflect.Descriptor instead.
-func (*EndpointRequest) Descriptor() ([]byte, []int) {
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP(), []int{14}
-}
+func (*EndpointRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *EndpointRequest) GetPoll() *PollRequest {
-	if x != nil {
-		return x.Poll
-	}
-	return nil
-}
+func (x *EndpointRequest) GetPoll() *PollRequest { _ = "STUB: not implemented"; return nil }
 
-func (x *EndpointRequest) GetScan() *ScanRequest {
-	if x != nil {
-		return x.Scan
-	}
-	return nil
-}
+func (x *EndpointRequest) GetScan() *ScanRequest { _ = "STUB: not implemented"; return nil }
 
-func (x *EndpointRequest) GetStage() *StageRequest {
-	if x != nil {
-		return x.Stage
-	}
-	return nil
-}
+func (x *EndpointRequest) GetStage() *StageRequest { _ = "STUB: not implemented"; return nil }
 
-func (x *EndpointRequest) GetSupply() *SupplyRequest {
-	if x != nil {
-		return x.Supply
-	}
-	return nil
-}
+func (x *EndpointRequest) GetSupply() *SupplyRequest { _ = "STUB: not implemented"; return nil }
 
-func (x *EndpointRequest) GetTransition() *TransitionRequest {
-	if x != nil {
-		return x.Transition
-	}
-	return nil
-}
+func (x *EndpointRequest) GetTransition() *TransitionRequest { _ = "STUB: not implemented"; return nil }
 
 var File_synchronization_endpoint_remote_protocol_proto protoreflect.FileDescriptor
 
@@ -929,10 +570,8 @@ var (
 )
 
 func file_synchronization_endpoint_remote_protocol_proto_rawDescGZIP() []byte {
-	file_synchronization_endpoint_remote_protocol_proto_rawDescOnce.Do(func() {
-		file_synchronization_endpoint_remote_protocol_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_synchronization_endpoint_remote_protocol_proto_rawDesc), len(file_synchronization_endpoint_remote_protocol_proto_rawDesc)))
-	})
-	return file_synchronization_endpoint_remote_protocol_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_synchronization_endpoint_remote_protocol_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
@@ -982,26 +621,5 @@ var file_synchronization_endpoint_remote_protocol_proto_depIdxs = []int32{
 	0,  // [0:14] is the sub-list for field type_name
 }
 
-func init() { file_synchronization_endpoint_remote_protocol_proto_init() }
-func file_synchronization_endpoint_remote_protocol_proto_init() {
-	if File_synchronization_endpoint_remote_protocol_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_synchronization_endpoint_remote_protocol_proto_rawDesc), len(file_synchronization_endpoint_remote_protocol_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   15,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_synchronization_endpoint_remote_protocol_proto_goTypes,
-		DependencyIndexes: file_synchronization_endpoint_remote_protocol_proto_depIdxs,
-		MessageInfos:      file_synchronization_endpoint_remote_protocol_proto_msgTypes,
-	}.Build()
-	File_synchronization_endpoint_remote_protocol_proto = out.File
-	file_synchronization_endpoint_remote_protocol_proto_goTypes = nil
-	file_synchronization_endpoint_remote_protocol_proto_depIdxs = nil
-}
+func init()                                                     { file_synchronization_endpoint_remote_protocol_proto_init() }
+func file_synchronization_endpoint_remote_protocol_proto_init() { _ = "STUB: not implemented"; return }

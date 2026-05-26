@@ -30,9 +30,4 @@ const (
 )
 
 // FormatConnectionStatus formats a connection status for display.
-func FormatConnectionStatus(connected bool) string {
-	if connected {
-		return "Yes"
-	}
-	return "No"
-}
+func FormatConnectionStatus(connected bool) string { _ = "STUB: not implemented"; return "" }

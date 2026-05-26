@@ -3,7 +3,6 @@ package global
 import (
 	"github.com/mutagen-io/mutagen/pkg/api/models/forwarding"
 	"github.com/mutagen-io/mutagen/pkg/api/models/synchronization"
-	"github.com/mutagen-io/mutagen/pkg/encoding"
 )
 
 // Configuration is the global YAML configuration object type.
@@ -23,14 +22,11 @@ type Configuration struct {
 // LoadConfiguration attempts to load a YAML-based Mutagen global configuration
 // file from the specified path.
 func LoadConfiguration(path string) (*Configuration, error) {
+	_ = "STUB: not implemented"
 	// Create the target configuration object.
-	result := &Configuration{}
-
-	// Attempt to load. We pass-through os.IsNotExist errors.
-	if err := encoding.LoadAndUnmarshalYAML(path, result); err != nil {
-		return nil, err
-	}
-
-	// Success.
-	return result, nil
+	return nil, nil
 }
+
+// Attempt to load. We pass-through os.IsNotExist errors.
+
+// Success.

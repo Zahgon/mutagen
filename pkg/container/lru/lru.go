@@ -37,71 +37,36 @@ func New[K comparable, V any](
 	maxEntries int,
 	onEvicted func(key K, value V),
 ) *Cache[K, V] {
-	return &Cache[K, V]{
-		maxEntries: maxEntries,
-		onEvicted:  onEvicted,
-		entries:    list.New(),
-		index:      make(map[K]*list.Element),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Add inserts or updates an entry in the cache. If the key already
 // exists, its value is updated and the entry is moved to the front
 // (most recently used). If the cache is at capacity, the least
 // recently used entry is evicted.
-func (c *Cache[K, V]) Add(key K, value V) {
-	if e, ok := c.index[key]; ok {
-		c.entries.MoveToFront(e)
-		e.Value.(*entry[K, V]).value = value
-		return
-	}
-	e := c.entries.PushFront(&entry[K, V]{key, value})
-	c.index[key] = e
-	if c.maxEntries != 0 && c.entries.Len() > c.maxEntries {
-		c.removeOldest()
-	}
-}
+func (c *Cache[K, V]) Add(key K, value V) { _ = "STUB: not implemented"; return }
 
 // Get retrieves an entry from the cache. If the key is found, the
 // entry is moved to the front (most recently used) and the value
 // and true are returned. If not found, the zero value and false
 // are returned.
 func (c *Cache[K, V]) Get(key K) (value V, ok bool) {
-	if e, hit := c.index[key]; hit {
-		c.entries.MoveToFront(e)
-		return e.Value.(*entry[K, V]).value, true
-	}
-	return
+	_ = "STUB: not implemented"
+	return *new(V), false
 }
 
 // Remove removes the entry with the specified key from the cache.
 // If an eviction callback is set, it is called with the removed
 // entry. This is a no-op if the key is not present.
-func (c *Cache[K, V]) Remove(key K) {
-	if e, hit := c.index[key]; hit {
-		c.removeElement(e)
-	}
-}
+func (c *Cache[K, V]) Remove(key K) { _ = "STUB: not implemented"; return }
 
 // Len returns the number of entries in the cache.
-func (c *Cache[K, V]) Len() int {
-	return c.entries.Len()
-}
+func (c *Cache[K, V]) Len() int { _ = "STUB: not implemented"; return 0 }
 
 // removeOldest removes the least recently used entry.
-func (c *Cache[K, V]) removeOldest() {
-	if e := c.entries.Back(); e != nil {
-		c.removeElement(e)
-	}
-}
+func (c *Cache[K, V]) removeOldest() { _ = "STUB: not implemented"; return }
 
 // removeElement removes an element from the cache and invokes the
 // eviction callback if set.
-func (c *Cache[K, V]) removeElement(e *list.Element) {
-	c.entries.Remove(e)
-	kv := e.Value.(*entry[K, V])
-	delete(c.index, kv.key)
-	if c.onEvicted != nil {
-		c.onEvicted(kv.key, kv.value)
-	}
-}
+func (c *Cache[K, V]) removeElement(e *list.Element) { _ = "STUB: not implemented"; return }

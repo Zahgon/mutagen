@@ -8,6 +8,4 @@ import (
 
 // ProcessAttributes returns the process attributes to use for starting
 // transport processes from the daemon.
-func ProcessAttributes() *syscall.SysProcAttr {
-	return nil
-}
+func ProcessAttributes() *syscall.SysProcAttr { _ = "STUB: not implemented"; return nil }

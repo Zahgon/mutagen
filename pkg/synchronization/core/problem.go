@@ -1,65 +1,45 @@
 package core
 
-import (
-	"errors"
-	"sort"
-
-	"github.com/mutagen-io/mutagen/pkg/synchronization/core/fastpath"
-)
-
 // EnsureValid ensures that Problem's invariants are respected.
 func (p *Problem) EnsureValid() error {
+	_ = "STUB: not implemented"
 	// A nil problem is not valid.
-	if p == nil {
-		return errors.New("nil problem")
-	}
-
-	// Ensure that an error message has been provided.
-	if p.Error == "" {
-		return errors.New("empty or missing error message")
-	}
-
-	// Success.
 	return nil
 }
+
+// Ensure that an error message has been provided.
+
+// Success.
 
 // CopyProblems creates a copy of a list of problems in a new slice, usually for
 // the purpose of modifying the list. The problem objects themselves are not
 // copied. It preserves nil vs. non-nil characteristics for empty slices.
 func CopyProblems(problems []*Problem) []*Problem {
+	_ = "STUB: not implemented"
 	// If the slice is nil, then preserve its nilness. For zero-length, non-nil
 	// slices, we still allocate on the heap to preserve non-nilness.
-	if problems == nil {
-		return nil
-	}
-
-	// Make a copy.
-	result := make([]*Problem, len(problems))
-	copy(result, problems)
-
-	// Done.
-	return result
+	return nil
 }
+
+// Make a copy.
+
+// Done.
 
 // sortableProblemList implements sort.Interface for problem lists.
 type sortableProblemList []*Problem
 
 // Len implements sort.Interface.Len.
 func (l sortableProblemList) Len() int {
-	return len(l)
+	_ = "STUB: not implemented"
+
+	// Less implements sort.Interface.Less.
+	return 0
 }
 
-// Less implements sort.Interface.Less.
-func (l sortableProblemList) Less(i, j int) bool {
-	return fastpath.Less(l[i].Path, l[j].Path)
-}
+func (l sortableProblemList) Less(i, j int) bool { _ = "STUB: not implemented"; return false }
 
 // Swap implements sort.Interface.Swap.
-func (l sortableProblemList) Swap(i, j int) {
-	l[i], l[j] = l[j], l[i]
-}
+func (l sortableProblemList) Swap(i, j int) { _ = "STUB: not implemented"; return }
 
 // SortProblems sorts a list of conflicts based on their problem paths.
-func SortProblems(conflicts []*Problem) {
-	sort.Sort(sortableProblemList(conflicts))
-}
+func SortProblems(conflicts []*Problem) { _ = "STUB: not implemented"; return }

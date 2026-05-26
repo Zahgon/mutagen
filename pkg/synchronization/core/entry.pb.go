@@ -7,11 +7,10 @@
 package core
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -79,32 +78,27 @@ var (
 	}
 )
 
-func (x EntryKind) Enum() *EntryKind {
-	p := new(EntryKind)
-	*p = x
-	return p
-}
+func (x EntryKind) Enum() *EntryKind { _ = "STUB: not implemented"; return nil }
 
-func (x EntryKind) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x EntryKind) String() string { _ = "STUB: not implemented"; return "" }
 
 func (EntryKind) Descriptor() protoreflect.EnumDescriptor {
-	return file_synchronization_core_entry_proto_enumTypes[0].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (EntryKind) Type() protoreflect.EnumType {
-	return &file_synchronization_core_entry_proto_enumTypes[0]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x EntryKind) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use EntryKind.Descriptor instead.
-func (EntryKind) EnumDescriptor() ([]byte, []int) {
-	return file_synchronization_core_entry_proto_rawDescGZIP(), []int{0}
-}
+func (EntryKind) EnumDescriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 // Entry encodes a filesystem entry (e.g. a directory, a file, or a symbolic
 // link). A nil Entry represents an absence of content. An zero-value Entry
@@ -133,77 +127,31 @@ type Entry struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Entry) Reset() {
-	*x = Entry{}
-	mi := &file_synchronization_core_entry_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Entry) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Entry) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Entry) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Entry) ProtoMessage() {}
+func (*Entry) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Entry) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_core_entry_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Entry.ProtoReflect.Descriptor instead.
-func (*Entry) Descriptor() ([]byte, []int) {
-	return file_synchronization_core_entry_proto_rawDescGZIP(), []int{0}
-}
+func (*Entry) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Entry) GetKind() EntryKind {
-	if x != nil {
-		return x.Kind
-	}
-	return EntryKind_Directory
-}
+func (x *Entry) GetKind() EntryKind { _ = "STUB: not implemented"; return *new(EntryKind) }
 
-func (x *Entry) GetContents() map[string]*Entry {
-	if x != nil {
-		return x.Contents
-	}
-	return nil
-}
+func (x *Entry) GetContents() map[string]*Entry { _ = "STUB: not implemented"; return nil }
 
-func (x *Entry) GetDigest() []byte {
-	if x != nil {
-		return x.Digest
-	}
-	return nil
-}
+func (x *Entry) GetDigest() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *Entry) GetExecutable() bool {
-	if x != nil {
-		return x.Executable
-	}
-	return false
-}
+func (x *Entry) GetExecutable() bool { _ = "STUB: not implemented"; return false }
 
-func (x *Entry) GetTarget() string {
-	if x != nil {
-		return x.Target
-	}
-	return ""
-}
+func (x *Entry) GetTarget() string { _ = "STUB: not implemented"; return "" }
 
-func (x *Entry) GetProblem() string {
-	if x != nil {
-		return x.Problem
-	}
-	return ""
-}
+func (x *Entry) GetProblem() string { _ = "STUB: not implemented"; return "" }
 
 var File_synchronization_core_entry_proto protoreflect.FileDescriptor
 
@@ -236,10 +184,8 @@ var (
 )
 
 func file_synchronization_core_entry_proto_rawDescGZIP() []byte {
-	file_synchronization_core_entry_proto_rawDescOnce.Do(func() {
-		file_synchronization_core_entry_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_synchronization_core_entry_proto_rawDesc), len(file_synchronization_core_entry_proto_rawDesc)))
-	})
-	return file_synchronization_core_entry_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_synchronization_core_entry_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
@@ -260,27 +206,5 @@ var file_synchronization_core_entry_proto_depIdxs = []int32{
 	0, // [0:3] is the sub-list for field type_name
 }
 
-func init() { file_synchronization_core_entry_proto_init() }
-func file_synchronization_core_entry_proto_init() {
-	if File_synchronization_core_entry_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_synchronization_core_entry_proto_rawDesc), len(file_synchronization_core_entry_proto_rawDesc)),
-			NumEnums:      1,
-			NumMessages:   2,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_synchronization_core_entry_proto_goTypes,
-		DependencyIndexes: file_synchronization_core_entry_proto_depIdxs,
-		EnumInfos:         file_synchronization_core_entry_proto_enumTypes,
-		MessageInfos:      file_synchronization_core_entry_proto_msgTypes,
-	}.Build()
-	File_synchronization_core_entry_proto = out.File
-	file_synchronization_core_entry_proto_goTypes = nil
-	file_synchronization_core_entry_proto_depIdxs = nil
-}
+func init()                                       { file_synchronization_core_entry_proto_init() }
+func file_synchronization_core_entry_proto_init() { _ = "STUB: not implemented"; return }

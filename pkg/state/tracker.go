@@ -58,105 +58,71 @@ type Tracker struct {
 
 // NewTracker creates a new tracker instance with a state index of 1.
 func NewTracker() *Tracker {
+	_ = "STUB: not implemented"
 	// Creack the tracker.
-	tracker := &Tracker{
-		change:       sync.NewCond(&sync.Mutex{}),
-		index:        1,
-		pollRequests: make(map[*pollRequest]bool),
-		trackDone:    make(chan struct{}),
-	}
-
-	// Start the tracking loop.
-	go tracker.track()
-
-	// Done.
-	return tracker
+	return nil
 }
+
+// Start the tracking loop.
+
+// Done.
 
 // track is the tracking loop entry point. It serves as a bridge between the
 // world of condition variables and the world of channels.
 func (t *Tracker) track() {
+	_ = "STUB: not implemented"
 	// Defer closure of the tracking loop termination channel.
-	defer close(t.trackDone)
-
-	// Acquire the state lock and defer its release.
-	t.change.L.Lock()
-	defer t.change.L.Unlock()
-
-	// Loop until terminated.
-	for {
-		// Check for and handle termination.
-		if t.terminated {
-			response := pollResponse{t.index, true}
-			for r := range t.pollRequests {
-				r.responses <- response
-				delete(t.pollRequests, r)
-			}
-			return
-		}
-
-		// Signal any completed polling requests.
-		// TODO: It would be nice if we had a better data structure where
-		// iteration wasn't O(n) in the number of registered poll requests. It
-		// feels like we could leverage the fact that index is monotonically
-		// increasing and maybe use a heap (ordered by requests' previous
-		// indices) to reduce the iteration overhead here, but it's not
-		// performance critical for now. Such a design might motivate better
-		// overflow handling as well. In any case, given that we're no longer
-		// using sync.Cond.Broadcast, we're already saving O(n) iteration in the
-		// Go runtime, so this is a reasonable tradeoff.
-		for r := range t.pollRequests {
-			if r.previousIndex != t.index {
-				r.responses <- pollResponse{t.index, false}
-				delete(t.pollRequests, r)
-			}
-		}
-
-		// Wait for a state change.
-		t.change.Wait()
-	}
+	return
 }
+
+// Acquire the state lock and defer its release.
+
+// Loop until terminated.
+
+// Check for and handle termination.
+
+// Signal any completed polling requests.
+// TODO: It would be nice if we had a better data structure where
+// iteration wasn't O(n) in the number of registered poll requests. It
+// feels like we could leverage the fact that index is monotonically
+// increasing and maybe use a heap (ordered by requests' previous
+// indices) to reduce the iteration overhead here, but it's not
+// performance critical for now. Such a design might motivate better
+// overflow handling as well. In any case, given that we're no longer
+// using sync.Cond.Broadcast, we're already saving O(n) iteration in the
+// Go runtime, so this is a reasonable tradeoff.
+
+// Wait for a state change.
 
 // Terminate terminates tracking.
 func (t *Tracker) Terminate() {
+	_ = "STUB: not implemented"
 	// Acquire the state lock.
-	t.change.L.Lock()
-
-	// Mark tracking as terminated.
-	t.terminated = true
-
-	// Signal to the tracking loop that termination has occurred.
-	t.change.Signal()
-
-	// Release the state lock.
-	t.change.L.Unlock()
-
-	// Wait for the tracking loop to exit.
-	<-t.trackDone
+	return
 }
+
+// Mark tracking as terminated.
+
+// Signal to the tracking loop that termination has occurred.
+
+// Release the state lock.
+
+// Wait for the tracking loop to exit.
 
 // NotifyOfChange indicates the state index and notifies waiters.
 func (t *Tracker) NotifyOfChange() {
+	_ = "STUB: not implemented"
 	// Acquire the state lock and defer its release.
-	t.change.L.Lock()
-	defer t.change.L.Unlock()
-
-	// If tracking has been terminated, then there's nothing that we need to do.
-	if t.terminated {
-		return
-	}
-
-	// Increment the state index. If we do overflow, then at least set the index
-	// back to 1, because we want 0 to remain the sentinel value that returns an
-	// immediate read of the current state index.
-	t.index++
-	if t.index == 0 {
-		t.index = 1
-	}
-
-	// Signal the tracking loop.
-	t.change.Signal()
+	return
 }
+
+// If tracking has been terminated, then there's nothing that we need to do.
+
+// Increment the state index. If we do overflow, then at least set the index
+// back to 1, because we want 0 to remain the sentinel value that returns an
+// immediate read of the current state index.
+
+// Signal the tracking loop.
 
 // WaitForChange polls for a state index change from the specified previous
 // index. It returns the new index at which the change was seen. If tracking is
@@ -167,52 +133,24 @@ func (t *Tracker) NotifyOfChange() {
 // is provided, then the current state index (which will always be greater than
 // 0) is returned immediately.
 func (t *Tracker) WaitForChange(ctx context.Context, previousIndex uint64) (uint64, error) {
+	_ = "STUB: not implemented"
 	// If the previous index is 0, then an immediate read is being requested. In
 	// that case we can just bypass the polling mechanism.
-	if previousIndex == 0 {
-		t.change.L.Lock()
-		defer t.change.L.Unlock()
-		if t.terminated {
-			return t.index, ErrTrackingTerminated
-		}
-		return t.index, nil
-	}
-
-	// Acquire the state lock.
-	t.change.L.Lock()
-
-	// If tracking has already been terminated, then abort immediately because
-	// polling won't function.
-	if t.terminated {
-		defer t.change.L.Unlock()
-		return t.index, ErrTrackingTerminated
-	}
-
-	// Create and register the polling request.
-	responses := make(chan pollResponse, 1)
-	request := &pollRequest{previousIndex, responses}
-	t.pollRequests[request] = true
-
-	// Signal to the tracking loop that a new request has been registered.
-	t.change.Signal()
-
-	// Release the state lock.
-	t.change.L.Unlock()
-
-	// Wait for a state change or cancellation. If the request is cancelled,
-	// then we'll deregister it ourselves (in which case there's no need to
-	// notify the tracking loop). If the polling operation succeeds, then the
-	// tracking loop will deregister the request.
-	select {
-	case <-ctx.Done():
-		t.change.L.Lock()
-		delete(t.pollRequests, request)
-		defer t.change.L.Unlock()
-		return t.index, context.Canceled
-	case response := <-responses:
-		if response.terminated {
-			return response.index, ErrTrackingTerminated
-		}
-		return response.index, nil
-	}
+	return 0, nil
 }
+
+// Acquire the state lock.
+
+// If tracking has already been terminated, then abort immediately because
+// polling won't function.
+
+// Create and register the polling request.
+
+// Signal to the tracking loop that a new request has been registered.
+
+// Release the state lock.
+
+// Wait for a state change or cancellation. If the request is cancelled,
+// then we'll deregister it ourselves (in which case there's no need to
+// notify the tracking loop). If the polling operation succeeds, then the
+// tracking loop will deregister the request.

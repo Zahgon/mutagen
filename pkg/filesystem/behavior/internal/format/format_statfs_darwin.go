@@ -17,54 +17,25 @@ const (
 
 // metadataRepresentsAPFS returns whether or not the specified filesystem
 // metadata represents an APFS filesystem.
-func metadataRepresentsAPFS(metadata *unix.Statfs_t) bool {
-	return metadata.Fstypename[0] == 'a' &&
-		metadata.Fstypename[1] == 'p' &&
-		metadata.Fstypename[2] == 'f' &&
-		metadata.Fstypename[3] == 's'
-}
+func metadataRepresentsAPFS(metadata *unix.Statfs_t) bool { _ = "STUB: not implemented"; return false }
 
 // metadataRepresentsHFS returns whether or not the specified filesystem
 // metadata represents an HFS filesystem. This also covers HFS variants.
-func metadataRepresentsHFS(metadata *unix.Statfs_t) bool {
-	return metadata.Fstypename[0] == 'h' &&
-		metadata.Fstypename[1] == 'f' &&
-		metadata.Fstypename[2] == 's'
-}
+func metadataRepresentsHFS(metadata *unix.Statfs_t) bool { _ = "STUB: not implemented"; return false }
 
 // metadataRepresentsFAT32 returns whether or not the specified filesystem
 // metadata represents a FAT32 filesystem.
-func metadataRepresentsFAT32(metadata *unix.Statfs_t) bool {
-	return metadata.Fstypename[0] == 'm' &&
-		metadata.Fstypename[1] == 's' &&
-		metadata.Fstypename[2] == 'd' &&
-		metadata.Fstypename[3] == 'o' &&
-		metadata.Fstypename[4] == 's'
-}
+func metadataRepresentsFAT32(metadata *unix.Statfs_t) bool { _ = "STUB: not implemented"; return false }
 
 // metadataRepresentsExFAT returns whether or not the specified filesystem
 // metadata represents a ExFAT filesystem.
-func metadataRepresentsExFAT(metadata *unix.Statfs_t) bool {
-	return metadata.Fstypename[0] == 'e' &&
-		metadata.Fstypename[1] == 'x' &&
-		metadata.Fstypename[2] == 'f' &&
-		metadata.Fstypename[3] == 'a' &&
-		metadata.Fstypename[4] == 't'
-}
+func metadataRepresentsExFAT(metadata *unix.Statfs_t) bool { _ = "STUB: not implemented"; return false }
 
 // formatFromStatfs extracts the filesystem format from the filesystem metadata.
 func formatFromStatfs(metadata *unix.Statfs_t) Format {
+	_ = "STUB: not implemented"
 	// Check if this is a well-known filesystem format.
-	if metadataRepresentsAPFS(metadata) {
-		return FormatAPFS
-	} else if metadataRepresentsHFS(metadata) {
-		return FormatHFS
-	} else if metadataRepresentsFAT32(metadata) {
-		return FormatFAT32
-	} else if metadataRepresentsExFAT(metadata) {
-		return FormatExFAT
-	}
-
-	// Otherwise classify it as unknown.
-	return FormatUnknown
+	return *new(Format)
 }
+
+// Otherwise classify it as unknown.

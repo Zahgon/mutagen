@@ -12,11 +12,7 @@ type flushCloser struct {
 
 // NewFlushCloser creates a new io.Closer that aliases Close to the specified
 // flusher's Flush method. It is primarily used for bufio.Writer instances.
-func NewFlushCloser(flusher Flusher) io.Closer {
-	return &flushCloser{flusher}
-}
+func NewFlushCloser(flusher Flusher) io.Closer { _ = "STUB: not implemented"; return *new(io.Closer) }
 
 // Close implements io.Closer.Close.
-func (c *flushCloser) Close() error {
-	return c.flusher.Flush()
-}
+func (c *flushCloser) Close() error { _ = "STUB: not implemented"; return nil }

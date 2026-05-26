@@ -14,25 +14,18 @@ type TrackingLock struct {
 }
 
 // NewTrackingLock creates a new tracking lock with the specified tracker.
-func NewTrackingLock(tracker *Tracker) *TrackingLock {
-	return &TrackingLock{
-		tracker: tracker,
-	}
-}
+func NewTrackingLock(tracker *Tracker) *TrackingLock { _ = "STUB: not implemented"; return nil }
 
 // Lock locks the tracking lock.
 func (l *TrackingLock) Lock() {
-	l.lock.Lock()
+	_ = "STUB: not implemented"
+
+	// Unlock unlocks the tracking lock and triggers a state update notification.
+	return
 }
 
-// Unlock unlocks the tracking lock and triggers a state update notification.
-func (l *TrackingLock) Unlock() {
-	l.lock.Unlock()
-	l.tracker.NotifyOfChange()
-}
+func (l *TrackingLock) Unlock() { _ = "STUB: not implemented"; return }
 
 // UnlockWithoutNotify unlocks the tracking lock without triggering a state
 // update notification.
-func (l *TrackingLock) UnlockWithoutNotify() {
-	l.lock.Unlock()
-}
+func (l *TrackingLock) UnlockWithoutNotify() { _ = "STUB: not implemented"; return }

@@ -3,13 +3,7 @@
 package filesystem
 
 import (
-	"fmt"
 	"io"
-	"os"
-	"path/filepath"
-	"time"
-
-	"golang.org/x/sys/unix"
 )
 
 // Open opens a filesystem path for traversal and/or other operations. It will
@@ -26,6 +20,7 @@ import (
 // regular file, and the returned object will still be either a Directory or an
 // io.ReadSeekCloser.
 func Open(path string, allowSymbolicLinkLeaf bool) (io.Closer, *Metadata, error) {
+	_ = "STUB: not implemented"
 	// Open the file. Unless explicitly allowed, we disable resolution of
 	// symbolic links at the leaf position of the path by specifying O_NOFOLLOW.
 	// Note that this flag only affects the leaf component of the path -
@@ -46,43 +41,11 @@ func Open(path string, allowSymbolicLinkLeaf bool) (io.Closer, *Metadata, error)
 	// readlink and its ilk. Since ELOOP still sort of makes sense (we've
 	// encountered too many symbolic links at the path leaf), we return it
 	// unmodified.
-	flags := unix.O_RDONLY | unix.O_NOFOLLOW | unix.O_CLOEXEC | extraOpenFlags
-	if allowSymbolicLinkLeaf {
-		flags &^= unix.O_NOFOLLOW
-	}
-	descriptor, err := openatRetryingOnEINTR(unix.AT_FDCWD, path, flags, 0)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	// Grab metadata for the file.
-	var rawMetadata unix.Stat_t
-	if err := fstatRetryingOnEINTR(descriptor, &rawMetadata); err != nil {
-		closeConsideringEINTR(descriptor)
-		return nil, nil, fmt.Errorf("unable to query file metadata: %w", err)
-	}
-
-	// Convert the raw system-level metadata.
-	metadata := &Metadata{
-		Name:             filepath.Base(path),
-		Mode:             Mode(rawMetadata.Mode),
-		Size:             uint64(rawMetadata.Size),
-		ModificationTime: time.Unix(rawMetadata.Mtim.Unix()),
-		DeviceID:         uint64(rawMetadata.Dev),
-		FileID:           uint64(rawMetadata.Ino),
-	}
-
-	// Dispatch further construction according to type.
-	switch metadata.Mode & ModeTypeMask {
-	case ModeTypeDirectory:
-		return &Directory{
-			descriptor: descriptor,
-			file:       os.NewFile(uintptr(descriptor), path),
-		}, metadata, nil
-	case ModeTypeFile:
-		return file(descriptor), metadata, nil
-	default:
-		closeConsideringEINTR(descriptor)
-		return nil, nil, ErrUnsupportedOpenType
-	}
+	return *new(io.Closer), nil, nil
 }
+
+// Grab metadata for the file.
+
+// Convert the raw system-level metadata.
+
+// Dispatch further construction according to type.

@@ -16,37 +16,33 @@ type Stager struct {
 
 // NewStager creates a new stager.
 func NewStager(root string, hideRoot bool, maximumFileSize uint64, hasherFactory func() hash.Hash) *Stager {
-	return &Stager{store.NewStore(root, hideRoot, maximumFileSize, hasherFactory)}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Initialize implements local.stager.Initialize.
-func (s *Stager) Initialize() error {
-	return s.store.Initialize()
-}
+func (s *Stager) Initialize() error { _ = "STUB: not implemented"; return nil }
 
 // Contains implements local.stager.Contains.
 func (s *Stager) Contains(path string, digest []byte) (bool, error) {
-	return s.store.Contains(path, digest)
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 // Sink implements rsync.Sinker.Sink.
 func (s *Stager) Sink(path string) (io.WriteCloser, error) {
-	storage, err := s.store.Allocate()
-	if err != nil {
-		return nil, err
-	}
-	return &Sink{path, storage}, nil
+	_ = "STUB: not implemented"
+	return *new(io.WriteCloser), nil
 }
 
 // Provide implements core.Provider.Provide.
 func (s *Stager) Provide(path string, digest []byte) (string, error) {
-	return s.store.Path(path, digest)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // Finalize implements local.stager.Finalize.
-func (s *Stager) Finalize() error {
-	return s.store.Finalize()
-}
+func (s *Stager) Finalize() error { _ = "STUB: not implemented"; return nil }
 
 // Sink implements io.WriterCloser for Stager's Sink method.
 type Sink struct {
@@ -57,11 +53,7 @@ type Sink struct {
 }
 
 // Writer implements io.Writer.Write.
-func (s *Sink) Write(data []byte) (int, error) {
-	return s.storage.Write(data)
-}
+func (s *Sink) Write(data []byte) (int, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // Close implements io.Closer.Close.
-func (s *Sink) Close() error {
-	return s.storage.Commit(s.path)
-}
+func (s *Sink) Close() error { _ = "STUB: not implemented"; return nil }

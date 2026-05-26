@@ -15,16 +15,9 @@ type multiCloser struct {
 // layers should be specified before lower. All closers will be closed, but only
 // the first error encountered will be returned.
 func NewMultiCloser(closers ...io.Closer) io.Closer {
-	return &multiCloser{closers}
+	_ = "STUB: not implemented"
+	return *new(io.Closer)
 }
 
 // Close implements io.Closer.Close.
-func (c *multiCloser) Close() error {
-	var firstErr error
-	for _, closer := range c.closers {
-		if err := closer.Close(); err != nil && firstErr == nil {
-			firstErr = err
-		}
-	}
-	return firstErr
-}
+func (c *multiCloser) Close() error { _ = "STUB: not implemented"; return nil }

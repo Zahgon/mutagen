@@ -7,11 +7,10 @@
 package core
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -50,84 +49,33 @@ type Snapshot struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Snapshot) Reset() {
-	*x = Snapshot{}
-	mi := &file_synchronization_core_snapshot_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Snapshot) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Snapshot) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Snapshot) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Snapshot) ProtoMessage() {}
+func (*Snapshot) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Snapshot) ProtoReflect() protoreflect.Message {
-	mi := &file_synchronization_core_snapshot_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Snapshot.ProtoReflect.Descriptor instead.
-func (*Snapshot) Descriptor() ([]byte, []int) {
-	return file_synchronization_core_snapshot_proto_rawDescGZIP(), []int{0}
-}
+func (*Snapshot) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Snapshot) GetContent() *Entry {
-	if x != nil {
-		return x.Content
-	}
-	return nil
-}
+func (x *Snapshot) GetContent() *Entry { _ = "STUB: not implemented"; return nil }
 
-func (x *Snapshot) GetPreservesExecutability() bool {
-	if x != nil {
-		return x.PreservesExecutability
-	}
-	return false
-}
+func (x *Snapshot) GetPreservesExecutability() bool { _ = "STUB: not implemented"; return false }
 
-func (x *Snapshot) GetDecomposesUnicode() bool {
-	if x != nil {
-		return x.DecomposesUnicode
-	}
-	return false
-}
+func (x *Snapshot) GetDecomposesUnicode() bool { _ = "STUB: not implemented"; return false }
 
-func (x *Snapshot) GetDirectories() uint64 {
-	if x != nil {
-		return x.Directories
-	}
-	return 0
-}
+func (x *Snapshot) GetDirectories() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Snapshot) GetFiles() uint64 {
-	if x != nil {
-		return x.Files
-	}
-	return 0
-}
+func (x *Snapshot) GetFiles() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Snapshot) GetSymbolicLinks() uint64 {
-	if x != nil {
-		return x.SymbolicLinks
-	}
-	return 0
-}
+func (x *Snapshot) GetSymbolicLinks() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Snapshot) GetTotalFileSize() uint64 {
-	if x != nil {
-		return x.TotalFileSize
-	}
-	return 0
-}
+func (x *Snapshot) GetTotalFileSize() uint64 { _ = "STUB: not implemented"; return 0 }
 
 var File_synchronization_core_snapshot_proto protoreflect.FileDescriptor
 
@@ -149,10 +97,8 @@ var (
 )
 
 func file_synchronization_core_snapshot_proto_rawDescGZIP() []byte {
-	file_synchronization_core_snapshot_proto_rawDescOnce.Do(func() {
-		file_synchronization_core_snapshot_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_synchronization_core_snapshot_proto_rawDesc), len(file_synchronization_core_snapshot_proto_rawDesc)))
-	})
-	return file_synchronization_core_snapshot_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_synchronization_core_snapshot_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
@@ -169,27 +115,5 @@ var file_synchronization_core_snapshot_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_synchronization_core_snapshot_proto_init() }
-func file_synchronization_core_snapshot_proto_init() {
-	if File_synchronization_core_snapshot_proto != nil {
-		return
-	}
-	file_synchronization_core_entry_proto_init()
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_synchronization_core_snapshot_proto_rawDesc), len(file_synchronization_core_snapshot_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   1,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_synchronization_core_snapshot_proto_goTypes,
-		DependencyIndexes: file_synchronization_core_snapshot_proto_depIdxs,
-		MessageInfos:      file_synchronization_core_snapshot_proto_msgTypes,
-	}.Build()
-	File_synchronization_core_snapshot_proto = out.File
-	file_synchronization_core_snapshot_proto_goTypes = nil
-	file_synchronization_core_snapshot_proto_depIdxs = nil
-}
+func init()                                          { file_synchronization_core_snapshot_proto_init() }
+func file_synchronization_core_snapshot_proto_init() { _ = "STUB: not implemented"; return }

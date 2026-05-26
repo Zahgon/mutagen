@@ -2,16 +2,11 @@ package docker
 
 import (
 	"context"
-	"fmt"
 	"io"
 
-	"github.com/mutagen-io/mutagen/pkg/agent"
-	"github.com/mutagen-io/mutagen/pkg/agent/transport/docker"
 	"github.com/mutagen-io/mutagen/pkg/forwarding"
-	"github.com/mutagen-io/mutagen/pkg/forwarding/endpoint/remote"
 	"github.com/mutagen-io/mutagen/pkg/logging"
 	urlpkg "github.com/mutagen-io/mutagen/pkg/url"
-	forwardingurlpkg "github.com/mutagen-io/mutagen/pkg/url/forwarding"
 )
 
 // protocolHandler implements the forwarding.ProtocolHandler interface for
@@ -38,59 +33,27 @@ func (p *protocolHandler) Connect(
 	configuration *forwarding.Configuration,
 	source bool,
 ) (forwarding.Endpoint, error) {
+	_ = "STUB: not implemented"
 	// Verify that the URL is of the correct kind and protocol.
-	if url.Kind != urlpkg.Kind_Forwarding {
-		panic("non-forwarding URL dispatched to forwarding protocol handler")
-	} else if url.Protocol != urlpkg.Protocol_Docker {
-		panic("non-Docker URL dispatched to Docker protocol handler")
-	}
-
-	// Parse the target specification from the URL's Path component.
-	protocol, address, err := forwardingurlpkg.Parse(url.Path)
-	if err != nil {
-		return nil, fmt.Errorf("unable to parse target specification: %w", err)
-	}
-
-	// Create a Docker agent transport.
-	transport, err := docker.NewTransport(url.Host, url.User, url.Environment, url.Parameters, prompter)
-	if err != nil {
-		return nil, fmt.Errorf("unable to create Docker transport: %w", err)
-	}
-
-	// Create a channel to deliver the dialing result.
-	results := make(chan dialResult)
-
-	// Perform dialing in a background Goroutine so that we can monitor for
-	// cancellation.
-	go func() {
-		// Perform the dialing operation.
-		stream, err := agent.Dial(logger, transport, agent.CommandForwarder, prompter)
-
-		// Transmit the result or, if cancelled, close the stream.
-		select {
-		case results <- dialResult{stream, err}:
-		case <-ctx.Done():
-			if stream != nil {
-				stream.Close()
-			}
-		}
-	}()
-
-	// Wait for dialing results or cancellation.
-	var stream io.ReadWriteCloser
-	select {
-	case result := <-results:
-		if result.error != nil {
-			return nil, fmt.Errorf("unable to dial agent endpoint: %w", result.error)
-		}
-		stream = result.stream
-	case <-ctx.Done():
-		return nil, context.Canceled
-	}
-
-	// Create the endpoint.
-	return remote.NewEndpoint(logger, stream, version, configuration, protocol, address, source)
+	return *new(forwarding.Endpoint), nil
 }
+
+// Parse the target specification from the URL's Path component.
+
+// Create a Docker agent transport.
+
+// Create a channel to deliver the dialing result.
+
+// Perform dialing in a background Goroutine so that we can monitor for
+// cancellation.
+
+// Perform the dialing operation.
+
+// Transmit the result or, if cancelled, close the stream.
+
+// Wait for dialing results or cancellation.
+
+// Create the endpoint.
 
 func init() {
 	// Register the Docker protocol handler with the forwarding package.

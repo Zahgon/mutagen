@@ -37,25 +37,13 @@ type EndpointState struct{}
 // loadFromInternal sets an Endpoint to match internal Protocol Buffers
 // representations. All parameters must be valid.
 func (e *Endpoint) loadFromInternal(url *url.URL, configuration *forwarding.Configuration, state *forwarding.EndpointState) {
+	_ = "STUB: not implemented"
 	// Propagate URL parameters.
-	e.Protocol = url.Protocol
-	e.User = url.User
-	e.Host = url.Host
-	e.Port = uint16(url.Port)
-	e.Endpoint = url.Path
-	e.Environment = url.Environment
-	e.Parameters = url.Parameters
-
-	// Propagate configuration.
-	e.Configuration.loadFromInternal(configuration)
-
-	// Propagate connectivity.
-	e.Connected = state.Connected
-
-	// Propagate other state fields.
-	if !e.Connected {
-		e.EndpointState = nil
-	} else {
-		e.EndpointState = &EndpointState{}
-	}
+	return
 }
+
+// Propagate configuration.
+
+// Propagate connectivity.
+
+// Propagate other state fields.

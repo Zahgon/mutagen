@@ -2,14 +2,6 @@
 
 package filesystem
 
-import (
-	"errors"
-	"fmt"
-	"os"
-	userpkg "os/user"
-	"strconv"
-)
-
 // OwnershipSpecification is an opaque type that encodes specification of file
 // and/or directory ownership.
 type OwnershipSpecification struct {
@@ -28,74 +20,14 @@ type OwnershipSpecification struct {
 // NewOwnershipSpecification parsers owner and group specifications and resolves
 // their system-level identifiers.
 func NewOwnershipSpecification(owner, group string) (*OwnershipSpecification, error) {
+	_ = "STUB: not implemented"
 	// Attempt to parse and look up owner user, if specified.
-	ownerID := -1
-	if owner != "" {
-		switch kind, identifier := ParseOwnershipIdentifier(owner); kind {
-		case OwnershipIdentifierKindInvalid:
-			return nil, errors.New("invalid user specification")
-		case OwnershipIdentifierKindPOSIXID:
-			if u, err := strconv.Atoi(identifier); err != nil {
-				return nil, fmt.Errorf("unable to convert user ID to numeric value: %w", err)
-			} else if u < 0 {
-				return nil, errors.New("negative user ID")
-			} else {
-				ownerID = u
-			}
-		case OwnershipIdentifierKindWindowsSID:
-			return nil, errors.New("Windows SIDs not supported on POSIX systems")
-		case OwnershipIdentifierKindName:
-			if userObject, err := userpkg.Lookup(identifier); err != nil {
-				return nil, fmt.Errorf("unable to lookup user by ID: %w", err)
-			} else if u, err := strconv.Atoi(userObject.Uid); err != nil {
-				return nil, fmt.Errorf("unable to convert user ID to numeric value: %w", err)
-			} else if u < 0 {
-				return nil, errors.New("negative user ID retrieved")
-			} else {
-				ownerID = u
-			}
-		default:
-			panic("unhandled ownership identifier kind")
-		}
-	}
-
-	// Attempt to parse and look up group, if specified.
-	groupID := -1
-	if group != "" {
-		switch kind, identifier := ParseOwnershipIdentifier(group); kind {
-		case OwnershipIdentifierKindInvalid:
-			return nil, errors.New("invalid group specification")
-		case OwnershipIdentifierKindPOSIXID:
-			if g, err := strconv.Atoi(identifier); err != nil {
-				return nil, fmt.Errorf("unable to convert group ID to numeric value: %w", err)
-			} else if g < 0 {
-				return nil, errors.New("negative group ID")
-			} else {
-				groupID = g
-			}
-		case OwnershipIdentifierKindWindowsSID:
-			return nil, errors.New("Windows SIDs not supported on POSIX systems")
-		case OwnershipIdentifierKindName:
-			if groupObject, err := userpkg.LookupGroup(identifier); err != nil {
-				return nil, fmt.Errorf("unable to lookup group by ID: %w", err)
-			} else if g, err := strconv.Atoi(groupObject.Gid); err != nil {
-				return nil, fmt.Errorf("unable to convert group ID to numeric value: %w", err)
-			} else if g < 0 {
-				return nil, errors.New("negative group ID retrieved")
-			} else {
-				groupID = g
-			}
-		default:
-			panic("unhandled ownership identifier kind")
-		}
-	}
-
-	// Success.
-	return &OwnershipSpecification{
-		ownerID: ownerID,
-		groupID: groupID,
-	}, nil
+	return nil, nil
 }
+
+// Attempt to parse and look up group, if specified.
+
+// Success.
 
 // SetPermissionsByPath sets the permissions on the content at the specified
 // path. Ownership information is set first, followed by permissions extracted
@@ -106,21 +38,11 @@ func NewOwnershipSpecification(owner, group string) (*OwnershipSpecification, er
 // Permission setting can be skipped by providing a mode value that yields 0
 // after permission bit masking.
 func SetPermissionsByPath(path string, ownership *OwnershipSpecification, mode Mode) error {
+	_ = "STUB: not implemented"
 	// Set ownership information, if specified.
-	if ownership != nil && (ownership.ownerID != -1 || ownership.groupID != -1) {
-		if err := os.Chown(path, ownership.ownerID, ownership.groupID); err != nil {
-			return fmt.Errorf("unable to set ownership information: %w", err)
-		}
-	}
-
-	// Set permissions, if specified.
-	mode = mode & ModePermissionsMask
-	if mode != 0 {
-		if err := os.Chmod(path, os.FileMode(mode)); err != nil {
-			return fmt.Errorf("unable to set permission bits: %w", err)
-		}
-	}
-
-	// Success.
 	return nil
 }
+
+// Set permissions, if specified.
+
+// Success.

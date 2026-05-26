@@ -29,27 +29,15 @@ type preemptableWriter struct {
 // number of Write calls that should be processed between cancellation checks.
 // If interval is 0, a cancellation check will be performed before every write.
 func NewPreemptableWriter(writer io.Writer, cancelled <-chan struct{}, interval uint) io.Writer {
-	return &preemptableWriter{
-		writer:        writer,
-		cancelled:     cancelled,
-		checkInterval: interval,
-	}
+	_ = "STUB: not implemented"
+	return *new(io.Writer)
 }
 
 // Write implements io.Writer.Write.
 func (w *preemptableWriter) Write(data []byte) (int, error) {
+	_ = "STUB: not implemented"
 	// Handle preemption checking.
-	if w.writeCount == w.checkInterval {
-		select {
-		case <-w.cancelled:
-			return 0, ErrWritePreempted
-		default:
-		}
-		w.writeCount = 0
-	} else {
-		w.writeCount++
-	}
-
-	// Perform the write.
-	return w.writer.Write(data)
+	return 0, nil
 }
+
+// Perform the write.

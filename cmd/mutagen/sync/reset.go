@@ -1,20 +1,11 @@
 package sync
 
 import (
-	"context"
-	"fmt"
-
 	"github.com/spf13/cobra"
 
 	"google.golang.org/grpc"
 
-	"github.com/mutagen-io/mutagen/cmd"
-	"github.com/mutagen-io/mutagen/cmd/mutagen/daemon"
-
-	"github.com/mutagen-io/mutagen/pkg/grpcutil"
 	"github.com/mutagen-io/mutagen/pkg/selection"
-	promptingsvc "github.com/mutagen-io/mutagen/pkg/service/prompting"
-	synchronizationsvc "github.com/mutagen-io/mutagen/pkg/service/synchronization"
 )
 
 // ResetWithSelection is an orchestration convenience method that performs a
@@ -23,62 +14,25 @@ func ResetWithSelection(
 	daemonConnection *grpc.ClientConn,
 	selection *selection.Selection,
 ) error {
+	_ = "STUB: not implemented"
 	// Initiate command line prompting.
-	statusLinePrinter := &cmd.StatusLinePrinter{}
-	promptingCtx, promptingCancel := context.WithCancel(context.Background())
-	prompter, promptingErrors, err := promptingsvc.Host(
-		promptingCtx, promptingsvc.NewPromptingClient(daemonConnection),
-		&cmd.StatusLinePrompter{Printer: statusLinePrinter}, true,
-	)
-	if err != nil {
-		promptingCancel()
-		return fmt.Errorf("unable to initiate prompting: %w", err)
-	}
-
-	// Perform the reset operation, cancel prompting, and handle errors.
-	synchronizationService := synchronizationsvc.NewSynchronizationClient(daemonConnection)
-	request := &synchronizationsvc.ResetRequest{
-		Prompter:  prompter,
-		Selection: selection,
-	}
-	response, err := synchronizationService.Reset(context.Background(), request)
-	promptingCancel()
-	<-promptingErrors
-	if err != nil {
-		statusLinePrinter.BreakIfPopulated()
-		return grpcutil.PeelAwayRPCErrorLayer(err)
-	} else if err = response.EnsureValid(); err != nil {
-		statusLinePrinter.BreakIfPopulated()
-		return fmt.Errorf("invalid reset response received: %w", err)
-	}
-
-	// Success.
-	statusLinePrinter.Clear()
 	return nil
 }
 
+// Perform the reset operation, cancel prompting, and handle errors.
+
+// Success.
+
 // resetMain is the entry point for the reset command.
 func resetMain(_ *cobra.Command, arguments []string) error {
+	_ = "STUB: not implemented"
 	// Create session selection specification.
-	selection := &selection.Selection{
-		All:            resetConfiguration.all,
-		Specifications: arguments,
-		LabelSelector:  resetConfiguration.labelSelector,
-	}
-	if err := selection.EnsureValid(); err != nil {
-		return fmt.Errorf("invalid session selection specification: %w", err)
-	}
-
-	// Connect to the daemon and defer closure of the connection.
-	daemonConnection, err := daemon.Connect(true, true)
-	if err != nil {
-		return fmt.Errorf("unable to connect to daemon: %w", err)
-	}
-	defer daemonConnection.Close()
-
-	// Perform the reset operation.
-	return ResetWithSelection(daemonConnection, selection)
+	return nil
 }
+
+// Connect to the daemon and defer closure of the connection.
+
+// Perform the reset operation.
 
 // resetCommand is the reset command.
 var resetCommand = &cobra.Command{

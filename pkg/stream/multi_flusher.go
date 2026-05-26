@@ -10,16 +10,7 @@ type multiFlusher struct {
 // flushers. The flushers are flushed in the order specified, and thus higher
 // layers should be specified before lower. If an error occurs, then flushing
 // halts and subsequent flushers are not flushed.
-func NewMultiFlusher(flushers ...Flusher) Flusher {
-	return &multiFlusher{flushers}
-}
+func NewMultiFlusher(flushers ...Flusher) Flusher { _ = "STUB: not implemented"; return *new(Flusher) }
 
 // Flush implements Flusher.Flush.
-func (f *multiFlusher) Flush() error {
-	for _, flusher := range f.flushers {
-		if err := flusher.Flush(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
+func (f *multiFlusher) Flush() error { _ = "STUB: not implemented"; return nil }

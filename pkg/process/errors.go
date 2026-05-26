@@ -1,13 +1,5 @@
 package process
 
-import (
-	"os/exec"
-	"strings"
-	"unicode/utf8"
-
-	"github.com/mutagen-io/mutagen/pkg/platform/terminal"
-)
-
 const (
 	// posixCommandNotFoundFragment is a fragment of the error output returned
 	// on some POSIX shells when a command is not found. The capitalization of
@@ -24,21 +16,15 @@ const (
 
 // OutputIsPOSIXCommandNotFound returns whether or not a process' error output
 // represents a command not found error on POSIX systems.
-func OutputIsPOSIXCommandNotFound(output string) bool {
-	return strings.Contains(output, posixCommandNotFoundFragment)
-}
+func OutputIsPOSIXCommandNotFound(output string) bool { _ = "STUB: not implemented"; return false }
 
 // OutputIsWindowsInvalidCommand returns whether or not a process' error output
 // represents an invalid command error on Windows.
-func OutputIsWindowsInvalidCommand(output string) bool {
-	return strings.Contains(output, windowsInvalidCommandFragment)
-}
+func OutputIsWindowsInvalidCommand(output string) bool { _ = "STUB: not implemented"; return false }
 
 // OutputIsWindowsCommandNotFound returns whether or not a process' error output
 // represents a command not found error on Windows.
-func OutputIsWindowsCommandNotFound(output string) bool {
-	return strings.Contains(output, windowsCommandNotFoundFragment)
-}
+func OutputIsWindowsCommandNotFound(output string) bool { _ = "STUB: not implemented"; return false }
 
 // ExtractExitErrorMessage is a utility function that will attempt to extract
 // the Stderr portion of the specified error, assuming it is an
@@ -46,9 +32,4 @@ func OutputIsWindowsCommandNotFound(output string) bool {
 // field is not UTF-8 encoded, or if the message in Stderr is empty after
 // stripping surrounding white space, then an empty string is returned. This
 // function will perform control character neutralization on any returned value.
-func ExtractExitErrorMessage(err error) string {
-	if exitErr, ok := err.(*exec.ExitError); ok && utf8.Valid(exitErr.Stderr) {
-		return terminal.NeutralizeControlCharacters(strings.TrimSpace(string(exitErr.Stderr)))
-	}
-	return ""
-}
+func ExtractExitErrorMessage(err error) string { _ = "STUB: not implemented"; return "" }

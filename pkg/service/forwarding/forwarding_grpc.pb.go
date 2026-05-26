@@ -8,9 +8,8 @@ package forwarding
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -49,57 +48,33 @@ type forwardingClient struct {
 }
 
 func NewForwardingClient(cc grpc.ClientConnInterface) ForwardingClient {
-	return &forwardingClient{cc}
+	_ = "STUB: not implemented"
+	return *new(ForwardingClient)
 }
 
 func (c *forwardingClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateResponse)
-	err := c.cc.Invoke(ctx, Forwarding_Create_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *forwardingClient) List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListResponse)
-	err := c.cc.Invoke(ctx, Forwarding_List_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *forwardingClient) Pause(ctx context.Context, in *PauseRequest, opts ...grpc.CallOption) (*PauseResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PauseResponse)
-	err := c.cc.Invoke(ctx, Forwarding_Pause_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *forwardingClient) Resume(ctx context.Context, in *ResumeRequest, opts ...grpc.CallOption) (*ResumeResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ResumeResponse)
-	err := c.cc.Invoke(ctx, Forwarding_Resume_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *forwardingClient) Terminate(ctx context.Context, in *TerminateRequest, opts ...grpc.CallOption) (*TerminateResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TerminateResponse)
-	err := c.cc.Invoke(ctx, Forwarding_Terminate_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ForwardingServer is the server API for Forwarding service.
@@ -129,129 +104,79 @@ type ForwardingServer interface {
 type UnimplementedForwardingServer struct{}
 
 func (UnimplementedForwardingServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Create not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
-func (UnimplementedForwardingServer) List(context.Context, *ListRequest) (*ListResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method List not implemented")
-}
-func (UnimplementedForwardingServer) Pause(context.Context, *PauseRequest) (*PauseResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Pause not implemented")
-}
-func (UnimplementedForwardingServer) Resume(context.Context, *ResumeRequest) (*ResumeResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Resume not implemented")
-}
-func (UnimplementedForwardingServer) Terminate(context.Context, *TerminateRequest) (*TerminateResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Terminate not implemented")
-}
-func (UnimplementedForwardingServer) mustEmbedUnimplementedForwardingServer() {}
-func (UnimplementedForwardingServer) testEmbeddedByValue()                    {}
 
-// UnsafeForwardingServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ForwardingServer will
-// result in compilation errors.
+func (UnimplementedForwardingServer) List(context.Context, *ListRequest) (*ListResponse, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedForwardingServer) Pause(context.Context, *PauseRequest) (*PauseResponse, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedForwardingServer) Resume(context.Context, *ResumeRequest) (*ResumeResponse, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedForwardingServer) Terminate(context.Context, *TerminateRequest) (*TerminateResponse, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedForwardingServer) mustEmbedUnimplementedForwardingServer() {
+	_ = "STUB: not implemented"
+	return
+}
+func (UnimplementedForwardingServer) testEmbeddedByValue() {
+	_ = "STUB: not implemented"
+
+	// UnsafeForwardingServer may be embedded to opt out of forward compatibility for this service.
+	// Use of this interface is not recommended, as added methods to ForwardingServer will
+	// result in compilation errors.
+	return
+}
+
 type UnsafeForwardingServer interface {
 	mustEmbedUnimplementedForwardingServer()
 }
 
 func RegisterForwardingServer(s grpc.ServiceRegistrar, srv ForwardingServer) {
+	_ = "STUB: not implemented"
 	// If the following call panics, it indicates UnimplementedForwardingServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&Forwarding_ServiceDesc, srv)
+	return
 }
 
 func _Forwarding_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ForwardingServer).Create(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Forwarding_Create_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ForwardingServer).Create(ctx, req.(*CreateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Forwarding_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ForwardingServer).List(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Forwarding_List_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ForwardingServer).List(ctx, req.(*ListRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Forwarding_Pause_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PauseRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ForwardingServer).Pause(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Forwarding_Pause_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ForwardingServer).Pause(ctx, req.(*PauseRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Forwarding_Resume_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ResumeRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ForwardingServer).Resume(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Forwarding_Resume_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ForwardingServer).Resume(ctx, req.(*ResumeRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _Forwarding_Terminate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TerminateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ForwardingServer).Terminate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Forwarding_Terminate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ForwardingServer).Terminate(ctx, req.(*TerminateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Forwarding_ServiceDesc is the grpc.ServiceDesc for Forwarding service.

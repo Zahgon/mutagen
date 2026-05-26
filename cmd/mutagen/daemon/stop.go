@@ -1,47 +1,30 @@
 package daemon
 
 import (
-	"context"
-	"fmt"
-
 	"github.com/spf13/cobra"
 
 	"github.com/mutagen-io/mutagen/cmd"
-
-	"github.com/mutagen-io/mutagen/pkg/daemon"
-	daemonsvc "github.com/mutagen-io/mutagen/pkg/service/daemon"
 )
 
 // stopMain is the entry point for the stop command.
 func stopMain(_ *cobra.Command, _ []string) error {
+	_ = "STUB: not implemented"
 	// If the daemon is registered with the system, it may have a different stop
 	// mechanism, so see if the system should handle it.
-	if handled, err := daemon.RegisteredStop(); err != nil {
-		return fmt.Errorf("unable to stop daemon using system mechanism: %w", err)
-	} else if handled {
-		return nil
-	}
-
-	// Connect to the daemon and defer closure of the connection. We avoid
-	// version compatibility checks since they would remove the ability to
-	// terminate an incompatible daemon. This is fine since the daemon service
-	// portion of the daemon API is stable.
-	daemonConnection, err := Connect(false, false)
-	if err != nil {
-		return fmt.Errorf("unable to connect to daemon: %w", err)
-	}
-	defer daemonConnection.Close()
-
-	// Create a daemon service client.
-	daemonService := daemonsvc.NewDaemonClient(daemonConnection)
-
-	// Invoke shutdown. We don't check the response or error, because the daemon
-	// may terminate before it has a chance to send the response.
-	daemonService.Terminate(context.Background(), &daemonsvc.TerminateRequest{})
-
-	// Success.
 	return nil
 }
+
+// Connect to the daemon and defer closure of the connection. We avoid
+// version compatibility checks since they would remove the ability to
+// terminate an incompatible daemon. This is fine since the daemon service
+// portion of the daemon API is stable.
+
+// Create a daemon service client.
+
+// Invoke shutdown. We don't check the response or error, because the daemon
+// may terminate before it has a chance to send the response.
+
+// Success.
 
 // stopCommand is the stop command.
 var stopCommand = &cobra.Command{

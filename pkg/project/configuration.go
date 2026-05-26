@@ -3,7 +3,6 @@ package project
 import (
 	"github.com/mutagen-io/mutagen/pkg/api/models/forwarding"
 	"github.com/mutagen-io/mutagen/pkg/api/models/synchronization"
-	"github.com/mutagen-io/mutagen/pkg/encoding"
 )
 
 // ForwardingConfiguration encodes a forwarding session specification.
@@ -39,43 +38,22 @@ const (
 
 // IsDefault indicates whether or not the flush-on-create behavior is
 // FlushOnCreateBehaviorDefault.
-func (b FlushOnCreateBehavior) IsDefault() bool {
-	return b == FlushOnCreateBehaviorDefault
-}
+func (b FlushOnCreateBehavior) IsDefault() bool { _ = "STUB: not implemented"; return false }
 
 // FlushOnCreate converts the behavior specification to an actual boolean
 // indicating behavior.
-func (b FlushOnCreateBehavior) FlushOnCreate() bool {
-	switch b {
-	case FlushOnCreateBehaviorDefault:
-		return false
-	case FlushOnCreateBehaviorNoFlush:
-		return false
-	case FlushOnCreateBehaviorFlush:
-		return true
-	default:
-		panic("unhandled flush-on-create behavior")
-	}
-}
+func (b FlushOnCreateBehavior) FlushOnCreate() bool { _ = "STUB: not implemented"; return false }
 
 // UnmarshalYAML implements Unmarshaler.UnmarshalYAML.
 func (b *FlushOnCreateBehavior) UnmarshalYAML(unmarshal func(any) error) error {
+	_ = "STUB: not implemented"
 	// Call the underlying unmarshaling function.
-	var flush bool
-	if err := unmarshal(&flush); err != nil {
-		return err
-	}
-
-	// Set behavior.
-	if flush {
-		*b = FlushOnCreateBehaviorFlush
-	} else {
-		*b = FlushOnCreateBehaviorNoFlush
-	}
-
-	// Success.
 	return nil
 }
+
+// Set behavior.
+
+// Success.
 
 // SynchronizationConfiguration encodes a synchronization session specification.
 type SynchronizationConfiguration struct {
@@ -129,14 +107,11 @@ type Configuration struct {
 // LoadConfiguration attempts to load a YAML-based Mutagen orchestration
 // configuration file from the specified path.
 func LoadConfiguration(path string) (*Configuration, error) {
+	_ = "STUB: not implemented"
 	// Create the target configuration object.
-	result := &Configuration{}
-
-	// Attempt to load. We pass-through os.IsNotExist errors.
-	if err := encoding.LoadAndUnmarshalYAML(path, result); err != nil {
-		return nil, err
-	}
-
-	// Success.
-	return result, nil
+	return nil, nil
 }
+
+// Attempt to load. We pass-through os.IsNotExist errors.
+
+// Success.

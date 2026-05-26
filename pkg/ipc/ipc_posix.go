@@ -4,37 +4,28 @@ package ipc
 
 import (
 	"context"
-	"fmt"
 	"net"
-	"os"
 )
 
 // DialContext attempts to establish an IPC connection, timing out if the
 // provided context expires.
 func DialContext(ctx context.Context, path string) (net.Conn, error) {
+	_ = "STUB: not implemented"
 	// Create a zero-valued dialer, which will have the same dialing behavior as
 	// the raw dialing functions.
-	dialer := &net.Dialer{}
-
-	// Perform dialing.
-	return dialer.DialContext(ctx, "unix", path)
+	return *new(net.Conn), nil
 }
+
+// Perform dialing.
 
 // NewListener creates a new IPC listener.
 func NewListener(path string) (net.Listener, error) {
+	_ = "STUB: not implemented"
 	// Create the listener.
-	listener, err := net.Listen("unix", path)
-	if err != nil {
-		return nil, err
-	}
-
-	// Explicitly set socket permissions. Unfortunately we can't do this
-	// atomically on socket creation, but we can do it quickly.
-	if err := os.Chmod(path, 0600); err != nil {
-		listener.Close()
-		return nil, fmt.Errorf("unable to set socket permissions: %w", err)
-	}
-
-	// Success.
-	return listener, nil
+	return *new(net.Listener), nil
 }
+
+// Explicitly set socket permissions. Unfortunately we can't do this
+// atomically on socket creation, but we can do it quickly.
+
+// Success.

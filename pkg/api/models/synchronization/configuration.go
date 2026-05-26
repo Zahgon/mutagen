@@ -82,63 +82,25 @@ type Configuration struct {
 // loadFromInternal sets a configuration to match an internal
 // Protocol Buffers representation. The configuration must be valid.
 func (c *Configuration) loadFromInternal(configuration *synchronization.Configuration) {
+	_ = "STUB: not implemented"
 	// Propagate top-level configuration.
-	c.Mode = configuration.SynchronizationMode
-	c.Hash = configuration.HashingAlgorithm
-	c.MaximumEntryCount = configuration.MaximumEntryCount
-	c.MaximumStagingFileSize = types.ByteSize(configuration.MaximumStagingFileSize)
-	c.ProbeMode = configuration.ProbeMode
-	c.ScanMode = configuration.ScanMode
-	c.StageMode = configuration.StageMode
-
-	// Propagate ignore configuration.
-	c.Ignore.Syntax = configuration.IgnoreSyntax
-	c.Ignore.Paths = make([]string, 0, len(configuration.DefaultIgnores)+len(configuration.Ignores))
-	c.Ignore.Paths = append(c.Ignore.Paths, configuration.DefaultIgnores...)
-	c.Ignore.Paths = append(c.Ignore.Paths, configuration.Ignores...)
-	c.Ignore.VCS = configuration.IgnoreVCSMode
-
-	// Propagate symbolic link configuration.
-	c.Symlink.Mode = configuration.SymbolicLinkMode
-
-	// Propagate watch configuration.
-	c.Watch.Mode = configuration.WatchMode
-	c.Watch.PollingInterval = configuration.WatchPollingInterval
-
-	// Propagate permission configuration.
-	c.Permissions.Mode = configuration.PermissionsMode
-	c.Permissions.DefaultFileMode = filesystem.Mode(configuration.DefaultFileMode)
-	c.Permissions.DefaultDirectoryMode = filesystem.Mode(configuration.DefaultDirectoryMode)
-	c.Permissions.DefaultOwner = configuration.DefaultOwner
-	c.Permissions.DefaultGroup = configuration.DefaultGroup
-
-	// Propagate compression configuration.
-	c.Compression.Algorithm = configuration.CompressionAlgorithm
+	return
 }
+
+// Propagate ignore configuration.
+
+// Propagate symbolic link configuration.
+
+// Propagate watch configuration.
+
+// Propagate permission configuration.
+
+// Propagate compression configuration.
 
 // ToInternal converts a public configuration representation to an internal
 // Protocol Buffers session configuration. It does not validate the resulting
 // configuration.
 func (c *Configuration) ToInternal() *synchronization.Configuration {
-	return &synchronization.Configuration{
-		SynchronizationMode:    c.Mode,
-		HashingAlgorithm:       c.Hash,
-		MaximumEntryCount:      c.MaximumEntryCount,
-		MaximumStagingFileSize: uint64(c.MaximumStagingFileSize),
-		ProbeMode:              c.ProbeMode,
-		ScanMode:               c.ScanMode,
-		StageMode:              c.StageMode,
-		SymbolicLinkMode:       c.Symlink.Mode,
-		WatchMode:              c.Watch.Mode,
-		WatchPollingInterval:   c.Watch.PollingInterval,
-		IgnoreSyntax:           c.Ignore.Syntax,
-		Ignores:                c.Ignore.Paths,
-		IgnoreVCSMode:          c.Ignore.VCS,
-		PermissionsMode:        c.Permissions.Mode,
-		DefaultFileMode:        uint32(c.Permissions.DefaultFileMode),
-		DefaultDirectoryMode:   uint32(c.Permissions.DefaultDirectoryMode),
-		DefaultOwner:           c.Permissions.DefaultOwner,
-		DefaultGroup:           c.Permissions.DefaultGroup,
-		CompressionAlgorithm:   c.Compression.Algorithm,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

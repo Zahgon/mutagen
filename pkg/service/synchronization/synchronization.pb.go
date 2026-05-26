@@ -7,14 +7,13 @@
 package synchronization
 
 import (
+	sync "sync"
+
 	selection "github.com/mutagen-io/mutagen/pkg/selection"
 	synchronization "github.com/mutagen-io/mutagen/pkg/synchronization"
 	url "github.com/mutagen-io/mutagen/pkg/url"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -52,91 +51,50 @@ type CreationSpecification struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreationSpecification) Reset() {
-	*x = CreationSpecification{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *CreationSpecification) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *CreationSpecification) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *CreationSpecification) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*CreationSpecification) ProtoMessage() {}
+func (*CreationSpecification) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *CreationSpecification) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use CreationSpecification.ProtoReflect.Descriptor instead.
 func (*CreationSpecification) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *CreationSpecification) GetAlpha() *url.URL {
-	if x != nil {
-		return x.Alpha
-	}
-	return nil
-}
+func (x *CreationSpecification) GetAlpha() *url.URL { _ = "STUB: not implemented"; return nil }
 
-func (x *CreationSpecification) GetBeta() *url.URL {
-	if x != nil {
-		return x.Beta
-	}
-	return nil
-}
+func (x *CreationSpecification) GetBeta() *url.URL { _ = "STUB: not implemented"; return nil }
 
 func (x *CreationSpecification) GetConfiguration() *synchronization.Configuration {
-	if x != nil {
-		return x.Configuration
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *CreationSpecification) GetConfigurationAlpha() *synchronization.Configuration {
-	if x != nil {
-		return x.ConfigurationAlpha
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *CreationSpecification) GetConfigurationBeta() *synchronization.Configuration {
-	if x != nil {
-		return x.ConfigurationBeta
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *CreationSpecification) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
+func (x *CreationSpecification) GetName() string { _ = "STUB: not implemented"; return "" }
 
 func (x *CreationSpecification) GetLabels() map[string]string {
-	if x != nil {
-		return x.Labels
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *CreationSpecification) GetPaused() bool {
-	if x != nil {
-		return x.Paused
-	}
-	return false
-}
+func (x *CreationSpecification) GetPaused() bool { _ = "STUB: not implemented"; return false }
 
 // CreateRequest encodes a request for session creation.
 type CreateRequest struct {
@@ -149,47 +107,24 @@ type CreateRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateRequest) Reset() {
-	*x = CreateRequest{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *CreateRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *CreateRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *CreateRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*CreateRequest) ProtoMessage() {}
+func (*CreateRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *CreateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use CreateRequest.ProtoReflect.Descriptor instead.
-func (*CreateRequest) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{1}
-}
+func (*CreateRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *CreateRequest) GetPrompter() string {
-	if x != nil {
-		return x.Prompter
-	}
-	return ""
-}
+func (x *CreateRequest) GetPrompter() string { _ = "STUB: not implemented"; return "" }
 
 func (x *CreateRequest) GetSpecification() *CreationSpecification {
-	if x != nil {
-		return x.Specification
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -202,42 +137,21 @@ type CreateResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateResponse) Reset() {
-	*x = CreateResponse{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *CreateResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *CreateResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *CreateResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*CreateResponse) ProtoMessage() {}
+func (*CreateResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *CreateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use CreateResponse.ProtoReflect.Descriptor instead.
-func (*CreateResponse) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{2}
-}
+func (*CreateResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *CreateResponse) GetSession() string {
-	if x != nil {
-		return x.Session
-	}
-	return ""
-}
+func (x *CreateResponse) GetSession() string { _ = "STUB: not implemented"; return "" }
 
 // ListRequest encodes a request for session metadata.
 type ListRequest struct {
@@ -251,49 +165,23 @@ type ListRequest struct {
 	sizeCache          protoimpl.SizeCache
 }
 
-func (x *ListRequest) Reset() {
-	*x = ListRequest{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *ListRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ListRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ListRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ListRequest) ProtoMessage() {}
+func (*ListRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ListRequest.ProtoReflect.Descriptor instead.
-func (*ListRequest) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{3}
-}
+func (*ListRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *ListRequest) GetSelection() *selection.Selection {
-	if x != nil {
-		return x.Selection
-	}
-	return nil
-}
+func (x *ListRequest) GetSelection() *selection.Selection { _ = "STUB: not implemented"; return nil }
 
-func (x *ListRequest) GetPreviousStateIndex() uint64 {
-	if x != nil {
-		return x.PreviousStateIndex
-	}
-	return 0
-}
+func (x *ListRequest) GetPreviousStateIndex() uint64 { _ = "STUB: not implemented"; return 0 }
 
 // ListResponse encodes session metadata.
 type ListResponse struct {
@@ -306,47 +194,24 @@ type ListResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ListResponse) Reset() {
-	*x = ListResponse{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[4]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *ListResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ListResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ListResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ListResponse) ProtoMessage() {}
+func (*ListResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[4]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ListResponse.ProtoReflect.Descriptor instead.
-func (*ListResponse) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{4}
-}
+func (*ListResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *ListResponse) GetStateIndex() uint64 {
-	if x != nil {
-		return x.StateIndex
-	}
-	return 0
-}
+func (x *ListResponse) GetStateIndex() uint64 { _ = "STUB: not implemented"; return 0 }
 
 func (x *ListResponse) GetSessionStates() []*synchronization.State {
-	if x != nil {
-		return x.SessionStates
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -363,56 +228,25 @@ type FlushRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *FlushRequest) Reset() {
-	*x = FlushRequest{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *FlushRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *FlushRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *FlushRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*FlushRequest) ProtoMessage() {}
+func (*FlushRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *FlushRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use FlushRequest.ProtoReflect.Descriptor instead.
-func (*FlushRequest) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{5}
-}
+func (*FlushRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *FlushRequest) GetPrompter() string {
-	if x != nil {
-		return x.Prompter
-	}
-	return ""
-}
+func (x *FlushRequest) GetPrompter() string { _ = "STUB: not implemented"; return "" }
 
-func (x *FlushRequest) GetSelection() *selection.Selection {
-	if x != nil {
-		return x.Selection
-	}
-	return nil
-}
+func (x *FlushRequest) GetSelection() *selection.Selection { _ = "STUB: not implemented"; return nil }
 
-func (x *FlushRequest) GetSkipWait() bool {
-	if x != nil {
-		return x.SkipWait
-	}
-	return false
-}
+func (x *FlushRequest) GetSkipWait() bool { _ = "STUB: not implemented"; return false }
 
 // FlushResponse indicates completion of flush operation(s).
 type FlushResponse struct {
@@ -421,35 +255,19 @@ type FlushResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *FlushResponse) Reset() {
-	*x = FlushResponse{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *FlushResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *FlushResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *FlushResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*FlushResponse) ProtoMessage() {}
+func (*FlushResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *FlushResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use FlushResponse.ProtoReflect.Descriptor instead.
-func (*FlushResponse) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{6}
-}
+func (*FlushResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 // PauseRequest encodes a request to pause sessions.
 type PauseRequest struct {
@@ -462,49 +280,23 @@ type PauseRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *PauseRequest) Reset() {
-	*x = PauseRequest{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[7]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *PauseRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *PauseRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *PauseRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*PauseRequest) ProtoMessage() {}
+func (*PauseRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *PauseRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[7]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use PauseRequest.ProtoReflect.Descriptor instead.
-func (*PauseRequest) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{7}
-}
+func (*PauseRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *PauseRequest) GetPrompter() string {
-	if x != nil {
-		return x.Prompter
-	}
-	return ""
-}
+func (x *PauseRequest) GetPrompter() string { _ = "STUB: not implemented"; return "" }
 
-func (x *PauseRequest) GetSelection() *selection.Selection {
-	if x != nil {
-		return x.Selection
-	}
-	return nil
-}
+func (x *PauseRequest) GetSelection() *selection.Selection { _ = "STUB: not implemented"; return nil }
 
 // PauseResponse indicates completion of pause operation(s).
 type PauseResponse struct {
@@ -513,35 +305,19 @@ type PauseResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *PauseResponse) Reset() {
-	*x = PauseResponse{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[8]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *PauseResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *PauseResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *PauseResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*PauseResponse) ProtoMessage() {}
+func (*PauseResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *PauseResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[8]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use PauseResponse.ProtoReflect.Descriptor instead.
-func (*PauseResponse) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{8}
-}
+func (*PauseResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 // ResumeRequest encodes a request to resume sessions.
 type ResumeRequest struct {
@@ -554,49 +330,23 @@ type ResumeRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ResumeRequest) Reset() {
-	*x = ResumeRequest{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[9]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *ResumeRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ResumeRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ResumeRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ResumeRequest) ProtoMessage() {}
+func (*ResumeRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ResumeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[9]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ResumeRequest.ProtoReflect.Descriptor instead.
-func (*ResumeRequest) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{9}
-}
+func (*ResumeRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *ResumeRequest) GetPrompter() string {
-	if x != nil {
-		return x.Prompter
-	}
-	return ""
-}
+func (x *ResumeRequest) GetPrompter() string { _ = "STUB: not implemented"; return "" }
 
-func (x *ResumeRequest) GetSelection() *selection.Selection {
-	if x != nil {
-		return x.Selection
-	}
-	return nil
-}
+func (x *ResumeRequest) GetSelection() *selection.Selection { _ = "STUB: not implemented"; return nil }
 
 // ResumeResponse indicates completion of resume operation(s).
 type ResumeResponse struct {
@@ -605,35 +355,19 @@ type ResumeResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ResumeResponse) Reset() {
-	*x = ResumeResponse{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[10]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *ResumeResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ResumeResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ResumeResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ResumeResponse) ProtoMessage() {}
+func (*ResumeResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ResumeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[10]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ResumeResponse.ProtoReflect.Descriptor instead.
-func (*ResumeResponse) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{10}
-}
+func (*ResumeResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 // ResetRequest encodes a request to reset sessions.
 type ResetRequest struct {
@@ -646,49 +380,23 @@ type ResetRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ResetRequest) Reset() {
-	*x = ResetRequest{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[11]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *ResetRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ResetRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ResetRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ResetRequest) ProtoMessage() {}
+func (*ResetRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ResetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[11]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ResetRequest.ProtoReflect.Descriptor instead.
-func (*ResetRequest) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{11}
-}
+func (*ResetRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *ResetRequest) GetPrompter() string {
-	if x != nil {
-		return x.Prompter
-	}
-	return ""
-}
+func (x *ResetRequest) GetPrompter() string { _ = "STUB: not implemented"; return "" }
 
-func (x *ResetRequest) GetSelection() *selection.Selection {
-	if x != nil {
-		return x.Selection
-	}
-	return nil
-}
+func (x *ResetRequest) GetSelection() *selection.Selection { _ = "STUB: not implemented"; return nil }
 
 // ResetResponse indicates completion of reset operation(s).
 type ResetResponse struct {
@@ -697,35 +405,19 @@ type ResetResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ResetResponse) Reset() {
-	*x = ResetResponse{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[12]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *ResetResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *ResetResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *ResetResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*ResetResponse) ProtoMessage() {}
+func (*ResetResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *ResetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[12]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use ResetResponse.ProtoReflect.Descriptor instead.
-func (*ResetResponse) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{12}
-}
+func (*ResetResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 // TerminateRequest encodes a request to terminate sessions.
 type TerminateRequest struct {
@@ -738,47 +430,24 @@ type TerminateRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TerminateRequest) Reset() {
-	*x = TerminateRequest{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[13]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *TerminateRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TerminateRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TerminateRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TerminateRequest) ProtoMessage() {}
+func (*TerminateRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TerminateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[13]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TerminateRequest.ProtoReflect.Descriptor instead.
-func (*TerminateRequest) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{13}
-}
+func (*TerminateRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *TerminateRequest) GetPrompter() string {
-	if x != nil {
-		return x.Prompter
-	}
-	return ""
-}
+func (x *TerminateRequest) GetPrompter() string { _ = "STUB: not implemented"; return "" }
 
 func (x *TerminateRequest) GetSelection() *selection.Selection {
-	if x != nil {
-		return x.Selection
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -789,35 +458,19 @@ type TerminateResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TerminateResponse) Reset() {
-	*x = TerminateResponse{}
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[14]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *TerminateResponse) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TerminateResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TerminateResponse) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TerminateResponse) ProtoMessage() {}
+func (*TerminateResponse) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TerminateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_service_synchronization_synchronization_proto_msgTypes[14]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TerminateResponse.ProtoReflect.Descriptor instead.
-func (*TerminateResponse) Descriptor() ([]byte, []int) {
-	return file_service_synchronization_synchronization_proto_rawDescGZIP(), []int{14}
-}
+func (*TerminateResponse) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 var File_service_synchronization_synchronization_proto protoreflect.FileDescriptor
 
@@ -885,10 +538,8 @@ var (
 )
 
 func file_service_synchronization_synchronization_proto_rawDescGZIP() []byte {
-	file_service_synchronization_synchronization_proto_rawDescOnce.Do(func() {
-		file_service_synchronization_synchronization_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_service_synchronization_synchronization_proto_rawDesc), len(file_service_synchronization_synchronization_proto_rawDesc)))
-	})
-	return file_service_synchronization_synchronization_proto_rawDescData
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var file_service_synchronization_synchronization_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
@@ -950,26 +601,5 @@ var file_service_synchronization_synchronization_proto_depIdxs = []int32{
 	0,  // [0:14] is the sub-list for field type_name
 }
 
-func init() { file_service_synchronization_synchronization_proto_init() }
-func file_service_synchronization_synchronization_proto_init() {
-	if File_service_synchronization_synchronization_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_service_synchronization_synchronization_proto_rawDesc), len(file_service_synchronization_synchronization_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   16,
-			NumExtensions: 0,
-			NumServices:   1,
-		},
-		GoTypes:           file_service_synchronization_synchronization_proto_goTypes,
-		DependencyIndexes: file_service_synchronization_synchronization_proto_depIdxs,
-		MessageInfos:      file_service_synchronization_synchronization_proto_msgTypes,
-	}.Build()
-	File_service_synchronization_synchronization_proto = out.File
-	file_service_synchronization_synchronization_proto_goTypes = nil
-	file_service_synchronization_synchronization_proto_depIdxs = nil
-}
+func init()                                                    { file_service_synchronization_synchronization_proto_init() }
+func file_service_synchronization_synchronization_proto_init() { _ = "STUB: not implemented"; return }

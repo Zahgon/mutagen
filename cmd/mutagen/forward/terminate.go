@@ -1,20 +1,11 @@
 package forward
 
 import (
-	"context"
-	"fmt"
-
 	"github.com/spf13/cobra"
 
 	"google.golang.org/grpc"
 
-	"github.com/mutagen-io/mutagen/cmd"
-	"github.com/mutagen-io/mutagen/cmd/mutagen/daemon"
-
-	"github.com/mutagen-io/mutagen/pkg/grpcutil"
 	"github.com/mutagen-io/mutagen/pkg/selection"
-	forwardingsvc "github.com/mutagen-io/mutagen/pkg/service/forwarding"
-	promptingsvc "github.com/mutagen-io/mutagen/pkg/service/prompting"
 )
 
 // TerminateWithSelection is an orchestration convenience method that performs a
@@ -24,62 +15,25 @@ func TerminateWithSelection(
 	daemonConnection *grpc.ClientConn,
 	selection *selection.Selection,
 ) error {
+	_ = "STUB: not implemented"
 	// Initiate command line messaging.
-	statusLinePrinter := &cmd.StatusLinePrinter{}
-	promptingCtx, promptingCancel := context.WithCancel(context.Background())
-	prompter, promptingErrors, err := promptingsvc.Host(
-		promptingCtx, promptingsvc.NewPromptingClient(daemonConnection),
-		&cmd.StatusLinePrompter{Printer: statusLinePrinter}, false,
-	)
-	if err != nil {
-		promptingCancel()
-		return fmt.Errorf("unable to initiate prompting: %w", err)
-	}
-
-	// Perform the terminate operation, cancel prompting, and handle errors.
-	forwardingService := forwardingsvc.NewForwardingClient(daemonConnection)
-	request := &forwardingsvc.TerminateRequest{
-		Prompter:  prompter,
-		Selection: selection,
-	}
-	response, err := forwardingService.Terminate(context.Background(), request)
-	promptingCancel()
-	<-promptingErrors
-	if err != nil {
-		statusLinePrinter.BreakIfPopulated()
-		return grpcutil.PeelAwayRPCErrorLayer(err)
-	} else if err = response.EnsureValid(); err != nil {
-		statusLinePrinter.BreakIfPopulated()
-		return fmt.Errorf("invalid terminate response received: %w", err)
-	}
-
-	// Success.
-	statusLinePrinter.Clear()
 	return nil
 }
 
+// Perform the terminate operation, cancel prompting, and handle errors.
+
+// Success.
+
 // terminateMain is the entry point for the terminate command.
 func terminateMain(_ *cobra.Command, arguments []string) error {
+	_ = "STUB: not implemented"
 	// Create session selection specification.
-	selection := &selection.Selection{
-		All:            terminateConfiguration.all,
-		Specifications: arguments,
-		LabelSelector:  terminateConfiguration.labelSelector,
-	}
-	if err := selection.EnsureValid(); err != nil {
-		return fmt.Errorf("invalid session selection specification: %w", err)
-	}
-
-	// Connect to the daemon and defer closure of the connection.
-	daemonConnection, err := daemon.Connect(true, true)
-	if err != nil {
-		return fmt.Errorf("unable to connect to daemon: %w", err)
-	}
-	defer daemonConnection.Close()
-
-	// Perform the terminate operation.
-	return TerminateWithSelection(daemonConnection, selection)
+	return nil
 }
+
+// Connect to the daemon and defer closure of the connection.
+
+// Perform the terminate operation.
 
 // terminateCommand is the terminate command.
 var terminateCommand = &cobra.Command{

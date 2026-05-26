@@ -13,6 +13,4 @@ var controlCharacterNeutralizer = strings.NewReplacer(
 
 // NeutralizeControlCharacters returns a copy of a string with any terminal
 // control characters neutralized.
-func NeutralizeControlCharacters(value string) string {
-	return controlCharacterNeutralizer.Replace(value)
-}
+func NeutralizeControlCharacters(value string) string { _ = "STUB: not implemented"; return "" }

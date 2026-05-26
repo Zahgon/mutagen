@@ -1,9 +1,5 @@
 package logging
 
-import (
-	"strings"
-)
-
 // Level represents a log level. Its value hierarchy is designed to be ordered
 // and comparable by value.
 type Level uint
@@ -37,53 +33,24 @@ var levelNames = [6]string{
 }
 
 // String provides a human-readable representation of a log level.
-func (l Level) String() string {
-	if l <= LevelTrace {
-		return levelNames[l]
-	}
-	return "unknown"
-}
+func (l Level) String() string { _ = "STUB: not implemented"; return "" }
 
 // NameToLevel converts a string-based representation of a log level to the
 // appropriate Level value. It returns a boolean indicating whether or not the
 // conversion was valid. If the name is invalid, LevelDisabled is returned.
-func NameToLevel(name string) (Level, bool) {
-	switch name {
-	case "disabled":
-		return LevelDisabled, true
-	case "error":
-		return LevelError, true
-	case "warn":
-		return LevelWarn, true
-	case "info":
-		return LevelInfo, true
-	case "debug":
-		return LevelDebug, true
-	case "trace":
-		return LevelTrace, true
-	default:
-		return LevelDisabled, false
-	}
-}
+func NameToLevel(name string) (Level, bool) { _ = "STUB: not implemented"; return *new(Level), false }
 
 // abbreviations is the range of abbreviations to use for log levels.
 const abbreviations = "_EWIDT"
 
 // abbreviation returns a one-byte prefix to use for the level in log lines.
-func (l Level) abbreviation() byte {
-	if l <= LevelTrace {
-		return abbreviations[l]
-	}
-	return '?'
-}
+func (l Level) abbreviation() byte { _ = "STUB: not implemented"; return 0 }
 
 // abbreviationToLevel converts a one-byte prefix representation of a log level
 // to the appropriate Level value. It returns a boolean indicating whether or
 // not the conversion was valid. If the abbreviation is invalid, LevelDisabled
 // is returned.
 func abbreviationToLevel(abbreviation byte) (Level, bool) {
-	if index := strings.IndexByte(abbreviations, abbreviation); index != -1 {
-		return Level(index), true
-	}
-	return LevelDisabled, false
+	_ = "STUB: not implemented"
+	return *new(Level), false
 }

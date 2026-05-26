@@ -13,12 +13,6 @@ const (
 
 // formatFromStatfs extracts the filesystem format from the filesystem metadata.
 func formatFromStatfs(metadata *unix.Statfs_t) Format {
-	switch metadata.Type {
-	case unix.EXT4_SUPER_MAGIC:
-		return FormatEXT
-	case unix.NFS_SUPER_MAGIC:
-		return FormatNFS
-	default:
-		return FormatUnknown
-	}
+	_ = "STUB: not implemented"
+	return *new(Format)
 }
